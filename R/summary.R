@@ -25,6 +25,7 @@ summary.ffms_base <- function (object, top_N = 10, labels = FALSE, verbose = TRU
           all_models[[p]] <- list(
               crit = model_obj$crit,
               feats = paste(feat_strings, collapse = ", "),
+              coefs = paste(round(model_obj$coefs, 4), collapse = ", "),
               pop = p
           )
       }
@@ -44,7 +45,8 @@ summary.ffms_base <- function (object, top_N = 10, labels = FALSE, verbose = TRU
       cat(sprintf("\nTop %d Distinct Models by SIC:\n\n", top_N))
       for (i in 1:top_N) {
           cat(sprintf("Model #%d (Found in Pop %d) | SIC: %.3f\n", i, df_top$pop[i], df_top$SIC[i]))
-          cat(sprintf("  Features: %s\n\n", df_top$feats[i]))
+          cat(sprintf("  Features: %s\n", df_top$feats[i]))
+          cat(sprintf("  Coefficients: %s\n\n", df_top$coefs[i]))
       }
   }
   
@@ -79,6 +81,7 @@ summary.ffms_merged <- function (object, top_N = 10, labels = FALSE, verbose = T
               all_models[[idx]] <- list(
                   crit = model_obj$crit,
                   feats = paste(feat_strings, collapse = ", "),
+                  coefs = paste(round(model_obj$coefs, 4), collapse = ", "),
                   pop = p
               )
               idx <- idx + 1
@@ -101,7 +104,8 @@ summary.ffms_merged <- function (object, top_N = 10, labels = FALSE, verbose = T
       cat(sprintf("\nTop %d Distinct Models by SIC (Across All Threads):\n\n", top_N))
       for (i in 1:top_N) {
           cat(sprintf("Model #%d (Found in Pop %d) | SIC: %.3f\n", i, df_top$pop[i], df_top$SIC[i]))
-          cat(sprintf("  Features: %s\n\n", df_top$feats[i]))
+          cat(sprintf("  Features: %s\n", df_top$feats[i]))
+          cat(sprintf("  Coefficients: %s\n\n", df_top$coefs[i]))
       }
   }
   
@@ -129,14 +133,16 @@ summary.fms_base <- function (object, top_N = 10, labels = FALSE, verbose = TRUE
   
   df <- data.frame(
       crit = model_obj$crit,
-      feats = paste(feat_strings, collapse = ", ")
+      feats = paste(feat_strings, collapse = ", "),
+      coefs = paste(round(model_obj$coefs, 4), collapse = ", ")
   )
   df$SIC <- -2 * as.numeric(df$crit)
   
   if (verbose) {
       cat(sprintf("\nBest Model by SIC:\n\n"))
       cat(sprintf("SIC: %.3f\n", df$SIC[1]))
-      cat(sprintf("Features: %s\n\n", df$feats[1]))
+      cat(sprintf("Features: %s\n", df$feats[1]))
+      cat(sprintf("Coefficients: %s\n\n", df$coefs[1]))
   }
   
   return(invisible(df))
@@ -165,7 +171,8 @@ summary.fms_parallel <- function (object, top_N = 10, labels = FALSE, verbose = 
           if (length(feat_strings) == 0) feat_strings <- "Intercept Only"
           all_models[[i]] <- list(
               crit = model_obj$crit,
-              feats = paste(feat_strings, collapse = ", ")
+              feats = paste(feat_strings, collapse = ", "),
+              coefs = paste(round(model_obj$coefs, 4), collapse = ", ")
           )
       }
   }
@@ -184,7 +191,8 @@ summary.fms_parallel <- function (object, top_N = 10, labels = FALSE, verbose = 
       cat(sprintf("\nTop %d Distinct Models by SIC (Across All Threads):\n\n", top_N))
       for (i in 1:top_N) {
           cat(sprintf("Model #%d | SIC: %.3f\n", i, df_top$SIC[i]))
-          cat(sprintf("  Features: %s\n\n", df_top$feats[i]))
+          cat(sprintf("  Features: %s\n", df_top$feats[i]))
+          cat(sprintf("  Coefficients: %s\n\n", df_top$coefs[i]))
       }
   }
   
