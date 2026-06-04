@@ -129,9 +129,10 @@ result.parallel <- ffms(
   method = "ffms.parallel",
   transforms = transforms,
   runs = 16,
-  pop.max = 50,
-  cores = parallel::detectCores() - 1,
-  P = 20
+  pop.max = 80,
+  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  P = 50,
+  cores = parallel::detectCores() - 1
 )
 
 
