@@ -1,0 +1,3 @@
+- [ ] Fix continuous relaxation penalty scale in `sic_optimize.loop`
+- [ ] Update `prob_gen` in `ffms_core.R` to `c(0.4, 0.4, 0.1, 0.1)` (or whatever was chosen)
+- [ ] Test the pipeline on exoplanets dataset again

@@ -316,10 +316,10 @@ gen.params.ffms_base <- function (ncov) {
   feat_params <- list(D = 5, L = 15,                                # Hard limits on feature complexity
                       alpha = "unit",                               # alpha strategy ("unit" = None, "deep" strategy 3 from Hubin et al., "random" fully Bayesian strategy) 
                       pop.max = min(100, as.integer(ncov * 1.5)),   # Max features population size
-                      keep.org = FALSE,                             # Always keep original covariates in every population
+                      keep.org = TRUE,                              # Always keep original covariates in every population
                       prel.filter = 0,                              # Filtration threshold for first population (i.e. filter covariates even if keep.org=TRUE)
                       keep.min = 0.8,                               # Minimum proportion of features to always keep [0,1]
-                      eps = 0.05,                                   # Inclusion probability limit for feature generation
+                      eps = 0.1,                                    # Inclusion probability floor for feature generation (higher = more diversity)
                       check.col = TRUE,                             # Whether the colinearity should be checked
                       col.check.mock.data = FALSE,                  # Use mock data when checking for colinearity during feature generation
                       max.proj.size = 15)                           # Maximum projection size

@@ -75,17 +75,19 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
   r <- params$mlpost$r
   if (is.null(r)) r <- 1 / nobs
   
+  penalty_a <- if (!is.null(params$sic$penalty_a)) params$sic$penalty_a else 1.0
+  
   for (j in 1:nvars) {
     if (j <= fixed_cols) {
       lambda[j] <- 0
     } else {
       oc_j <- complex$oc[j - fixed_cols]
       if (is.null(oc_j) || is.na(oc_j)) oc_j <- 1
-      pi_j <- r^oc_j
-      pi_j <- max(min(pi_j, 1 - 1e-7), 1e-7)
-      
-      penalty_a <- if (!is.null(params$sic$penalty_a)) params$sic$penalty_a else 1.0
-      lambda[j] <- penalty_a * (c_base - 2 * log(pi_j / (1 - pi_j)))
+      # BIC-consistent penalty: each complexity unit costs log(n).
+      # oc_j counts total operations/nodes in the feature tree.
+      # Intercept costs 1*log(n) (handled via rank in glm), each nonlinear
+      # feature costs oc_j * log(n) additional to match FBMS log posterior.
+      lambda[j] <- penalty_a * oc_j * c_base
     }
   }
   
@@ -179,23 +181,22 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
   # Evaluate exact objective using glm.fit or loglik.pi for the thresholded active set
   X_active <- X[, binary_model, drop=FALSE]
   
-  if (family_str == "custom" && !is.null(loglik.pi)) {
-      custom_res <- loglik.pi(y, X_active, rep(TRUE, sum(binary_model)), complex, params$mlpost)
-      best.crit <- custom_res$crit
-      coefs_active <- custom_res$coefs
+  # Always use loglik.pi to evaluate the exact BIC/SIC criterion on the thresholded model.
+  # This ensures the crit stored in best.margs is on the same scale as the discrete evaluator,
+  # so genetic transitions and summary SIC values are all consistent.
+  complex_active <- list(oc = complex$oc[binary_model[(fixed_cols + 1):nvars]])
+  if (!is.null(loglik.pi)) {
+      exact_res <- loglik.pi(y, X_active, rep(TRUE, sum(binary_model)), complex_active, params$mlpost)
+      best.crit <- exact_res$crit
+      coefs_active <- exact_res$coefs
   } else {
-      # glm.fit
+      # Fallback: gaussian BIC formula consistent with gaussian.loglik
       fit <- glm.fit(X_active, y, family = family_use)
-      # deviance is -2 log L (ignoring constants)
-      if (family_str == "gaussian") {
-          dev <- sum((y - fit$fitted.values)^2)
-          nll <- nobs / 2 * log(2 * pi * max(dev/nobs, 1e-10)) + dev / (2 * max(dev/nobs, 1e-10))
-      } else {
-          nll <- sum(family_use$dev.resids(y, fit$fitted.values, 1)) / 2
-      }
-      # We want to MAXIMIZE best.crit, so best.crit approx log_marginal_posterior
-      # log P(M|y) approx log L - 0.5 * sum(lambda)
-      best.crit <- -nll - 0.5 * sum(lambda[binary_model])
+      k <- ncol(X_active)
+      r_use <- if (!is.null(params$mlpost$r)) params$mlpost$r else 1/nobs
+      oc_sum <- sum(complex_active$oc)
+      # Matches gaussian.loglik: -(AIC + (log(n)-2)*rank - 2*log(r)*oc_sum) / 2
+      best.crit <- -(fit$aic + (log(nobs) - 2) * k - 2 * log(r_use) * oc_sum) / 2
       coefs_active <- fit$coefficients
   }
   

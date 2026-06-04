@@ -85,7 +85,10 @@ result.default <- ffms(
   formula = semimajoraxis ~ 1 + .,
   data = df.train,
   method = "ffms_base",
-  transforms = transforms
+  transforms = transforms,
+  pop.max = 20,
+  P = 20,
+  N = 500
 )
 
 
@@ -112,10 +115,10 @@ result.P50 <- ffms(
   data = df.train,
   method = "ffms_base",
   transforms = transforms,
-  pop.max = 20,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
-  prob_filter = 0.5,
-  P = 25, N = 1000, N.final = 5000
+  pop.max = 30,
+  prob_gen = c(0.5, 0.3, 0.1, 0.1),
+  prob_filter = 0.3,
+  P = 25, N = 500, N.final = 1000
 )
 
 
@@ -130,8 +133,10 @@ result.parallel <- ffms(
   transforms = transforms,
   runs = 16,
   pop.max = 80,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = c(0.5, 0.3, 0.1, 0.1),  # more multiplications for chaining nested features
+  prob_filter = 0.3,                   # looser filter keeps building blocks alive
   P = 50,
+  N = 500,
   cores = parallel::detectCores() - 1
 )
 

@@ -677,11 +677,20 @@ plot.fms_base <- function (x, count = "all", ...) {
 }
 
 marg.prob.plot <- function (feats.strings, marg.probs, count = "all", ...) {
+  # Guard: skip plotting if no valid (finite, positive) probabilities
+  valid <- is.finite(marg.probs) & marg.probs > 0
+  if (sum(valid) == 0) {
+    message("No valid marginal probabilities to plot.")
+    return(invisible(NULL))
+  }
+  feats.strings <- feats.strings[valid]
+  marg.probs <- marg.probs[valid]
   # Plot the distribution
   feats.strings <- feats.strings[order(marg.probs)]
   marg.probs <- sort(marg.probs)
   tot <- length(marg.probs)
   if (count == "all") count <- tot
+  count <- min(count, tot)
   y <- barplot(marg.probs[(tot - count + 1):tot], horiz = TRUE, xlab = "Marginal probability", ylab = "Feature")
   text((max(marg.probs[(tot - count + 1):tot]) / 2), y, feats.strings[(tot - count + 1):tot])
 }
