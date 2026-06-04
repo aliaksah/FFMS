@@ -328,7 +328,7 @@ gen.params.ffms_base <- function (ncov) {
   # SIC Optimization and SGD Parameters
   params$sic <- list(
       eps1 = 1.0,
-      epsT = 1e-4,
+      epsT = 1e-6,
       stepsT = 50,
       alpha = 0.01,
       decay = 0.99,

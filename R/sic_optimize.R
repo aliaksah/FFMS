@@ -65,8 +65,8 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
 
   # Epsilon telescope parameters
   eps1 <- if(!is.null(params$sic$eps1)) params$sic$eps1 else 1.0
-  epsT <- if(!is.null(params$sic$epsT)) params$sic$epsT else 1e-4
-  stepsT <- if(!is.null(params$sic$stepsT)) params$sic$stepsT else 20
+  epsT <- if(!is.null(params$sic$epsT)) params$sic$epsT else 1e-6
+  stepsT <- if(!is.null(params$sic$stepsT)) params$sic$stepsT else 50
   
   n_features <- nvars - fixed_cols
   
@@ -147,7 +147,7 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
               gr = sic_gradient,
               eps = eps_cur,
               method = "BFGS",
-              control = list(maxit = max(10, floor(N.this / stepsT)))
+              control = list(maxit = 200, reltol = 1e-8)
           )
           beta_cur <- opt_res$par
       }, error = function(e) {
