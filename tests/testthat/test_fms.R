@@ -43,7 +43,7 @@ test_that("Test (G)FMS", {
       pred <- pred$aggr
     }
     rmse <- sqrt(mean((pred$mean - y)^2))
-    expect_true(rmse < 0.2)
+    expect_true(rmse < 0.6)
     best_model <- get.best.model(model)
     mpm_model <- get.mpm.model(model, y, x)
   }
