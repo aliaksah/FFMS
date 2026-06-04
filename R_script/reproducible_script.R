@@ -102,7 +102,7 @@ result.high.penalty <- ffms(
   data = df.train,
   method = "ffms_base",
   transforms = transforms,
-  penalty_a = 1.5
+  penalty_a = 3.0
 )
 
 
@@ -118,7 +118,8 @@ result.P50 <- ffms(
   pop.max = 30,
   prob_gen = c(0.5, 0.3, 0.1, 0.1),
   prob_filter = 0.3,
-  P = 25, N = 500, N.final = 1000
+  penalty_a = 2.0,
+  P = 50, N = 500, N.final = 1000
 )
 
 
@@ -135,7 +136,8 @@ result.parallel <- ffms(
   pop.max = 80,
   prob_gen = c(0.5, 0.3, 0.1, 0.1),  # more multiplications for chaining nested features
   prob_filter = 0.3,                   # looser filter keeps building blocks alive
-  P = 80,
+  penalty_a = 2.0,                     # Heavy penalty for non-linear features
+  P = 100,
   N = 500,
   cores = parallel::detectCores() - 1
 )

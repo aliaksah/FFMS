@@ -55,7 +55,8 @@ result.parallel <- ffms(
   pop.max = 80,
   prob_gen = c(0.5, 0.3, 0.1, 0.1),   # favour multiplication for chaining
   prob_filter = 0.3,                    # keep intermediate building blocks
-  P = 80,
+  penalty_a = 2.0,                      # Heavy penalty for non-linear features
+  P = 100,
   N = 500,
   cores = parallel::detectCores() - 1
 )
