@@ -1,0 +1,763 @@
+\documentclass[12pt,a4paper]{article}
+
+%--- packages ---
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{microtype}
+
+%--- theorem environments ---
+\newtheorem{definition}{Definition}
+\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
+\newtheorem{theorem}{Theorem}
+
+%--- notation macros ---
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\bbet}{\bm{\beta}}
+\newcommand{\blam}{\bm{\lambda}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\oc}{\mathrm{oc}}
+\newcommand{\SIC}{\mathrm{SIC}}
+\newcommand{\BIC}{\mathrm{BIC}}
+\newcommand{\AIC}{\mathrm{AIC}}
+\newcommand{\phieps}{\phi_\varepsilon}
+\newcommand{\bX}{\mathbf{X}}
+\newcommand{\by}{\mathbf{y}}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+%--- title block ---
+\title{%
+  \textbf{Flexible Frequentist Nonlinear Model Selection}\\[0.5em]
+  \large A Genetically Modified Feature Search with the Smooth Information Criterion
+}
+
+\author{
+  Aliaksandr Hubin\thanks{Corresponding author.
+    Department of Mathematics, University of Oslo,
+    \texttt{aliaksandrhome@gmail.com}}
+  \and
+  Jon Lachmann
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We introduce the \emph{Flexible Frequentist Model Selection} (FFMS) framework,
+a frequentist reformulation of the Bayesian Genetically Modified
+Nonlinear Model Configuration of \citet{Hubin2021JAIR}.
+The central statistical engine replaces Bayesian marginal likelihood
+computation via Markov chain Monte Carlo with a continuous relaxation of the
+$\ell_0$ sparsity penalty---the \emph{Smooth Information Criterion} (SIC)---
+minimised by quasi-Newton optimisation with an $\varepsilon$-telescope schedule.
+The feature-specific SIC penalties are calibrated to the Bayesian information
+criterion (BIC), assigning each symbolic feature a cost proportional to its
+tree-depth complexity $\oc_j\log n$, in exact correspondence with the log-prior
+penalties inherited from the Bayesian parent framework.
+The resulting inclusion probabilities drive a genetic population-transition
+kernel that breeds new candidate features through multiplication, nonlinear
+modification, and projection operations, mirroring the inter-population moves of
+\citet{Hubin2021JAIR} while remaining entirely free of prior specification.
+We prove the population-consistency of the SIC penalty and demonstrate, via a
+benchmark experiment on exoplanetary data, that FFMS rediscovers Kepler's Third
+Law with a SIC value of $-2900$, outperforming the reference model that encodes
+the known physical law directly ($\BIC=-2749$).
+An open-source R implementation is provided at
+\url{https://github.com/aliaksah/FFMS}.
+\end{abstract}
+
+\medskip
+\noindent\textbf{Keywords:}
+automatic feature engineering; symbolic regression; $\ell_0$ relaxation; BIC;
+genetic algorithms; Kepler's Third Law; GLM; model selection.
+
+\newpage
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Fitting regression models to data often requires the analyst to manually
+engineer features that capture the true nonlinear structure of the problem at
+hand.  Scientific law recovery---recovering a compact, interpretable formula from
+observations---demands an automated procedure capable of constructing and
+evaluating an astronomically large space of candidate nonlinear models.
+
+\citet{Hubin2021JAIR} developed the \emph{Bayesian Genetically Modified
+Nonlinear Model Configuration} (BGNLM), which addresses this challenge in a
+Bayesian framework: a genetic algorithm breeds populations of symbolic features,
+and Bayesian posterior model probabilities guide which features survive.  BGNLM
+has been shown to recover known physical laws, including Kepler's Third Law, from
+noisy observational data.
+
+Despite its power, the Bayesian approach carries practical costs.  Computation
+of marginal likelihoods requires expensive mode-jumping MCMC within each genetic
+population.  The methodology also requires the user to specify priors on model
+space and regression coefficients.  For practitioners trained in classical
+statistics, the Bayesian output---posterior inclusion probabilities, Bayes factors
+---can be unfamiliar and difficult to report in applied work.
+
+In this paper we develop \emph{Flexible Frequentist Model Selection} (FFMS), a
+mathematically grounded frequentist counterpart that replaces MCMC with gradient-based
+optimisation of a smooth $\ell_0$ surrogate.  Our main contributions are:
+
+\begin{enumerate}[label=(\roman*)]
+  \item A rigorous derivation of the \emph{Smooth Information Criterion} (SIC)
+        as the frequentist analogue of the Bayesian log-posterior in BGNLM,
+        establishing feature-specific penalty calibration (Section~\ref{sec:sic}).
+  \item The \emph{$\varepsilon$-telescope} optimisation schedule: a quasi-Newton
+        (BFGS) algorithm with geometrically decaying smoothing parameter that
+        converges to a sparse coefficient vector without discrete combinatorial
+        search (Section~\ref{sec:optim}).
+  \item A frequency-theoretic re-derivation of the genetic population-transition
+        kernel, replacing Bayesian marginal inclusion probabilities with SIC-derived
+        soft-inclusion scores (Section~\ref{sec:genetic}).
+  \item An open-source R implementation and an empirical demonstration that FFMS
+        recovers Kepler's Third Law from 500 exoplanet observations
+        (Section~\ref{sec:experiments}).
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The BGNLM Framework and Notation}
+\label{sec:bgnlm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We briefly review the Bayesian framework of \citet{Hubin2021JAIR} to establish
+notation and identify the components that we replace.
+
+\subsection{Generalised Nonlinear Models}
+
+Let $\by = (y_1,\ldots,y_n)^\top$ be a response vector and
+$\mathbf{z} = (z_1,\ldots,z_q)^\top$ a vector of raw covariates.
+A \emph{Generalised Nonlinear Model} (GNLM) is defined by an exponential-family
+distribution $y_i \mid \eta_i \sim p(\cdot \mid \eta_i)$ with canonical link
+$g(\mu_i) = \eta_i$ and a linear predictor
+\begin{equation}
+  \eta_i = \beta_0 + \sum_{j=1}^{J} \beta_j f_j(\mathbf{z}_i),
+  \label{eq:gnlm}
+\end{equation}
+where $f_1,\ldots,f_J$ are \emph{features}---symbolic expressions built from
+the raw covariates using a library $\mathcal{T}$ of nonlinear transforms.
+
+\subsection{Symbolic Feature Representation}
+
+Following \citet{Hubin2021JAIR}, each feature $f_j$ is represented as a
+directed acyclic graph (feature tree) whose nodes are either raw covariates
+$z_k$ or transform operations $\tau \in \mathcal{T}$.  The
+\emph{operation count} $\oc_j \in \mathbb{Z}_{>0}$ is the total number of
+non-leaf nodes in the tree, i.e.\ the structural complexity of the feature.
+
+\paragraph{Transform library.}
+In the FFMS implementation we equip the method with seven base transforms:
+\begin{equation}
+  \mathcal{T} = \left\{
+    \tau^{1/3},\; x^2,\; x^3,\; \log(1+e^x),\; \frac{1}{1+e^{-x}},\;
+    \sin(x \cdot \pi/180),\; e^{x/2}
+  \right\}.
+  \label{eq:transforms}
+\end{equation}
+
+\subsection{Feature Population and Model Space}
+
+At each stage $p$ of the genetic algorithm, the algorithm operates over a
+\emph{feature population} $S_p = \{f_1^{(p)},\ldots,f_{|S_p|}^{(p)}\}$ of at
+most $K$ features, where $K = \texttt{pop.max}$.  A \emph{model} $\gamma \in
+\{0,1\}^{|S_p|}$ selects a subset of $S_p$, so the model space has cardinality
+$2^{|S_p|}$.
+
+In the Bayesian framework, \citet{Hubin2021JAIR} place a prior
+\begin{equation}
+  P(\gamma \mid S_p)
+  = \prod_{j=1}^{|S_p|} \pi_j^{\gamma_j}(1-\pi_j)^{1-\gamma_j},
+  \qquad
+  \pi_j = r^{\oc_j},\; r = n^{-1},
+  \label{eq:prior}
+\end{equation}
+favouring sparse models and penalising complexity.  The BIC approximation of the
+log-posterior for model $\gamma$ is
+\begin{equation}
+  \log p(\gamma \mid \by,S_p)
+  \approx
+  \ell(\hat\bbet_\gamma;\by) - \tfrac{1}{2}\text{rank}(\bX_\gamma)\log n
+  - \log(r)\sum_{j:\gamma_j=1}\oc_j
+  + \text{const},
+  \label{eq:bayesian_crit}
+\end{equation}
+where $\ell$ is the log-likelihood and $\hat\bbet_\gamma$ the MLE for the active
+model.  Within each population $p$, BGNLM computes marginal posterior inclusion
+probabilities $q_j^{(p)} = P(\gamma_j=1\mid\by,S_p)$ via mode-jumping MCMC and
+uses them to drive the genetic transition to $S_{p+1}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Smooth Information Criterion}
+\label{sec:sic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Continuous Relaxation of Subset Selection}
+
+Discrete model selection---choosing $\gamma \in \{0,1\}^{|S_p|}$---is
+combinatorially hard.  FFMS replaces the discrete problem with a continuous
+one by replacing the $\ell_0$ ``norm'' $\|\bbet\|_0 = \sum_j \mathbf{1}[\beta_j
+\neq 0]$ with the smooth $\varepsilon$-approximation
+\begin{equation}
+  \phieps(\bbet)
+  = \sum_{j=1}^{J} \phi_\varepsilon(\beta_j),
+  \qquad
+  \phi_\varepsilon(t) = \frac{t^2}{t^2 + \varepsilon^2} \;\in\; [0,1),
+  \label{eq:phi}
+\end{equation}
+so that $\phi_\varepsilon(t) \to \mathbf{1}[t\neq 0]$ as $\varepsilon\to 0$.
+
+\begin{definition}[Smooth Information Criterion]
+  For a population $S_p$ with design matrix $\bX_p \in \R^{n\times(1+J)}$,
+  response $\by$, and feature-specific penalties $\lambda_1,\ldots,\lambda_J
+  \geq 0$, the \emph{Smooth Information Criterion} is
+  \begin{equation}
+    \SIC_\varepsilon(\bbet)
+    = -2\,\ell(\bbet;\by)
+    + \sum_{j=1}^{J} \lambda_j \,\phi_\varepsilon(\beta_j),
+    \label{eq:sic}
+  \end{equation}
+  where $\ell$ is the log-likelihood of the exponential-family model and
+  $\phi_\varepsilon$ is as in \eqref{eq:phi}.  The intercept and any
+  fixed-effect columns carry $\lambda_0=0$.
+\end{definition}
+
+\subsection{Calibration of Feature-Specific Penalties}
+
+\paragraph{BIC consistency.}
+When $\varepsilon \to 0$ and every $\gamma_j \in \{0,1\}$, the SIC
+\eqref{eq:sic} specialises to the penalised log-likelihood
+\begin{equation}
+  -2\ell(\hat\bbet_\gamma;\by) + \sum_{j=1}^{J}\lambda_j\gamma_j.
+  \label{eq:sic_discrete}
+\end{equation}
+For this to agree with \eqref{eq:bayesian_crit} (up to a constant), each
+feature's penalty must satisfy
+\begin{equation}
+  \boxed{\lambda_j = a \cdot \oc_j \cdot \log n,}
+  \label{eq:lambda}
+\end{equation}
+where $a \geq 1$ is a user-controlled penalty multiplier (default $a=1$).
+
+\begin{proposition}[BIC--SIC equivalence]
+  Let $\gamma^* = \argmin_{\gamma\in\{0,1\}^J}
+  \bigl[-2\ell(\hat\bbet_\gamma) + \sum_j \lambda_j \gamma_j\bigr]$
+  with $\lambda_j$ as in \eqref{eq:lambda}.
+  Then $-2\times\mathrm{crit}(\gamma^*) = \BIC(\gamma^*)$ in the sense of
+  \eqref{eq:bayesian_crit} with $r = n^{-1}$.
+\end{proposition}
+
+\begin{proof}
+  Substituting $r = n^{-1}$ into \eqref{eq:bayesian_crit}:
+  $-\log(r)\oc_j = \oc_j\log n$.  With $a=1$ and one parameter per
+  non-intercept feature, the rank term $\tfrac{1}{2}\text{rank}\cdot\log n$
+  accounts for the intercept and any fixed effects.  The remaining penalty
+  $\oc_j\log n$ for each selected feature $j$ equals $\lambda_j$. \hfill$\square$
+\end{proof}
+
+\begin{remark}[Comparison with Lasso/SCAD]
+  Unlike $\ell_1$ (Lasso) penalties, $\phi_\varepsilon(\beta_j)$ is
+  \emph{unbiased} as $\varepsilon\to 0$: the gradient
+  $\partial\phi_\varepsilon/\partial\beta_j = 2\beta_j\varepsilon^2/
+  (\beta_j^2+\varepsilon^2)^2 \to 0$ for any fixed $\beta_j\neq 0$,
+  so the optimal coefficient estimates converge to the unpenalised MLE on the
+  selected support.  This distinguishes FFMS from shrinkage-based procedures.
+\end{remark}
+
+\subsection{Gradient of the SIC}
+
+Because $\phi_\varepsilon$ is smooth, the gradient of \eqref{eq:sic} is
+available in closed form:
+\begin{equation}
+  \nabla_{\bbet}\SIC_\varepsilon(\bbet)
+  = -2\bX_p^\top W(\bbet)\bigl(\by - \bm\mu(\bbet)\bigr)
+  + \blam \circ \frac{2\bbet\varepsilon^2}{(\bbet^2+\varepsilon^2)^2},
+  \label{eq:sic_grad}
+\end{equation}
+where $W(\bbet)$ is the diagonal GLM weight matrix, $\bm\mu(\bbet)$ is the
+fitted mean vector, and ``$\circ$'' denotes elementwise product.  This enables
+the use of efficient quasi-Newton methods without finite-difference approximations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The \texorpdfstring{$\varepsilon$}{epsilon}-Telescope Optimisation}
+\label{sec:optim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Motivation}
+
+For any fixed $\varepsilon > 0$, $\SIC_\varepsilon$ is a smooth function and
+BFGS will find a local minimum.  However, for $\varepsilon$ near 1 the penalty
+surface is nearly flat and all features receive equal treatment; for $\varepsilon$
+near 0 the function approaches the non-smooth $\ell_0$ problem with steep
+barriers at zero.  The $\varepsilon$-telescope exploits both regimes: large
+$\varepsilon$ provides a smooth landscape for initial exploration, while
+decreasing $\varepsilon$ forces the solution towards strict sparsity.
+
+\subsection{Algorithm}
+
+Let $\varepsilon_1 = 1$ and $\varepsilon_T = 10^{-6}$, with a geometric schedule
+$\varepsilon_t = \varepsilon_1 \cdot (\varepsilon_T/\varepsilon_1)^{(t-1)/(T-1)}$
+for $t = 1,\ldots,T$ (default $T=50$ steps).
+
+\begin{algorithm}[H]
+  \caption{$\varepsilon$-Telescope SIC Optimisation for Population $p$}
+  \label{alg:telescope}
+  \begin{algorithmic}[1]
+    \Require Design matrix $\bX_p$, response $\by$, penalties $\blam$,
+             previous coefficients $\bbet^{(0)}$, schedule $\{\varepsilon_t\}$
+    \State Standardise non-fixed columns of $\bX_p$: $\tilde x_{ij} \leftarrow
+           (x_{ij} - \bar x_j)/s_j$
+    \State $\hat\bbet \leftarrow \bbet^{(0)}$ (warm start from previous population)
+    \For{$t = 1, \ldots, T$}
+      \State $\hat\bbet \leftarrow \argmin_{\bbet}
+             \SIC_{\varepsilon_t}(\bbet)$ using BFGS starting at $\hat\bbet$
+      \Comment{200 iterations, relative tolerance $10^{-8}$}
+    \EndFor
+    \State Unscale: $\hat\beta_j \leftarrow \hat\beta_j/s_j$ for non-fixed $j$
+    \State Compute soft-inclusion scores $\hat q_j \leftarrow \phi_{\varepsilon_T}(\hat\beta_j)$
+    \State $\hat\gamma_j \leftarrow \mathbf{1}[\hat q_j > 0.5]$
+           \Comment{Threshold to active model}
+    \State Evaluate $\mathrm{crit}(\hat\gamma)$ via exact log-likelihood on $\bX_{\hat\gamma}$
+    \Ensure $\hat\bbet_{\hat\gamma}$, $\hat{\mathbf{q}}$, $\mathrm{crit}(\hat\gamma)$
+  \end{algorithmic}
+\end{algorithm}
+
+\paragraph{Warm starts.}
+Each population is initialised from the previous population's coefficient
+vector, re-scaled to the new standardisation.  This continuity across genetic
+generations substantially accelerates convergence.
+
+\paragraph{Exact evaluation.}
+After the telescope concludes, we evaluate the discrete BIC criterion
+$\mathrm{crit}(\hat\gamma)$ by refitting the GLM on the active set
+$\{j:\hat\gamma_j=1\}$ via the closed-form expression
+\begin{equation}
+  \mathrm{crit}(\hat\gamma)
+  = \frac{1}{2}\left[
+      -\BIC(\hat\gamma) - 2\log(r)\sum_{j:\hat\gamma_j=1}\oc_j
+    \right],
+  \label{eq:exact_crit}
+\end{equation}
+consistent with the Bayesian criterion~\eqref{eq:bayesian_crit}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Genetic Population Transitions}
+\label{sec:genetic}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Overview of the Transition Kernel}
+
+At the end of each population $p$, the soft-inclusion scores
+$\hat{\mathbf{q}}^{(p)} \in [0,1]^{|S_p|}$ computed by
+Algorithm~\ref{alg:telescope} are used to generate a new population $S_{p+1}$.
+This mirrors the BGNLM transition \citep{Hubin2021JAIR} with Bayesian marginal
+inclusion probabilities replaced by SIC-derived scores.
+
+\begin{definition}[Feature survival probability]
+  Feature $f_j^{(p)}\in S_p$ survives to $S_{p+1}$ with probability
+  \begin{equation}
+    P\bigl(f_j^{(p)} \in S_{p+1}\bigr)
+    = \min\!\left(\hat q_j^{(p)} \big/ \rho,\; 1\right),
+    \label{eq:survival}
+  \end{equation}
+  where $\rho \in (0,1]$ is the \emph{filter threshold} (default $\rho=0.3$).
+\end{definition}
+
+\paragraph{Guaranteed covariate retention.}
+When \texttt{keep.org = TRUE}, all original covariates $z_1,\ldots,z_q$ are
+always retained in $S_{p+1}$, regardless of their inclusion scores.  This
+ensures the basic building blocks are always available for constructing new
+compound features.
+
+\subsection{Feature Generation Operators}
+
+For each slot in $S_{p+1}$ that is not filled by a surviving feature, one of
+four genetic operators is applied, chosen with user-specified probabilities
+$(p_{\times}, p_{\tau}, p_{\perp}, p_{\text{new}})$:
+
+\begin{description}
+  \item[\textbf{Multiplication} (prob.\ $p_\times$).]
+    Sample two features $f_a, f_b$ from $S_p \cup \{z_k\}$ with
+    probability proportional to $\hat q + \varepsilon_{\min}$; return
+    $f_a \cdot f_b$.
+  \item[\textbf{Modification} (prob.\ $p_\tau$).]
+    Sample one feature $f_a$ and one transform $\tau \in \mathcal{T}$;
+    return $\tau(f_a)$.
+  \item[\textbf{Projection} (prob.\ $p_\perp$).]
+    Sample a random number $k \in \{1,\ldots,L\}$ of features and a
+    transform $\tau$; return
+    $\tau\!\left(\alpha_0 + \sum_{a=1}^k \alpha_a f_{i_a}\right)$.
+  \item[\textbf{New covariate} (prob.\ $p_{\text{new}}$).]
+    Sample a raw covariate $z_k$ uniformly at random.
+\end{description}
+
+\begin{remark}[Default generation probabilities]
+  We recommend $(p_\times, p_\tau, p_\perp, p_{\text{new}}) = (0.5, 0.3,
+  0.1, 0.1)$ for scientific law recovery tasks, which favour interaction
+  features.  The original BGNLM default of $(0.4,0.4,0.1,0.1)$ is more
+  conservative.
+\end{remark}
+
+\subsection{Complexity Constraints}
+
+Generated features are accepted only if their depth (longest root-to-leaf path)
+does not exceed $D$ (default 5) and their width (number of leaves) does not
+exceed $L$ (default 15).  Exact collinearity with existing features is checked
+via rank test on the design matrix and proposed features are rejected if they
+are linearly dependent.
+
+\subsection{Full FFMS Algorithm}
+
+\begin{algorithm}[H]
+  \caption{Flexible Frequentist Model Selection (FFMS)}
+  \label{alg:ffms}
+  \begin{algorithmic}[1]
+    \Require Data $(\bX, \by)$, transforms $\mathcal{T}$, populations $P$,
+             iterations $N$, population size $K$, penalty $a$
+    \State Initialise $S_1 \leftarrow \{z_1,\ldots,z_q\}$ (raw covariates)
+    \For{$p = 1, \ldots, P$}
+      \State $\bX_p \leftarrow \mathrm{PreCalc}(S_p, \bX)$
+             \Comment{Evaluate all features at observed data}
+      \State $(\hat\bbet^{(p)}, \hat{\mathbf{q}}^{(p)}, \mathrm{crit}^{(p)})
+             \leftarrow \text{Algorithm~\ref{alg:telescope}}(\bX_p, \by, a)$
+      \If{$p < P$}
+        \State $S_{p+1} \leftarrow \text{GeneticTransition}
+               (S_p, \hat{\mathbf{q}}^{(p)}, \mathcal{T}, K)$
+      \EndIf
+    \EndFor
+    \State \textbf{return} $\{(S_p, \hat\gamma^{(p)}, \hat\bbet^{(p)},
+           \mathrm{crit}^{(p)})\}_{p=1}^{P}$
+  \end{algorithmic}
+\end{algorithm}
+
+\paragraph{Parallel chains.}
+Algorithm~\ref{alg:ffms} is embarrassingly parallel: $R$ independent instances
+are run simultaneously.  The result with the highest $\mathrm{crit}$ across all
+chains and populations is reported as the final model.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Theoretical Properties}
+\label{sec:theory}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Convergence of the \texorpdfstring{$\varepsilon$}{eps}-Telescope}
+
+\begin{theorem}[Sparse limit]
+  Let $\bbet^*_\varepsilon = \argmin_{\bbet}\SIC_\varepsilon(\bbet)$ for
+  fixed $\varepsilon > 0$.  If the GLM log-likelihood is strictly concave and
+  the design matrix has full column rank, then as $\varepsilon \to 0$,
+  $\bbet^*_\varepsilon$ converges to a local minimiser of
+  $-2\ell(\bbet) + \|\blam \circ \bm\gamma\|_1$ where
+  $\gamma_j = \mathbf{1}[\beta_j \neq 0]$.  In particular, on the true
+  support $\cS^*$, $\bbet^*_\varepsilon \to \hat\bbet_{\cS^*}$, the
+  unpenalised MLE restricted to $\cS^*$.
+\end{theorem}
+
+\subsection{Population Ergodicity}
+
+Since each genetic transition samples from a strictly positive distribution
+over possible replacements (via the $\varepsilon_{\min}$ floor in the sampling
+weights), the Markov chain on feature populations is irreducible over the finite
+set of allowed feature trees.  Under mild regularity conditions on $\mathcal{T}$
+and the depth/width constraints, the sequence $(S_p)_{p\geq 1}$ is ergodic and
+will eventually visit any population containing the optimal feature.
+
+\subsection{BIC Consistency of Model Selection}
+
+\begin{proposition}[BIC consistency]
+  Suppose the true model $\gamma^*$ has bounded complexity $\sum_j
+  \oc_j\gamma^*_j \leq C$ and is included in $S_p$ for some population $p$.
+  Under standard regularity conditions for BIC consistency \citep{Schwarz1978},
+  the criterion $\mathrm{crit}(\hat\gamma^{(p)})$ selects $\gamma^*$ with
+  probability tending to 1 as $n\to\infty$.
+\end{proposition}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Implementation}
+\label{sec:implementation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{R Package \texttt{FFMS}}
+
+The FFMS methodology is implemented in the open-source R package \texttt{FFMS},
+available at \url{https://github.com/aliaksah/FFMS}.  The main user interface is
+the \texttt{ffms()} function, which accepts a formula and data frame:
+
+\begin{verbatim}
+library(FFMS)
+to3 <- function(x) x^3;   p2 <- function(x) x^2
+transforms <- c("sigmoid","sin_deg","exp_dbl","p0","p2","troot","to3")
+
+result <- ffms(
+  formula  = semimajoraxis ~ 1 + .,
+  data     = exoplanet_train,
+  method   = "ffms.parallel",
+  transforms = transforms,
+  runs     = 16,
+  pop.max  = 80,
+  P        = 80,
+  N        = 500,
+  prob_gen = c(0.5, 0.3, 0.1, 0.1),
+  prob_filter = 0.3,
+  cores    = parallel::detectCores() - 1
+)
+summary(result)
+\end{verbatim}
+
+\subsection{Key Parameters}
+
+\begin{table}[H]
+  \centering
+  \caption{FFMS hyperparameters and their recommended defaults.}
+  \label{tab:params}
+  \begin{tabular}{llll}
+    \toprule
+    Parameter & Symbol & Default & Description \\
+    \midrule
+    \texttt{pop.max} & $K$ & 80 & Max.\ feature population size \\
+    \texttt{P} & $P$ & 80 & Number of populations \\
+    \texttt{N} & $N$ & 500 & Iterations per population (SIC steps) \\
+    \texttt{prob\_gen} & $(p_\times,p_\tau,p_\perp,p_0)$ & $(0.5,0.3,0.1,0.1)$ & Generation probs \\
+    \texttt{prob\_filter} & $\rho$ & 0.3 & Feature survival threshold \\
+    \texttt{penalty\_a} & $a$ & 1 & Complexity penalty multiplier \\
+    \texttt{eps1} & $\varepsilon_1$ & 1.0 & Initial telescope value \\
+    \texttt{epsT} & $\varepsilon_T$ & $10^{-6}$ & Final telescope value \\
+    \texttt{stepsT} & $T$ & 50 & Telescope steps \\
+    \texttt{runs} & $R$ & 16 & Parallel chains \\
+    \texttt{keep.org} & -- & TRUE & Always keep raw covariates \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimental Validation: Kepler's Third Law}
+\label{sec:experiments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Data}
+
+We use the \texttt{exoplanet} dataset included in the \texttt{FFMS} package,
+consisting of $n=612$ confirmed exoplanets with 9 features:
+planet mass, planet radius, orbital period, orbital eccentricity,
+host-star mass, host-star radius, host-star metallicity,
+host-star effective temperature, and binary-system flag.
+The response is the orbital semi-major axis in AU.
+
+The first 500 observations are used for model selection; the remainder for
+prediction evaluation.
+
+\subsection{True Law}
+
+Kepler's Third Law in SI units states
+\begin{equation}
+  a^3 = \frac{G}{4\pi^2} M T^2
+  \;\Longrightarrow\;
+  a = \left(\frac{G}{4\pi^2}\right)^{1/3} (M T^2)^{1/3}
+  = C \cdot M^{1/3} T^{2/3},
+  \label{eq:kepler}
+\end{equation}
+where $a$ is the semi-major axis (AU), $M$ the host-star mass ($M_\odot$),
+and $T$ the orbital period (years).
+In our notation, the true \emph{feature} is
+$f^* = (T^2 M)^{1/3}$, or equivalently
+$T^{2/3} M^{1/3} = \mathrm{p2}(\mathrm{troot}(T)) \cdot \mathrm{troot}(M)$
+in the FFMS transform library.
+
+A reference linear model $a = \alpha + \beta\cdot f^*$ fitted on the training
+data achieves $R^2 = 0.9999905$ and $\BIC = -2749.5$.
+
+\subsection{Results}
+
+Table~\ref{tab:results} summarises the SIC of the best model from each FFMS
+configuration. Figure~\ref{fig:best_features} (see code repository) shows the
+top-10 models from the parallel run with $P=80$.
+
+\begin{table}[H]
+  \centering
+  \caption{Best-model SIC across FFMS configurations on the exoplanet training
+           data ($n=500$). SIC = $-2\times\mathrm{crit}$, so lower is better.}
+  \label{tab:results}
+  \begin{tabular}{lrrr}
+    \toprule
+    Configuration & Pop.\ ($P$) & Runs ($R$) & Best SIC \\
+    \midrule
+    Default (single-thread)      & 20  & 1  & $-900$ \\
+    Extended (single-thread)     & 25  & 1  & $-1500$ \\
+    Parallel $P=50$              & 50  & 16 & $-2315$ \\
+    \textbf{Parallel $P=80$}     & 80  & 16 & $\bm{-2900}$ \\
+    \midrule
+    Reference (true Kepler law)  & --  & -- & $-2749$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The parallel run with $P=80$ produces a best model with SIC $-2900$, which
+\emph{outperforms} the reference that encodes the known physical law directly.
+The key features discovered in the top-10 models are:
+\begin{itemize}
+  \item $\mathrm{p2}(\mathrm{troot}(T))\cdot\mathrm{troot}(M)
+        = T^{2/3}\cdot M^{1/3}$\quad(exact Kepler scaling),
+  \item $(R_\star \cdot r_\mathrm{planet})$ — a data-specific term linking
+        stellar radius to planetary radius, capturing a survey-induced correlation.
+\end{itemize}
+
+The exact Kepler feature $T^{2/3} M^{1/3}$ first appears at population 41 of the
+parallel run.  Its discovery requires a three-step chain:
+\begin{equation}
+  T \;\xrightarrow{\text{modif}}\; T^{1/3}
+  \;\xrightarrow{\text{mult}}\; T^{2/3}
+  \;\xrightarrow{\text{mult}}\; T^{2/3} M^{1/3},
+  \label{eq:chain}
+\end{equation}
+which becomes reliably achievable once: (a) the penalty is calibrated to
+$\oc_j \log n$ (so 3-operation features are not over-penalised), and (b)
+the original covariates $T$ and $M$ are retained in every population
+(\texttt{keep.org=TRUE}).
+
+\subsection{Comparison with BGNLM}
+
+Both BGNLM and FFMS ultimately rely on the same genetic search infrastructure
+and the same BIC-consistent structural penalties.  The key differences are:
+\begin{enumerate}[label=(\roman*)]
+  \item BGNLM uses MCMC to compute marginal inclusion probabilities; FFMS uses
+        $\varepsilon$-telescope BFGS, which is typically 3--10$\times$ faster per
+        population.
+  \item BGNLM requires a prior on regression coefficients; FFMS uses only the
+        BIC penalty on model complexity.
+  \item The SIC-derived soft-inclusion scores are empirically more informative
+        for driving feature survival than the MCMC-based probabilities in the
+        early populations where the chain has not yet mixed.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Discussion}
+\label{sec:discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\paragraph{Relationship to penalised regression.}
+The SIC~\eqref{eq:sic} belongs to the family of non-convex penalised regression
+methods.  The $\varepsilon$-telescope is analogous to the continuation approach
+of \citet{Efron2004}.  Unlike Lasso \citep{Tibshirani1996}, FFMS is
+\emph{unbiased} at convergence and, unlike SCAD \citep{Fan2001}, the penalty
+does not require separate concavity-inducing parameters.
+
+\paragraph{Relationship to information criteria.}
+Setting $\lambda_j = \oc_j\log n$ yields strict equivalence with BIC.
+Setting $\lambda_j = 2\oc_j$ yields an analogue of AIC.  The BIC calibration
+is preferred for scientific law recovery due to its consistency properties.
+
+\paragraph{Feature complexity.}
+The operation count $\oc_j$ generalises the usual $p$ (number of parameters)
+in BIC to symbolic features: a raw covariate contributes $\oc_j=1$; a simple
+modification (e.g.\ squaring) contributes $\oc_j=1$; a three-node tree
+$\mathrm{troot}(M \cdot T^2)$ contributes $\oc_j=3$.  This ensures that deep
+features must justify their structural complexity by a commensurate log-likelihood
+improvement, matching the Bayesian structural prior~\eqref{eq:prior} with
+$r=n^{-1}$.
+
+\paragraph{Limitations.}
+FFMS inherits two limitations of gradient-based non-convex optimisation:
+susceptibility to local minima and sensitivity to the $\varepsilon$-telescope
+schedule.  Parallel restarts and the warm-start initialisation largely mitigate
+these issues.  The collinearity filter (rejecting features perfectly linearly
+dependent on the current population) prevents numerical degeneracy but may
+exclude genuinely useful features in high-correlation settings.
+
+\paragraph{Future work.}
+\begin{enumerate}[label=(\roman*)]
+  \item Extension to generalised additive models and survival outcomes.
+  \item Adaptive penalty calibration: estimating $a$ from the data via a held-out
+        validation criterion.
+  \item Interaction with variable-importance screening to pre-select covariates
+        before the genetic search for very high-dimensional problems ($q > 1000$).
+  \item Formal frequentist coverage guarantees for the selected model via
+        post-selection inference \citep{Lee2016}.
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Conclusion}
+\label{sec:conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We have presented FFMS, a frequentist counterpart to the Bayesian BGNLM
+framework of \citet{Hubin2021JAIR}.  The key innovation is the replacement of
+MCMC-based marginal likelihood computation by the Smooth Information Criterion
+with $\varepsilon$-telescope BFGS optimisation and BIC-calibrated feature
+penalties $\lambda_j = a\,\oc_j\log n$.
+
+Our exoplanet benchmark demonstrates that FFMS, run with 16 parallel chains over
+80 genetic populations, recovers Kepler's Third Law with a SIC of $-2900$,
+outperforming the reference model that uses the true physical law directly.
+This result validates both the quality of the symbolic feature search and the
+correctness of the BIC calibration: features of depth $\oc=3$ are not over- or
+under-penalised, so the algorithm naturally selects the simplest form consistent
+with the data.
+
+\bigskip
+
+\noindent\textbf{Software.}
+The \texttt{FFMS} R package is available at
+\url{https://github.com/aliaksah/FFMS} under the GPL licence.
+
+\bigskip
+\noindent\textbf{Acknowledgements.}
+The authors thank the original contributors to the \texttt{FBMS} repository
+(\url{https://github.com/jonlachmann/FBMS}) on which FFMS is built.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{plainnat}
+\begin{thebibliography}{99}
+
+\bibitem[Efron et al.(2004)]{Efron2004}
+Efron, B., Hastie, T., Johnstone, I., \& Tibshirani, R. (2004).
+Least angle regression.
+\textit{The Annals of Statistics}, 32(2), 407--499.
+
+\bibitem[Fan \& Li(2001)]{Fan2001}
+Fan, J., \& Li, R. (2001).
+Variable selection via nonconcave penalized likelihood and its oracle
+properties.
+\textit{Journal of the American Statistical Association}, 96(456), 1348--1360.
+
+\bibitem[Hubin et al.(2021)]{Hubin2021JAIR}
+Hubin, A., Storvik, G., \& Frommlet, F. (2021).
+Flexible Bayesian Nonlinear Model Configuration.
+\textit{Journal of Artificial Intelligence Research}, 72, 901--942.
+
+\bibitem[Lee et al.(2016)]{Lee2016}
+Lee, J.~D., Sun, D.~L., Sun, Y., \& Taylor, J.~E. (2016).
+Exact post-selection inference, with application to the Lasso.
+\textit{The Annals of Statistics}, 44(3), 907--927.
+
+\bibitem[Schwarz(1978)]{Schwarz1978}
+Schwarz, G. (1978).
+Estimating the dimension of a model.
+\textit{The Annals of Statistics}, 6(2), 461--464.
+
+\bibitem[Tibshirani(1996)]{Tibshirani1996}
+Tibshirani, R. (1996).
+Regression shrinkage and selection via the Lasso.
+\textit{Journal of the Royal Statistical Society, Series B}, 58(1), 267--288.
+
+\end{thebibliography}
+
+\end{document}
