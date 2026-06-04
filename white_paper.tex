@@ -1,0 +1,62 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{authblk}
+
+\title{Frequentist Fractional Model Search (FFMS) for Non-linear Feature Space Exploration}
+
+\author[1]{Jessica Doohan}
+\author[2]{Aliaksandr Hubin}
+\affil[1]{Independent Researcher}
+\affil[2]{Department of Mathematics, University of Oslo}
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We introduce the Frequentist Fractional Model Search (FFMS), a novel methodology for exploring high-dimensional, non-linear feature spaces without relying on Bayesian marginal likelihoods. Building upon the structural generation algorithms of Bayesian Generalized Non-Linear Models (BGNLM), FFMS leverages generalized linear model (GLM) fitting procedures combined with information criteria, such as the Schwarz Information Criterion (SIC) or the Extended Bayesian Information Criterion (EBIC), to evaluate and search through complex spaces of logical and mathematical interactions. This white paper outlines the mathematical formulation of FFMS, the feature generation process, and the parallelized optimization algorithms designed to scale robustly on modern multicore systems.
+\end{abstract}
+
+\section{Introduction}
+
+High-dimensional model selection is a critical challenge in modern statistics, particularly when the true underlying relationships involve non-linear transformations and interactions of the original covariates. While Bayesian methods (e.g., GMJMCMC) have shown great promise in structurally exploring these spaces, their reliance on calculating exact or approximate marginal likelihoods can become computationally prohibitive and heavily dependent on prior specifications. 
+
+To address this, we propose the Frequentist Fractional Model Search (FFMS). FFMS transitions the structural search paradigm into a frequentist framework. By combining the feature generation capabilities of BGNLM with efficient Maximum Likelihood Estimation (MLE) and penalized information criteria, FFMS maintains the ability to discover complex underlying structures while offering a more scalable, objective approach to model selection.
+
+\section{Methodology}
+
+\subsection{Feature Space Generation}
+Let $\mathbf{X}$ be the design matrix of original covariates. In FFMS, the feature space is iteratively expanded using a set of non-linear transformations $\mathcal{T}$ (e.g., $\exp, \log, \text{sigmoid}, \text{p2}, \text{p3}$) and logical/interaction operators (e.g., multiplication). A feature $f_j(\mathbf{X})$ is defined recursively either as an original covariate or as a transformation/interaction of previously generated features. 
+
+\subsection{Model Evaluation via Information Criteria}
+For a given model $M_\gamma$ defined by a subset of features indexed by $\gamma$, the frequentist evaluation is performed by fitting a Generalized Linear Model (GLM). The log-likelihood $l(\hat{\beta}_\gamma; \mathbf{y}, \mathbf{X}_\gamma)$ is maximized using iteratively reweighted least squares (IRLS).
+
+To penalize complexity and guide the search, we employ the Schwarz Information Criterion (SIC), defined as:
+\begin{equation}
+    \text{SIC}(M_\gamma) = -2 l(\hat{\beta}_\gamma; \mathbf{y}, \mathbf{X}_\gamma) + |\gamma| \log(n)
+\end{equation}
+where $n$ is the number of observations and $|\gamma|$ is the number of included features. Alternatively, an Extended BIC (EBIC) can be used to further penalize large feature spaces.
+
+\subsection{Stochastic Search and Model Weights}
+While traditionally frequentist methods rely on deterministic stepwise procedures, FFMS utilizes a stochastic search over the power set of generated features. Transition proposals to new models (add, delete, swap features) are evaluated by calculating the change in the information criterion $\Delta \text{SIC}$. The search algorithm acts analogously to MCMC by accepting proposals that improve the information criterion or accepting them probabilistically to escape local optima. 
+
+The models visited are weighted according to their pseudo-marginal probabilities, defined by:
+\begin{equation}
+    W(M_\gamma) \propto \exp\left( - \frac{1}{2} \text{SIC}(M_\gamma) \right)
+\end{equation}
+This allows for frequentist model averaging and the calculation of inclusion probabilities for each non-linear feature.
+
+\section{Parallel FFMS (ffms.parallel)}
+To efficiently navigate vast structural spaces, FFMS implements a parallelized architecture. Multiple independent or interacting threads traverse different regions of the feature space simultaneously. The best models and features discovered by individual threads are periodically merged and evaluated in a unified search phase, significantly reducing the probability of the algorithm being trapped in local maxima. 
+
+\section{Conclusion}
+The Frequentist Fractional Model Search provides a highly flexible and scalable alternative to Bayesian structural learning. By substituting marginal likelihood calculations with direct MLE and information criteria, FFMS accelerates the discovery of non-linear physical and empirical laws from data while remaining computationally tractable for large-scale problems.
+
+\end{document}

@@ -1,0 +1,2816 @@
+Loading required package: prodlim
+Warning message:
+package ‘prodlim’ was built under R version 4.4.3 
+Warning message:
+package ‘survival’ was built under R version 4.4.3 
+trying URL 'https://www.uniklinik-freiburg.de/fileadmin/mediapool/08_institute/biometrie-statistik/Dateien/Studium_und_Lehre/Lehrbuecher/Multivariable_Model-building/gbsg_br_ca.zip'
+Content type 'application/zip' length 97793 bytes (95 KB)
+==================================================
+downloaded 95 KB
+
+[1] TRUE
+Population 1 begin.
+Population 1 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+Added feature (er*pgr) 
+Added feature (meno*size) 
+Added feature (pgr*age) 
+Added feature p2(pgr) 
+Added feature (nodes*pgr) 
+Added feature p0(size) 
+Population 2 begin.
+Population 2 done.
+Current best crit: -186.235674948511 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+        ####!#################| er 
+ ###########!#################| hormon 
+            !                 | (er*pgr) 
+            !                 | (meno*size) 
+            !                 | (pgr*age) 
+            !                 | p2(pgr) 
+            !                 | (nodes*pgr) 
+ ###########!#################| p0(size) 
+Replaced feature (er*pgr) with (gradd2*nodes) 
+Replaced feature (meno*size) with pm1(pgr) 
+Replaced feature (pgr*age) with p3(nodes) 
+Replaced feature p2(pgr) with (pgr*age) 
+Replaced feature (nodes*pgr) with p0(age) 
+Population 3 begin.
+Population 3 done.
+Current best crit: -184.960509519302 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+            !                 | (gradd2*nodes) 
+            !                 | pm1(pgr) 
+            !                 | p3(nodes) 
+            !                 | (pgr*age) 
+ ###########!#################| p0(age) 
+ ###########!#################| p0(size) 
+Replaced feature (gradd2*nodes) with pm2(p0(size)) 
+Replaced feature pm1(pgr) with pm05(pgr) 
+Replaced feature p3(nodes) with p3(size) 
+Replaced feature (pgr*age) with (gradd2*er) 
+Population 4 begin.
+Population 4 done.
+Current best crit: -184.960509519302 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !  ###############| er 
+ ###########!#################| hormon 
+            !                 | pm2(p0(size)) 
+            !                 | pm05(pgr) 
+            !                 | p3(size) 
+            !                 | (gradd2*er) 
+ ###########!#################| p0(age) 
+ ###########!#################| p0(size) 
+Replaced feature er with p2(1+1*gradd1+1*size+1*nodes+1*gradd2+1*hormon) 
+Replaced feature pm2(p0(size)) with p05(nodes) 
+Replaced feature pm05(pgr) with er 
+Replaced feature p3(size) with (p0(age)*nodes) 
+Replaced feature (gradd2*er) with pm1(p0(age)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: -197.163815900904 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !       ##########| p2(1+1*gradd1+1*size+1*nodes+1*gradd2+1*hormon) 
+ ###########!#################| hormon 
+ ###########!#################| p05(nodes) 
+            !   ##############| er 
+            !                 | (p0(age)*nodes) 
+            !                 | pm1(p0(age)) 
+ ###########!#################| p0(age) 
+ ###########!#################| p0(size) 
+
+Top 4 Distinct Models by SIC:
+
+Model #1 (Found in Pop 1) | SIC: 369.403
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon
+
+Model #2 (Found in Pop 3) | SIC: 369.921
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p0(age), p0(size)
+
+Model #3 (Found in Pop 2) | SIC: 372.471
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p0(size)
+
+Model #4 (Found in Pop 5) | SIC: 394.328
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, hormon, p05(nodes), p0(age), p0(size)
+
+
+FMS begin.
+
+FMS begin.
+
+FMS begin.
+
+FMS begin.
+
+FMS done.
+
+FMS done.
+
+FMS done.
+
+FMS done.
+
+Top 1 Distinct Models by SIC (Across All Threads):
+
+Model #1 | SIC: 369.403
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon
+
+Population 1 begin.Population 1 begin.Population 1 begin.Population 1 begin.
+Population 1 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ####
+Population 1 done.
+#######!#Current best crit: -184.701447720034 
+###Feature importance:
+####### ############| ##hormon 
+###!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !######
+Population 1 done.
+#####Current best crit: -184.701447720034 
+Feature importance:
+###Added feature (nodes*hormon) 
+## #| #er 
+### ###############!#############!###############| #hormon 
+########| age 
+ ###########!###############Added feature (size*size) 
+##| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  #####Added feature pm05(pgr) 
+#####Added feature (gradd2*nodes) 
+!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+Added feature pm05(age) 
+
+Population 1 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ Added feature (size*age) 
+###########!#################| gradd1 
+ ###########!####Added feature (size*pgr) 
+#############| gradd2 
+ ###########!#################| nodes 
+  Added feature (nodes*gradd2) 
+##########!####Added feature (gradd2*hormon) 
+#############| pgr 
+    Added feature   p0(er) 
+      !#################| er 
+ ###########!#################| hormon 
+Added feature (age*size) 
+Added feature (size*size) 
+Added feature (hormon*pgr) 
+Added feature (er*size) 
+Added feature (gradd2*hormon) 
+Added feature (meno*nodes) 
+Added feature pm05(1+1*hormon+1*size) 
+Added feature (nodes*age) 
+Added feature (age*nodes) 
+Added feature (pgr*meno) 
+Added feature pm2(age) 
+Added feature (pgr*gradd2) 
+Added feature p2(pgr) 
+Added feature pm2(pgr) 
+Population 2 begin.Population 2 begin.Population 2 begin.Population 2 begin.
+Population 2 done.
+Current best crit: -196.555142150677 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !    #############| er 
+ ###########!#################| hormon 
+            !                 | (size*pgr) 
+            !                 | p0(er) 
+            !                 | (age*size) 
+            !                 | (size*size) 
+            !                 | (gradd2*hormon) 
+ ###########!#################| pm2(age) 
+Replaced feature (size*pgr) with (er*meno) 
+Replaced feature p0(er) with (size*gradd2) 
+Replaced feature (age*size) with p3(nodes) 
+Replaced feature (size*size) with (hormon*nodes) 
+
+Population 2 done.
+Current best crit: -199.25825705333 
+Feature importance:
+ ###########!#################| age 
+ Replaced feature (gradd2*hormon) with p05(er) 
+###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !     ############| er 
+ ###########!#################| hormon 
+            !                 | pm05(pgr) 
+ ###########!#################| pm05(age) 
+         ###!#################| (size*age) 
+            !                 | (nodes*gradd2) 
+            !                 | (hormon*pgr) 
+            !                 | pm05(1+1*hormon+1*size) 
+Replaced feature er with (pgr*pgr) 
+
+Population 2 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ ###########!#################| age 
+ ###Replaced feature pm05(pgr) #####with ##p0(pgr) 
+#!#################| meno 
+ ###########!#################| size 
+ ###########!#####
+Population 2 done.
+Current best crit: -184.701447720034 
+Feature importance:
+# #################| gradd1 
+ #############!################!########| gradd2 
+ ###########!############################| nodes 
+  ####| ########!#################| pgr 
+   ######age 
+ #######!###################!##########| #er 
+ ###################Replaced feature (nodes*gradd2) with (pgr*size) 
+###| !#meno 
+ #######################!#########| hormon 
+# # # # # # # # # # # # | !size 
+   # # # # # # # # # # # ! # # # #| #(er*size) 
+# # # # # Replaced feature  # # (hormon*pgr) #with pm1(nodes) 
+##  ##  | gradd1 
+!  # # # # # # # # # # # ! # # # # #| #(nodes*age) 
+  ##  ##  ##  ##  ##  #| ! gradd2 
+   #  ##  #### # #Population 3 begin.##! ##########  ##   # Replaced feature # #| (pgr*meno) pm05(1+1*hormon+1*size) with #(nodes*size)
+# |   nodes   
+ 
+        # ##!# # # # # # # !   # # # # # # # #| #(pgr*gradd2) 
+# # # # # # #   #|   pgr 
+ !                     #  !#  ##  ## | ##p2(pgr) 
+##  ##  ##  ##  ##  | er 
+   #!####  ##    ##  ##  !#  ##  ##  ## | ##pm2(pgr) 
+########| hormon 
+            !                 | (nodes*hormon) 
+            !                 | (size*size) 
+            !                 | (gradd2*nodes) 
+            !                 | (gradd2*hormon) 
+            !                 | (meno*nodes) 
+  Replaced feature (er*size) with  pm2(size) 
+         !                 | (age*nodes) 
+Replaced feature (nodes*age) with (nodes*hormon) 
+Replaced feature (nodes*hormon) with (size*nodes) 
+Replaced feature (pgr*meno) with p3(pgr) 
+Replaced feature (size*size) with (size*er) 
+Replaced feature (pgr*gradd2) with (er*er) 
+Replaced feature p2(pgr) with p05(age) 
+Replaced feature (gradd2*nodes) with p2(size) 
+Population 3 begin.Replaced feature pm2(pgr) with (hormon*er) 
+Replaced feature (gradd2*hormon) with p05(age) 
+Replaced feature (meno*nodes) with (nodes*hormon) 
+Replaced feature (age*nodes) with (er*gradd2) 
+Population 3 begin.Population 3 begin.
+Population 3 done.
+Current best crit: -183.408670314869 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+            !                 | (er*meno) 
+            !                 | (size*gradd2) 
+            !                 | p3(nodes) 
+            !                 | (hormon*nodes) 
+            !                 | p05(er) 
+ ###########!#################| pm2(age) 
+Replaced feature (er*meno) with pm1(nodes) 
+Replaced feature (size*gradd2) with p2(er) 
+Replaced feature p3(nodes) with (nodes*gradd2) 
+Replaced feature (hormon*nodes) with pm2(nodes) 
+Replaced feature p05(er) with (nodes*hormon) 
+
+Population 3 done.
+Current best crit: -196.467635695469 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+ ###########!#################| pgr 
+            !                 | (pgr*pgr) 
+ ###########!#################| hormon 
+            !                 | p0(pgr) 
+ ###########!#################| pm05(age) 
+            !                 | (size*age) 
+            !                 | (pgr*size) 
+            !                 | pm1(nodes) 
+            !                 | (nodes*size) 
+Replaced feature (pgr*pgr) with p0(er) 
+Replaced feature p0(pgr) with (er*nodes) 
+Population 4 begin.Replaced feature (size*age) with (hormon*age) 
+Replaced feature (pgr*size) with pm2(1+1*nodes) 
+Replaced feature pm1(nodes) with pm2(er) 
+
+Population 3 done.
+Current best crit: -185.262768357692 
+Feature importance:
+ ###########!###############Replaced feature (nodes*size) with (nodes*nodes) 
+##| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+   #########!#################| (size*nodes) 
+            !                 | (size*er) 
+            !                 | p2(size) 
+ ###########!#################| p05(age) 
+            !                 | (nodes*hormon) 
+            !                 | (er*gradd2) 
+Replaced feature (size*er) with pm05(nodes) 
+Replaced feature p2(size) with p3(size) 
+Replaced feature (nodes*hormon) with (meno*er) 
+Population 4 begin.Replaced feature (er*gradd2) with pm1(pgr) 
+
+Population 3 done.
+Current best crit: -183.560232430649 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+    ########!#################| er 
+ ###########!#################| hormon 
+            !                #| pm2(size) 
+            !                 | (nodes*hormon) 
+            !                 | p3(pgr) 
+            !                 | (er*er) 
+ ###########!#################| p05(age) 
+            !                 | (hormon*er) 
+Replaced feature pm2(size) with pm05(nodes) 
+Replaced feature (nodes*hormon) with p05(er) 
+Replaced feature p3(pgr) with (pgr*nodes) 
+Population 4 begin.Replaced feature (er*er) with (gradd2*nodes) 
+Replaced feature (hormon*er) with p3(1+1*size) 
+Population 4 begin.
+Population 4 done.
+Current best crit: -186.61619145685 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+   #########!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| pm1(nodes) 
+            !                 | p2(er) 
+ ###########!#################| (nodes*gradd2) 
+            !                 | pm2(nodes) 
+            !                 | (nodes*hormon) 
+ ###########!#################| pm2(age) 
+
+Population 4 done.
+Current best crit: -193.286140359209 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | p0(er) 
+ ###########!#################| hormon 
+            !   Replaced feature p2(er) with  (meno*er) 
+             | (er*nodes) 
+ ###########!#################| pm05(age) 
+            !                 | (hormon*age) 
+            !                 | pm2(1+1*nodes) 
+            !                 | pm2(er) 
+ ###########!#################| (nodes*nodes) 
+Replaced feature p0(er) with (meno*age) 
+Replaced feature pm2(nodes) with (pgr*pgr) 
+Replaced feature (er*nodes) with p3(nodes) 
+Replaced feature (hormon*age) with (nodes*er) 
+Replaced feature (nodes*hormon) with (pgr*size) 
+
+Population 4 done.
+Current best crit: -187.291444989014 
+Feature importance:
+ ###########!Replaced feature pm2(1+1*nodes) with pm05(er) 
+#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!############Replaced feature pm2(er) with #####| hormon 
+ (hormon*pgr) 
+  #########!#################| (size*nodes) 
+            !                 | pm05(nodes) 
+            !                 | p3(size) 
+ ###########!#################| p05(age) 
+ ###########!#################| (meno*er) 
+            !                 | pm1(pgr) 
+Replaced feature pm05(nodes) with (er*pgr) 
+Replaced feature p3(size) with (hormon*er) 
+Population 5 begin.Replaced feature pm1(pgr) with (er*er) 
+Population 5 begin.
+Population 4 done.
+Current best crit: -187.762505426948 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| pm05(nodes) 
+ ###########!#################| p05(er) 
+            !                 | (pgr*nodes) 
+ ###########!#################| (gradd2*nodes) 
+ ###########!#################| p05(age) 
+            !                 | p3(1+1*size) 
+Population 5 begin.Replaced feature (pgr*nodes) with pm1(er) 
+Replaced feature p3(1+1*size) with (pgr*hormon) 
+Population 5 begin.
+Population 5 done.
+Current best crit: -185.374916296803 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+            !                 | pm1(nodes) 
+ ###########!#################| (meno*er) 
+            !                 | (nodes*gradd2) 
+            !                 | (pgr*pgr) 
+            !                 | (pgr*size) 
+ ###########!#################| pm2(age) 
+
+Population 5 done.
+Current best crit: -195.985978422373 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!Replaced feature pm1(nodes) with# p05(pgr) 
+################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!##############Replaced feature (nodes*gradd2) with p05(er) 
+###| (meno*age) 
+ ###########!#################| hormon 
+            !                 | p3(nodes) 
+ ###########!#################| pm05(age) 
+            !                 | (nodes*er) 
+            !                 | pm05(er) 
+            !                 | (hormon*pgr) 
+ ###########!#################| (nodes*nodes) 
+Replaced feature p3(nodes) with (age*size) 
+Replaced feature (pgr*pgr) with p0(er) 
+Replaced feature (nodes*er) with (pgr*nodes) 
+Replaced feature (pgr*size) with p0(age) 
+Replaced feature pm05(er) with pm2(pgr) 
+Replaced feature (hormon*pgr) with (nodes*size) 
+
+Population 5 done.
+Current best crit: -187.291444989014 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+   #########!#################| (size*nodes) 
+            !                 | (er*pgr) 
+            !                 | (hormon*er) 
+ ###########!#################| p05(age) 
+ ###########!#################| (meno*er) 
+            !                 | (er*er) 
+Replaced feature (er*pgr) with (nodes*er) 
+Replaced feature (hormon*er) with p3(pgr) 
+Population 6 begin.Replaced feature (er*er) with (nodes*hormon) 
+Population 6 begin.
+Population 5 done.
+Current best crit: -185.494791236817 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+            !                 | pm05(nodes) 
+ ###########!#################| p05(er) 
+            !                 | pm1(er) 
+            !                 | (gradd2*nodes) 
+ ###########!#################| p05(age) 
+            !                 | (pgr*hormon) 
+Replaced feature pm05(nodes) with pm2(age) 
+Replaced feature pm1(er) with pm2(er) 
+Population 6 begin.Replaced feature (gradd2*nodes) with (er*meno) 
+Replaced feature (pgr*hormon) with (gradd2*er) 
+Population 6 begin.
+Population 6 done.
+Current best crit: -198.5076546673 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+        ####!#################| (age*size) 
+ ###########!#################| pm05(age) 
+            !                 | (pgr*nodes) 
+            !                 | pm2(pgr) 
+            !   
+Population 6 done.
+    Current best crit: -183.942254443613 
+Feature importance:
+ #####  ###   ###     !##| (nodes*size) 
+### ######################!##| ################| (nodes*nodes) 
+age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+    ########!#################| pgr 
+            ! ################| er 
+ ###########!#################| hormon 
+ ###########!#################| p05(pgr) 
+            !                 | (meno*er) 
+            !                 | p05(er) 
+            !                 | p0(er) 
+ ###########!#################| p0(age) 
+            !             ####| pm2(age) 
+Replaced feature (pgr*nodes) with pm2(age) 
+Replaced feature (meno*er) with (pgr*age) 
+Replaced feature pm2(pgr) with p3(age) 
+Replaced feature p05(er) with (size*age) 
+Replaced feature (nodes*size) with p2(age) 
+Replaced feature p0(er) with (gradd2*nodes) 
+Replaced feature pm2(age) with pm2(size) 
+
+Population 6 done.
+Current best crit: -187.932478492339 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+   #########!#################| (size*nodes) 
+            !                 | (nodes*er) 
+            !                 | p3(pgr) 
+            !                 | p05(age) 
+ ###########!#################| (meno*er) 
+            !                 | (nodes*hormon) 
+Replaced feature (nodes*er) with p3(age) 
+Replaced feature p3(pgr) with (pgr*pgr) 
+Population 7 begin.Population 7 begin.Replaced feature p05(age) with p0(size) 
+Replaced feature (nodes*hormon) with (gradd2*pgr) 
+Population 7 begin.
+Population 6 done.
+Current best crit: -185.494791236817 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+            !                 | pm2(age) 
+ ###########!#################| p05(er) 
+            !                 | pm2(er) 
+            !                 | (er*meno) 
+ ###########!#################| p05(age) 
+            !                 | (gradd2*er) 
+Replaced feature pm2(age) with p0(age) 
+Replaced feature pm2(er) with pm2(size) 
+Replaced feature (er*meno) with (pgr*hormon) 
+Replaced feature (gradd2*er) with (hormon*er) 
+Population 7 begin.
+Population 7 done.
+Current best crit: -196.038378496408 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | (meno*age) 
+ ###########!#################| hormon 
+          ##!#################| (age*size) 
+            !                 | pm05(age) 
+ ###########!#################| pm2(age) 
+            !                 | p3(age) 
+            !                 | p2(age) 
+ ###########!#################| (nodes*nodes) 
+
+Population 7 done.
+Current best crit: -186.681506628452 
+Feature importance:
+ ###########!########Replaced feature (meno*age) with (size*nodes) 
+#########| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+ ###########!#################| pgr 
+          ##!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| p05(pgr) 
+Replaced feature pm05(age) with p0(size) 
+            !                #| (pgr*age) 
+        ####!#################| (size*age) 
+            !                 | (gradd2*nodes) 
+ ###########!#################| p0(age) 
+Population 7 done.
+
+     Current best crit: -187.932478492339 
+ Feature importance:
+     # ### ! ##  ##  ##   #!  ##  ##  ##  ###| ##pm2(size) 
+#######| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###Replaced feature #(pgr*age) with pm2(pgr) 
+#######!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+    ########!#################| (size*nodes) 
+Replaced feature (gradd2*nodes) with p0(size) 
+            !                 | p3(age) 
+            !                 | (pgr*pgr) 
+            !                 | p0(size) 
+ ###########!#################| (meno*er) 
+            !   Replaced featureReplaced feature  p3(age) with (pgr*gradd2) 
+pm2(size) with pm1(pgr) 
+              | (gradd2*pgr) 
+Replaced feature p3(age) with p2(nodes) 
+Replaced feature p2(age) with (hormon*age) 
+Replaced feature (pgr*pgr) with p3(size) 
+Replaced feature p0(size) with (pgr*hormon) 
+Replaced feature (gradd2*pgr) with (pgr*age) 
+Population 8 begin.Population 8 begin.Population 8 begin.
+Population 7 done.
+Current best crit: -188.786151265942 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+    ########!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| p0(age) 
+            !                 | p05(er) 
+            !                #| pm2(size) 
+            !                 | (pgr*hormon) 
+ ###########!#################| p05(age) 
+   #########!#################| (hormon*er) 
+Replaced feature p05(er) with (age*pgr) 
+Replaced feature pm2(size) with pm05(size) 
+Replaced feature (pgr*hormon) with pm05(pgr) 
+Population 8 begin.
+Population 8 done.
+Current best crit: -197.645176052016 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | (size*nodes) 
+ ###########!#################| hormon 
+            !                 | (age*size) 
+ ###########!#################| p0(size) 
+ ###########!#################| pm2(age) 
+            !                 | (pgr*gradd2) 
+ ###########!#################| (hormon*age) 
+ ###########!#################| (nodes*nodes) 
+Replaced feature (size*nodes) with pm05(1+1*gradd1+1*age+1*size) 
+Replaced feature (age*size) with pm2(pgr) 
+
+Population 8 done.
+Current best crit: -183.104751026403 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+            !                 | (size*nodes) 
+ ###########!#################| p2(nodes) 
+            !                 | p3(size) 
+            !                 | (pgr*hormon) 
+ ###########!########Replaced feature (pgr*gradd2) with (meno*size) 
+#########| (meno*er) 
+            !                 | (pgr*age) 
+Replaced feature (size*nodes) with (age*size) 
+Replaced feature p3(size) with (nodes*pgr) 
+Replaced feature (pgr*hormon) with (er*nodes) 
+Replaced feature (pgr*age) with (er*hormon) 
+Population 9 begin.
+Population 8 done.
+Current best crit: -186.681506628452 
+Feature importance:
+ ###########!#################| age 
+ ###########!#######Population 9 begin.##########| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+    ########!#################| pgr 
+            ! ################| er 
+ ###########!#################| hormon 
+ ###########!#################| p05(pgr) 
+            !                 | pm2(pgr) 
+           #!#################| (size*age) 
+            !                 | p0(size) 
+ ###########!#################| p0(age) 
+            !                 | pm1(pgr) 
+Replaced feature pm2(pgr) with (size*er) 
+Replaced feature p0(size) with p2(pgr) 
+Replaced feature pm1(pgr) with p0(pgr) 
+Population 9 begin.
+Population 8 done.
+Current best crit: -200.60613620548 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !          #######| er 
+ ###########!#################| hormon 
+ ###########!#################| p0(age) 
+            !                 | (age*pgr) 
+ ###########!#################| pm05(size) 
+            !                 | pm05(pgr) 
+ ###########!#################| p05(age) 
+            !                 | (hormon*er) 
+Replaced feature (age*pgr) with (hormon*nodes) 
+Replaced feature pm05(pgr) with (gradd2*nodes) 
+Replaced feature (hormon*er) with (hormon*pgr) 
+Population 9 begin.
+Population 9 done.
+Current best crit: -197.645176052016 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | pm05(1+1*gradd1+1*age+1*size) 
+ ###########!#################| hormon 
+            !      
+Population 9 done.
+Current best crit: -185.359777619304 
+ Feature importance:
+  ######### ##!#########   ########|      | pm2(pgr) 
+ ###########!#################| p0(size) 
+ age 
+# ############!########################!#####| #meno 
+# #######################!| #pm2(age) 
+# ###  ##  ##  ### # # # # #!|  size 
+    # # # # # # # # # # # ! # #| #(meno*size) 
+# #######################!#| #gradd1 #####
+ ######################!#| (hormon*age) 
+# #########################!##| #gradd2 
+# #########################!| #(nodes*nodes) 
+################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+    ########!#################| (age*size) 
+ ###########!#################| p2(nodes) 
+            !                 | (nodes*pgr) 
+            Replaced feature pm05(1+1*gradd1+1*age+1*size) with!  p05(age) 
+                | (er*nodes) 
+ ###########!#################| (meno*er) 
+            !                 | (er*hormon) 
+Replaced feature pm2(pgr) with (er*hormon) 
+Replaced feature (nodes*pgr) with p3(er) 
+Replaced feature (er*nodes) with (gradd2*er) 
+Replaced feature (meno*size) with (er*nodes) 
+Replaced feature (er*hormon) with (gradd2*age) 
+
+Population 9 done.
+Current best crit: -186.681506628452 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+ ###########!#################| pgr 
+         ###!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| p05(pgr) 
+            !                 | (size*er) 
+         ###!#################| (size*age) 
+            !                 | p2(pgr) 
+ ###########!#################| p0(age) 
+            !                 | p0(pgr) 
+Replaced feature (size*er) with (er*age) 
+Replaced feature p2(pgr) with p3(nodes) 
+Population 10 begin.Replaced feature p0(pgr) with (meno*er) 
+Population 10 begin.Population 10 begin.
+Population 9 done.
+Current best crit: -200.60613620548 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !            #####| er 
+ ###########!#################| hormon 
+ ###########!#################| p0(age) 
+            !                 | (hormon*nodes) 
+ ###########!#################| pm05(size) 
+            !                 | (gradd2*nodes) 
+ ###########!#################| p05(age) 
+            !                 | (hormon*pgr) 
+Replaced feature er with (hormon*age) 
+
+Population 10 done.
+Current best crit: -200.627301780659 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ########Replaced feature (hormon*nodes) with pm1(er) 
+###!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| p05(age) 
+ ###########!#################| hormon 
+            !                 | (er*hormon) 
+ ###########!#################| p0(size) 
+ ##########Replaced feature (gradd2*nodes) with pm2(nodes) 
+#!#################| pm2(age) 
+            !                 | (er*nodes) 
+ ###########!#################| (hormon*age) 
+ ###########!#################| (nodes*nodes) 
+Replaced feature (hormon*pgr) with p2(nodes) 
+
+Population 10 done.
+Current best crit: -188.387365525234 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+     #######!#################| (age*size) 
+ ###########!#################| p2(nodes) 
+            !                 | p3(er) 
+            !                 | (gradd2*er) 
+ ###########!#################| (meno*er) 
+ ###########!#################| (gradd2*age) 
+Population 10 begin.
+Population 10 done.
+Current best crit: -186.181126597304 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+  ##########!#################| er 
+ ###########!#################| hormon 
+            !                 | p05(pgr) 
+            !                 | (er*age) 
+        ####!#################| (size*age) 
+            !                 | p3(nodes) 
+ ###########!#################| p0(age) 
+            !                 | (meno*er) 
+
+Population 10 done.
+Current best crit: -197.746721461005 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | (hormon*age) 
+ ###########!#################| hormon 
+ ###########!#################| p0(age) 
+            !                 | pm1(er) 
+ ###########!#################| pm05(size) 
+            !                 | pm2(nodes) 
+ ###########!#################| p05(age) 
+ ###########!#################| p2(nodes) 
+
+Top 10 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 8) | SIC: 366.210
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p2(nodes), (meno*er)
+
+Model #2 (Found in Pop 3) | SIC: 366.817
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, pm2(age)
+
+Model #3 (Found in Pop 3) | SIC: 367.120
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p05(age)
+
+Model #4 (Found in Pop 6) | SIC: 367.885
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p05(pgr), p0(age)
+
+Model #5 (Found in Pop 1) | SIC: 369.403
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon
+
+Model #6 (Found in Pop 3) | SIC: 370.526
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, (size*nodes), p05(age)
+
+Model #7 (Found in Pop 9) | SIC: 370.720
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, (age*size), p2(nodes), (meno*er)
+
+Model #8 (Found in Pop 5) | SIC: 370.750
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, (meno*er), pm2(age)
+
+Model #9 (Found in Pop 5) | SIC: 370.990
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p05(er), p05(age)
+
+Model #10 (Found in Pop 10) | SIC: 372.362
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, (size*age), p0(age)
+
+Population 1 begin.Population 1 begin.Population 1 begin.Population 1 begin.
+Population 1 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+
+Population 1 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#########Added feature pm2(er) 
+########| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ###Added feature (size*hormon) 
+#######!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+
+Population 1 done.
+Current best crit: -184.701447720034 
+Feature importance:
+ #####
+Population 1 done.
+######Current best crit: -184.701447720034 
+Feature importance:
+!##### #####################| ##!####Added feature (gradd2*size) 
+########age 
+# ####| ###########!age 
+ ##################!########Added feature pm2(pgr) 
+#########| meno 
+## ###Added feature ##(nodes*hormon)# 
+#############| !meno 
+# ##############!##############################| size 
+|  size 
+Added feature (age*hormon) 
+ #####################!##!##############################| gradd1 
+ ##############!####| gradd1 
+ ###################| ##gradd2 
+# #####!####################!###############| gradd2 
+ ###############| nodes 
+# # ##!#####################!########| nodes 
+ ######### #########| ##pgr 
+# ###!#######          # !#####################| pgr 
+           #####| er 
+  !####Added feature pm1(nodes) 
+####################!#############| #er 
+### #############| hormon 
+##!#################| hormon 
+Added feature (pgr*meno) 
+Added feature p3(er) 
+Added feature (pgr*pm2(pgr)) 
+Added feature (age*(gradd2*size)) 
+Added feature p3(1+1*nodes+1*pgr+1*er+1*hormon) 
+Added feature p05(1+1*gradd2+1*meno+1*size+1*hormon+1*age+1*meno) 
+Added feature (age*hormon) 
+Added feature pm1(er) 
+Added feature (gradd2*age) 
+Added feature (age*meno) 
+Added feature p2(pgr) 
+Added feature p2(age) 
+Added feature p2(age) 
+Added feature (age*nodes) 
+Added feature p05(pgr) 
+Added feature (gradd2*hormon) 
+Added feature p0((age*hormon)) 
+Population 2 begin.Population 2 begin.Population 2 begin.Population 2 begin.
+Population 2 done.
+Current best crit: -184.608995104189 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+ ###########!#################| pgr 
+          ##!#################| er 
+ ###########!#################| hormon 
+            !                 | p3(1+1*nodes+1*pgr+1*er+1*hormon) 
+            !                 | (gradd2*age) 
+            !                 | p2(pgr) 
+  ##########!#################| p2(age) 
+            !                 | (age*nodes) 
+ ###########!#################| p05(pgr) 
+Replaced feature p3(1+1*nodes+1*pgr+1*er+1*hormon) with (size*size) 
+Replaced feature (gradd2*age) with pm1(p2(age)) 
+Replaced feature p2(pgr) with (er*gradd2) 
+Replaced feature (age*nodes) with pm2(er) 
+
+Population 2 done.
+Current best crit: -190.090467651575 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+           #!#################| er 
+ ###########!#################| hormon 
+            !                 | pm2(er) 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            !                 | (nodes*hormon) 
+            !                 | (age*(gradd2*size)) 
+            !                 | pm1(er) 
+Replaced feature pm2(er) with p3((gradd2*size)) 
+
+Population 2 done.
+Current best crit: -187.7204302771 
+Feature importance:
+ ###########!Replaced feature (nodes*hormon) with p3((age*(gradd2*size))) 
+#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!################Replaced feature (age*(gradd2*size)) with#| gradd1 
+ p0(size) 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+         ###!#################| er 
+ #####Population 3 begin.######!#################| hormon 
+            !                 | pm2(pgr) 
+ ###########!#################| (age*hormon) 
+            !                 | pm1(nodes) 
+            !                 | (pgr*meno) 
+            !                 | (pgr*pm2(pgr)) 
+            !                 | p05(1+1*gradd2+1*meno+1*size+1*hormon+1*age+1*meno) 
+Replaced feature pm1(er) with (age*gradd2) 
+Replaced feature pm2(pgr) with (hormon*size) 
+Replaced feature pm1(nodes) with (pm1(nodes)*size) 
+Replaced feature (pgr*meno) with (pgr*gradd2) 
+
+Population 2 done.
+Current best crit: -203.148467534955 
+Feature importance:
+ ###########!#################Replaced feature (pgr*pm2(pgr)) with pm1(nodes) 
+| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !             ####| er 
+ ###########!#################| hormon 
+            !                 | p3(er) 
+Replaced feature  p05(1+1*gradd2+1*meno+1*size+1*hormon+1*age+1*meno) with ((age*hormon)*nodes) 
+           !                 | (age*hormon) 
+ ###########!#################| (age*meno) 
+   #########!#################| p2(age) 
+            !                 | (gradd2*hormon) 
+ ###########!#################| p0((age*hormon)) 
+Population 3 begin.Replaced feature er with ((age*meno)*size) 
+Replaced feature p3(er) with p2(size) 
+Replaced feature (age*hormon) with pm05(size) 
+Population 3 begin.Replaced feature (gradd2*hormon) with p0(p0((age*hormon))) 
+Population 3 begin.
+Population 3 done.
+Current best crit: -184.98317656277 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+    ########!#################| pgr 
+            ! ################| er 
+ ###########!#################| hormon 
+            !                 | (size*size) 
+ ###########!#################| pm1(p2(age)) 
+            !                 | (er*gradd2) 
+            !                 | p2(age) 
+            !                 | pm2(er) 
+ ###########!#################| p05(pgr) 
+Replaced feature (size*size) with pm1((er*gradd2)) 
+Replaced feature (er*gradd2) with p3(er) 
+Replaced feature p2(age) with (pm1(p2(age))*hormon) 
+Replaced feature pm2(er) with (age*meno) 
+
+Population 3 done.
+Current best crit: -188.940294021526 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+   
+Population 3 done.
+        #!#################Current best crit: -187.484200394223 
+| er 
+ ###########!#################| hormon 
+            !                 | p3((gradd2*size)) 
+ #########Feature importance:
+# #!####Population 4 begin.#############!#################| ###########| (size*hormon) 
+            !           age 
+   ## # # # #| ##(gradd2*size) 
+#   ##  ! # #  ##   !             ####### #   | p3((age*(gradd2*size))) 
+# #########| meno 
+# #########!#############!##########################| #p0(size) 
+# | size 
+ # # # # # # # # # # # !!# # # # # # # # # # # # # # # # # | gradd1 
+ | #####(age*gradd2) 
+######!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+ ######Replaced feature p3((gradd2*size))# with #(nodes*pgr) 
+###!#################| (hormon*size) 
+            !                 | (age*hormon) 
+            !                 | (pm1(nodes)*size) 
+            !                 | (pgr*gradd2) 
+            !                 | pm1(nodes) 
+       Replaced feature  (gradd2*size) with pm05(er) 
+    !                 | ((age*hormon)*nodes) 
+Replaced feature p3((age*(gradd2*size))) with pm2(p0(size)) 
+Replaced feature (age*hormon) with p3(age) 
+Replaced feature (age*gradd2) with (nodes*age) 
+
+Population 3 done.
+Current best crit: -204.314821411852 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#####Replaced feature (pm1(nodes)*size) with pm1(pgr) ##
+##########| pgr 
+            !                 | ((age*meno)*size) 
+ ###########!#################| hormon 
+            !   ##############| p2(size) 
+ ###########!#################| pm05(size) 
+ ###########!#################| (age*meno) 
+            !#################| p2(age) 
+            !                 | p0(p0((age*hormon))) 
+ ###########!#################| p0((age*hormon)) 
+Replaced feature (pgr*gradd2) with p05((hormon*size)) 
+Replaced feature pm1(nodes) with (age*age) 
+Replaced feature ((age*meno)*size) with (age*pgr) 
+Replaced feature p0(p0((age*hormon))) with (hormon*p2(age)) 
+Replaced feature ((age*hormon)*nodes) with (meno*nodes) 
+Population 4 begin.Population 4 begin.Population 4 begin.
+Population 4 done.
+Current best crit: -188.940294021526 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+        ####!#################| er 
+ ###########!#################| hormon 
+            !                 | (nodes*pgr) 
+ ###########!#################| (size*hormon) 
+            !             
+Population 4 done.
+ Current best crit: -198.262910892563 
+Feature importance:
+   | pm05(er) 
+      ###       !   #              | pm2(p0(size)) 
+ #############!#####################!###| p0(size) 
+      # ######   ########|   !                 | (nodes*age) 
+age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+    ########!#################| pgr 
+            !            #####| er 
+ ###########!##############Replaced feature (nodes*pgr) with p05(age) 
+###| hormon 
+            !                 | pm1((er*gradd2)) 
+ ###########!#################| pm1(p2(age)) 
+            !                 | p3(er) 
+            !                #| (pm1(p2(age))*hormon) 
+            !                 | (age*meno) 
+ ###########!#################| p05(pgr) 
+Replaced feature pm05(er) with (hormon*p0(size)) 
+Replaced feature er with (hormon*size) 
+Replaced feature pm2(p0(size)) with (pgr*size) 
+
+Population 4 done.
+Current best crit: -206.436306379249 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!################Replaced feature pm1((er*gradd2)) with (hormon*pgr) 
+#| size 
+ ###########!#################| gradd1 
+ ####Replaced feature (nodes*age) with pm05(nodes) 
+#######!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+           Replaced feature p3(er) with  !p3(p05(pgr))  
+                | (age*pgr) 
+ ###########!#################| hormon 
+            !  ###############| p2(size) 
+ ###########!#################| pm05(size) 
+ ###########!################
+Population 4 done.
+#Current best crit: -200.810723385397 
+| (age*meno) 
+         ###!#########Feature importance:
+# ##################!| p2(age) 
+         #   !        #         | (hormon*p2(age)) 
+# ###########!##################| p0((age*hormon)) 
+#############| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!###Replaced feature (pm1(p2(age))*hormon) with pm2(p05(pgr)) 
+##############| nodes 
+  #####Replaced feature (age*pgr) with pm1(1+1*hormon+1*gradd2+1*pgr+1*p2(age)+1*gradd1) #
+####!#################| pgr 
+            !       ##########| er 
+ ###########!#################| hormon 
+            !                 | (hormon*size) 
+        Replaced feature (age*meno) with pm1(pm1(p2(age))) 
+    !                 | p3(age) 
+            !                 | pm1(pgr) 
+ ###########!#################| p05((hormon*size)) 
+            ! ################| (age*age) 
+            !                 | (meno*nodes) 
+Replaced feature (hormon*p2(age)) with p3(pgr) 
+Replaced feature (hormon*size) with pm05(size) 
+Population 5 begin.Replaced feature p3(age) with p2(nodes) 
+Replaced feature pm1(pgr) with p0((age*age)) 
+Replaced feature (meno*nodes) with pm1((age*age)) 
+Population 5 begin.Population 5 begin.Population 5 begin.
+Population 5 done.
+Current best crit: -186.235674948511 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ #######
+Population 5 done.
+#Current best crit: -200.936768569306 
+#Feature importance:
+## #!##################!###################| #hormon 
+# # # # # # |       !                 | p05(age) 
+            !                 age 
+|  (size*hormon) 
+# # # # # # # # # # # ! #!# # # # # # # #   # ##   # ##  | #(hormon*p0(size)) 
+#   |  meno    
+   ##  ## !##  ##  ##  #!  ##  ##  ## # # # # #| #(pgr*size) 
+# ########| #size 
+# ############!#########!########################| p0(size) 
+# # # # # |  gradd1 
+   # # # # ! # #               ##| pm05(nodes) 
+###!#################| gradd2 
+ ###########!#################| nodes 
+    ########!#################| pgr 
+ ###########!#################| (hormon*size) 
+ ###########!#################| hormon 
+            !                 | (hormon*pgr) 
+ ###########!#################| pm1(p2(age)) 
+            !                 | p3(p05(pgr)) 
+            !                 | pm2(p05(pgr)) 
+            !                 | pm1(pm1(p2(age))) 
+ ###########!#################| p05(pgr) 
+Replaced feature p05(age) with (p0(size)*er) 
+Replaced feature (hormon*pgr) with (pm1(p2(age))*nodes) 
+Replaced feature (size*hormon) with (gradd2*size) 
+Replaced feature p3(p05(pgr)) with ((hormon*size)*gradd2) 
+Replaced feature (hormon*p0(size)) with p3(age) 
+
+Population 5 done.
+Current best crit: -186.477608254288 
+Feature importance:
+ ###########!#################| Replaced feature pm2(p05(pgr)) with p05(1+1*meno+1*gradd2+1*nodes) 
+Replaced feature (pgr*size) with (gradd2*p0(size)) 
+age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ #####Replaced feature pm05(nodes) #Replaced feature pm1(pm1(p2(age))) with #with (pm05(nodes)*size) 
+(hormon*pm1(p2(age)))### 
+#!#################| nodes 
+  ##########!#################| pgr 
+            ! ################| er 
+ ###########!#################| hormon 
+ ###########!#################| pm05(size) 
+ ###########!#################| p2(nodes) 
+            !                 | p0((age*age)) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (age*age) 
+ ###########!#################| pm1((age*age)) 
+Replaced feature p0((age*age)) with (pm1((age*age))*pgr) 
+Replaced feature (age*age) with p2(1+1*p05((hormon*size))+1*pgr) 
+
+Population 5 done.
+Current best crit: -201.011948541715 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !                 | pm1(1+1*hormon+1*gradd2+1*pgr+1*p2(age)+1*gradd1) 
+ ###########!#################| hormon 
+            !               ##| p2(size) 
+            !                 | pm05(size) 
+            !                 | (age*meno) 
+  ##########!#################| p2(age) 
+            !                 | p3(pgr) 
+ ###########!#################| p0((age*hormon)) 
+Population 6 begin.Population 6 begin.Replaced feature pm1(1+1*hormon+1*gradd2+1*pgr+1*p2(age)+1*gradd1) with (er*p2(age)) 
+Replaced feature p2(size) with (nodes*age) 
+Replaced feature pm05(size) with pm1(p2(age)) 
+Replaced feature (age*meno) with p3(p2(age)) 
+Replaced feature p3(pgr) with pm05(p2(age)) 
+Population 6 begin.Population 6 begin.
+Population 6 done.
+Current best crit: -199.112302771161 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+            !                 | (hormon*size) 
+ ###########!#################| hormon 
+          
+Population 6 done.
+ Current best crit: -202.377283051687 
+ ! Feature importance:
+    #  ##  ##  ##  ##  ##  !# | ####(pm1(p2(age))*nodes) 
+###### #################| !#################| pm1(p2(age)) 
+            !                 | ((hormon*size)*gradd2)age 
+ 
+  ######################!!################################| #meno 
+# | #p05(1+1*meno+1*gradd2+1*nodes) 
+# # # # # # # ###!########     !     #########| size 
+   # # # #       | (hormon*pm1(p2(age))) 
+ #######!#########################!####| gradd1 
+ ####################| p05(pgr) 
+#######!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !        #########| er 
+ ###########!#################| hormon 
+            !                 | (p0(size)*er) 
+ ###########!#################| (gradd2*size) 
+            !                 | p3(age) 
+         Replaced feature (hormon*size) with pm1(1+1*p05(pgr)+1*gradd2+1*nodes) 
+   !                 | (gradd2*p0(size)) 
+ ###########!#################| p0(size) 
+            !                 | (pm05(nodes)*size) 
+Replaced feature (pm1(p2(age))*nodes) with er 
+Replaced feature er with (meno*age) 
+
+Population 6 done.
+Current best crit: -184.709784853661 
+Feature importance:
+ ###########!#################| Replaced feature ((hormon*size)*gradd2) with p05(pm1(p2(age))) 
+age 
+ ###########Replaced feature! (p0(size)*er) with #(size*hormon) 
+################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+          ##!#################| er 
+ ###########!#################| hormon 
+            !                 | pm05(size) 
+ #########Replaced feature (hormon*pm1(p2(age))) with p05(p05(1+1*meno+1*gradd2+1*nodes)) 
+##!#################| p2(nodes) 
+            !                 | (pm1((age*age))*pgr) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | p2(1+1*p05((hormon*size))+1*pgr) 
+ ###########!#Replaced feature p3(age) with (gradd2*pgr) 
+################| pm1((age*age)) 
+Replaced feature (gradd2*p0(size)) with (nodes*p0(size)) 
+Replaced feature (pm05(nodes)*size) with p05(pgr) 
+Replaced feature pm05(size) with (age*nodes) 
+Replaced feature (pm1((age*age))*pgr) with p2(p2(nodes)) 
+Replaced feature p2(1+1*p05((hormon*size))+1*pgr) with (hormon*size) 
+Population 7 begin.
+Population 6 done.
+Current best crit: -201.340338194014 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!####Population 7 begin.#############| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !                 | (er*p2(age)) 
+ ###########!#################| hormon 
+            !                 | (nodes*age) 
+     ######Population 7 begin.#!#################| pm1(p2(age)) 
+            !                 | p3(p2(age)) 
+            !              ###| p2(age) 
+            !                 | pm05(p2(age)) 
+ ###########!#################| p0((age*hormon)) 
+Replaced feature (er*p2(age)) with (gradd2*pm05(p2(age))) 
+Replaced feature (nodes*age) with (pm1(p2(age))*p0((age*hormon))) 
+Replaced feature p3(p2(age)) with p2(nodes) 
+Replaced feature p2(age) with (pgr*hormon) 
+Replaced feature pm05(p2(age)) with (hormon*pm1(p2(age))) 
+Population 7 begin.
+Population 7 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+ ###########!########
+Population 7 done.
+Current best crit: -184.709784853661 
+Feature importance:
+#########| (meno*age) 
+ #### ########!####################| hormon 
+ ###############!######!###########################| ####| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+ age 
+ #######           #!# ##!#########           ########| meno 
+     | (gradd2*pgr) 
+ ## ####################!#!###########################| size 
+ ########| (nodes*p0(size)) 
+ ############!########################| #gradd1!# 
+ ###############!########################| #p0(size) 
+# ############!##| gradd2 
+ ######################!######################| nodes 
+  ###| ##p05(pgr) 
+######!#################| pgr 
+            !#################| er 
+ ###########!
+Population 7 done.
+##########Current best crit: -185.572232445584 
+#Feature importance:
+## ########| #hormon 
+# # # # # # ! ###   ##  ##! ##  ##  ##  # # ##|         | (age*nodes) 
+ ###########!#####Replaced feature (gradd2*pgr) with pm05(size) 
+############| p2(nodes) 
+         age 
+   # #!# #   # # ### # #! # # ######  ##  ##  ##| p2(p2(nodes)) 
+# ####| #meno 
+# ##############!########!####################| ##p05((hormon*size)) 
+##  ##  ##  ##|   size 
+   #  ##! ##  ##  ##  ##  !#  ##  ##  ##  ##| (hormon*size) 
+# ################| #gradd1 
+# !######################!############| #pm1((age*age)) 
+##########| gradd2 
+ ###########!#################| nodes 
+      ######!#################| pgr 
+            !                 | pm1(1+1*p05(pgr)+1*gradd2+1*nodes) 
+ ###########!#################| hormon 
+         ###!#################| er 
+ ###########!#############Replaced feature (age*nodes) with (gradd2*size) 
+####| pm1(p2(age)) 
+            !                 | p05(pm1(p2(age))) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+            !                 | p05(p05(1+1*meno+1*gradd2+1*nodes)) 
+ ###########!#################| p05(pgr) 
+Replaced feature p2(p2(nodes)) with p3(pm1((age*age))) 
+Replaced feature (hormon*size) with p3(nodes) 
+Replaced feature pm1(1+1*p05(pgr)+1*gradd2+1*nodes) with p2(er) 
+Replaced feature p05(pm1(p2(age))) with p2(nodes) 
+Population 8 begin.Replaced feature p05(p05(1+1*meno+1*gradd2+1*nodes)) with (pgr*meno) 
+Population 8 begin.Population 8 begin.
+Population 7 done.
+Current best crit: -194.457836911091 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | (gradd2*pm05(p2(age))) 
+ ###########!#################| hormon 
+            !                 | (pm1(p2(age))*p0((age*hormon))) 
+ ###########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+            !                 | (pgr*hormon) 
+            !                 | (hormon*pm1(p2(age))) 
+            !                 | p0((age*hormon)) 
+Replaced feature (gradd2*pm05(p2(age))) with (meno*pm1(p2(age))) 
+Replaced feature (pm1(p2(age))*p0((age*hormon))) with (size*age) 
+Replaced feature (pgr*hormon) with pm1(pm1(p2(age))) 
+Replaced feature (hormon*pm1(p2(age))) with (gradd2*age) 
+Replaced feature p0((age*hormon)) with pm2(p2(nodes)) 
+Population 8 begin.
+Population 8 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+      ######!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            !                 | pm05(size) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature pm05(size) with ((meno*age)*pgr) 
+
+Population 8 done.
+Current best crit: -187.046769283137 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+           #!#################| pgr 
+            !                 | p2(er) 
+ ###########!#################| hormon 
+          ##!#################| er 
+ ###########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+            !                 | (pgr*meno) 
+ ###########!#################| p05(pgr) 
+Replaced feature p2(er) with pm2(p05(1+1*meno+1*gradd2+1*nodes)) 
+Replaced feature (pgr*meno) with p0(p2(nodes)) 
+Population 9 begin.
+Population 8 done.
+Current best crit: -184.709784853661 
+Feature importance:
+ ###########!#################| age 
+ ########Population 9 begin.###!#################| meno 
+   #########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+            !                 | (gradd2*size) 
+ ###########!#################| p2(nodes) 
+            !                 | p3(pm1((age*age))) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | p3(nodes) 
+ ###########!#################| pm1((age*age)) 
+Replaced feature (gradd2*size) with p0(nodes) 
+Replaced feature p3(pm1((age*age))) with (gradd2*p2(nodes)) 
+Replaced feature p3(nodes) with (p05((hormon*size))*p2(nodes)) 
+Population 9 begin.
+Population 8 done.
+Current best crit: -200.590027550409 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+       #####!#################| (size*age) 
+           #!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+            !                 | pm1(pm1(p2(age))) 
+            !                 | (gradd2*age) 
+            !                 | pm2(p2(nodes)) 
+
+Population 9 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+      ######!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            !                 | ((meno*age)*pgr) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature pm1(pm1(p2(age))) with er 
+Replaced feature (gradd2*age) with (size*pm2(p2(nodes))) 
+Replaced feature pm2(p2(nodes)) with p05(pm1(p2(age))) 
+Replaced feature ((meno*age)*pgr) with pm1((size*hormon)) 
+Population 9 begin.Population 10 begin.
+Population 9 done.
+Current best crit: -187.046769283137 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+        ####!#################| pgr 
+            !                 | pm2(p05(1+1*meno+1*gradd2+1*nodes)) 
+ ###########!#################| hormon 
+          ##!#################| er 
+ ###########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+            !                 | p0(p2(nodes)) 
+ ###########!#################| p05(pgr) 
+Replaced feature pm2(p05(1+1*meno+1*gradd2+1*nodes)) with pm2(er) 
+Replaced feature p0(p2(nodes)) with pm1(size) 
+Population 10 begin.
+Population 9 done.
+Current best crit: -184.709784853661 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+            !                 | p0(nodes) 
+ ###########!#################| p2(nodes) 
+            !                 | (gradd2*p2(nodes)) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (p05((hormon*size))*p2(nodes)) 
+ ###########!#################| pm1((age*age)) 
+Replaced feature p0(nodes) with (pgr*pm1((age*age))) 
+Replaced feature (gradd2*p2(nodes)) with (nodes*p05((hormon*size))) 
+Replaced feature (p05((hormon*size))*p2(nodes)) with (pgr*meno) 
+Population 10 begin.
+Population 10 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+    ########!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            ! 
+Population 9 done.
+Current best crit: -187.226779713916 
+Feature importance:
+    ## # #   ##  ##  ##  #!  ##| pm1((size*hormon))## 
+## ####################!####| ###############| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ####age 
+# #################!####!############################| meno 
+ ##| p05(pgr) 
+###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+    ########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+    ########!#################| (size*age) 
+  ##########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+      ######!#################| er 
+            !                 | (size*pm2(p2(nodes))) 
+            !                 | p05(pm1(p2(age))) 
+Replaced feature pm1((size*hormon)) with (size*pgr) 
+Replaced feature (size*pm2(p2(nodes))) with p0(age) 
+Replaced feature p05(pm1(p2(age))) with (age*age) 
+Population 11 begin.
+Population 10 done.
+Current best crit: -187.046769283137 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| Population 10 begin.nodes 
+        ####!#################| pgr 
+            !                 | pm2(er) 
+ ###########!#################| hormon 
+           #!#################| er 
+ ###########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+            !                 | pm1(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature pm2(er) with pm05(size) 
+Replaced feature pm1(size) with (meno*p05(pgr)) 
+Population 11 begin.
+Population 10 done.
+Current best crit: -183.467244891194 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+      ######!#################| (size*age) 
+            !    #############| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+           #!#################| er 
+            !                 | p0(age) 
+            !                 | (age*age) 
+Replaced feature p0(age) with pm2(nodes) 
+Replaced feature (age*age) with pm05(size) 
+Population 11 begin.
+Population 10 done.
+Current best crit: -184.709784853661 
+Feature importance:
+    ########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+          ##!#################| er 
+ ###########!#################| hormon 
+            !                 | (pgr*pm1((age*age))) 
+ ###########!#################| p2(nodes) 
+            !                 | (nodes*p05((hormon*size))) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (pgr*meno) 
+  ##########!#################| pm1((age*age)) 
+Replaced feature (pgr*pm1((age*age))) with (p2(nodes)*pgr) 
+Replaced feature (nodes*p05((hormon*size))) with pm2(er) 
+Replaced feature (pgr*meno) with p3(p2(nodes)) 
+
+Population 11 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            !                 | (size*pgr) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature (size*pgr) with pm1(size) 
+Population 11 begin.Population 12 begin.
+Population 11 done.
+Current best crit: -188.712283858164 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+       #####!#################| pgr 
+ ###########!#################| pm05(size) 
+ ###########!#################| hormon 
+          ##!#################| er 
+ ###########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+            !                 | (meno*p05(pgr)) 
+ ###########!#################| p05(pgr) 
+Replaced feature (meno*p05(pgr)) with (er*pm05(size)) 
+Population 12 begin.
+Population 12 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            !                 | pm1(size) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature pm1(size) with p0((gradd2*size)) 
+
+Population 11 done.
+Current best crit: -184.709784853661 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ####
+Population 11 done.
+Current best crit: -183.467244891194 
+Feature importance:
+ #################!###!######################| ##########| gradd2 
+ ###########!#################| age 
+ #########nodes 
+  ###!############!###################| meno 
+ #######################| pgr 
+           #!!#############################| #####| size 
+ ###er 
+ #########!###########################| gradd1 
+ !##########################| hormon 
+##!#########     ########| gradd2 
+      #########  !  ##!########     #########|      nodes 
+  ######     ####!######| (p2(nodes)*pgr) 
+ #####################| pgr 
+ ##########!#####!######################| (meno*pm1(p2(age))) 
+##### #############| ##!p2(nodes) 
+    ##########    #######| hormon 
+     !    #######!###########     ######| (size*age) 
+                 !     ############| pm1(p2(age)) 
+ ##   #########! #   | #pm2(er) ###############| p2(nodes) 
+           #!#################| er 
+            !               Population 13 begin.  | pm2(nodes) 
+         
+  ## # #!# # # #  # # # ! # # # # # # # # ###| pm05(size) 
+######| p05((hormon*size)) 
+            !                 | p3(p2(nodes)) 
+ ###########!#################| pm1((age*age)) 
+Replaced feature pm1(p2(age)) with pm1(pgr) 
+Replaced feature pm2(nodes) with pm1(er) 
+Replaced feature (p2(nodes)*pgr) with p0(p2(nodes)) 
+Replaced feature pm05(size) with p0(size) 
+Replaced feature pm2(er) with (p05((hormon*size))*p05((hormon*size))) 
+Replaced feature p3(p2(nodes)) with p2(p2(nodes)) 
+
+Population 12 done.
+Current best crit: -188.712283858164 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ #########Population 12 begin.##!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+          ##!#################| pgr 
+ ###########!#################| pm05(size) 
+ ###########!#################| hormon 
+           #!#################| er 
+ ###########!#################| pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+            !                 | (er*pm05(size)) 
+ ###########!#################| p05(pgr) 
+Population 12 begin.Replaced feature (er*pm05(size)) with pm05(age) 
+Population 13 begin.
+Population 13 done.
+Current best crit: -206.627318501166 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+      ######!#################| pgr 
+ ###########!#################| (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+            !                 | p0((gradd2*size)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature p0((gradd2*size)) with pm1((meno*age)) 
+Population 14 begin.
+Population 13 done.
+Current best crit: -185.941893055456 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+        ####!#################| pgr 
+            !                 | pm05(size) 
+ ###########!#################| hormon 
+        ####!#################| er 
+            !                 | pm1(p2(age)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+ ###########!#################| pm05(age) 
+ ###########!#################| p05(pgr) 
+
+Population 12 done.
+Current best crit: -184.709784853661 
+Feature importance:
+ ###########!#################| Replaced feature pm05(size) with p3(size) 
+age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#####
+Population 12 done.
+#Current best crit: -183.467244891194 
+#Feature importance:
+## ##################| gradd2 
+#! #####################!###############| #########| nodes 
+  ##########!#################| pgr 
+age 
+   #  ##  ##  ##  ##  ##!#!############################| ##meno 
+# ###| ##er 
+### ##########!#############!#####################| size 
+# ##########| #hormon 
+# # # # # ! # # # # # # #!# # # # # # # # # # |  gradd1 
+   # # # # #| #p0(p2(nodes)) 
+# #######!################!#################Replaced feature pm1(p2(age)) with (meno*size) 
+#| ##gradd2 
+## #########| p2(nodes) 
+# # # #  ##! #    # # #!# # # # # # ### # # # # |  nodes 
+    #   #| #(p05((hormon*size))*p05((hormon*size))) 
+ #############!#######!##############################| pgr 
+# ####| p05((hormon*size)) 
+#  ##  # # # #  #!#  ## !##  ##  ##  ##  ##  ##  ##| (meno*pm1(p2(age))) 
+   # # # #| p2(p2(nodes)) 
+# ###########!##############!#######################| pm1((age*age)) 
+###| hormon 
+      ######!#################| (size*age) 
+            !                 | pm1(pgr) 
+ ###########!#################| p2(nodes) 
+           #!#################| er 
+            !                 | pm1(er) 
+            !                 | p0(size) 
+Replaced feature p0(p2(nodes)) with (p2(nodes)*meno) 
+Replaced feature (p05((hormon*size))*p05((hormon*size))) with p0(p2(nodes)) 
+Replaced feature pm1(pgr) with (nodes*meno) 
+Replaced feature p2(p2(nodes)) with (er*pgr) 
+Replaced feature pm1(er) with (er*er) 
+Replaced feature p0(size) with pm05(p2(nodes)) 
+Population 14 begin.Population 13 begin.Population 13 begin.
+Population 14 done.
+Current best crit: -207.104537882894 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+      ######!#################| pgr 
+            !                 | (meno*age) 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+ ###########!#################| pm1((meno*age)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Replaced feature (meno*age) with er 
+Population 15 begin.
+Population 14 done.
+Current best crit: -199.401868121658 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+            !                 | p3(size) 
+ ###########!#################| hormon 
+            !                #| er 
+            !                 | (meno*size) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+ ###########!#################| pm05(age) 
+ ###########!#################| p05(pgr) 
+
+Population 13 done.
+Current best crit: -183.467244891194 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ Replaced feature p3(size) with (er*age) 
+###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#######Replaced feature er# with (p05(pgr)*p05(1+1*meno+1*gradd2+1*nodes)) 
+#########| hormon 
+      ######!#################| (size*age) 
+            !                 | (nodes*meno) 
+ ###########!#################| p2(nodes) 
+    ########!#################| er 
+            !                 | (er*er) 
+            !               Replaced feature   | pm05(p2(nodes)) 
+(meno*size) with (age*p05(pgr)) 
+Replaced feature (nodes*meno) with (age*age) 
+Replaced feature (er*er) with pm2((size*age)) 
+Replaced feature pm05(p2(nodes)) with (nodes*meno) 
+
+Population 13 done.
+Current best crit: -184.709784853661 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+  ##########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+            !#################| er 
+ ###########!#################| hormon 
+            !                 | (p2(nodes)*meno) 
+ ###########!#################| p2(nodes) 
+            !                 | p0(p2(nodes)) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (er*pgr) 
+ ###########!#################| pm1((age*age)) 
+Replaced feature (p2(nodes)*meno) with (hormon*pgr) 
+Replaced feature p0(p2(nodes)) with p0(age) 
+Replaced feature (er*pgr) with (age*pm1((age*age))) 
+Population 14 begin.Population 15 begin.Population 14 begin.
+Population 15 done.
+Current best crit: -193.850746523959 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+       #####!#################| pgr 
+            !  ###############| er 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+ ###########!#################| pm1((meno*age)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Population 16 begin.
+Population 15 done.
+Current best crit: -200.142996830126 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+        ####!#################| pgr 
+            !                 | (er*age) 
+ ###########!#################| hormon 
+            !                 | (p05(pgr)*p05(1+1*meno+1*gradd2+1*nodes)) 
+    ########!#################| (age*p05(pgr)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+ ###########!#################| pm05(age) 
+            !                 | p05(pgr) 
+
+Population 14 done.
+Current best crit: -183.642521730069 
+Feature importance:
+ ###
+Population 14 done.
+###Current best crit: -202.897095293379 
+#Feature importance:
+# #########!#######Replaced feature (er*age) with pm2(size) 
+##############| #!#################| age 
+ ###########!##############age 
+### ######| meno# 
+ ###########!##########!################Replaced feature ##(p05(pgr)*p05(1+1*meno+1*gradd2+1*nodes))####| # withmeno# # (age*(age*p05(pgr))) 
+#
+ ######| ##size 
+# ##########!##########!############################| gradd1 
+# | size 
+# ################!########!##################| gradd2 
+# #####################| #gradd1 
+# ######!###############!#############| #nodes #
+##  ############| #####gradd2 
+!####### ###############!#######################Replaced feature|  | p05(pgr)nodespgr with  p2(1+1*hormon+1*gradd1+1*pm05(age)+1*pgr+1*p2(nodes)) 
+ 
+           #!#################| er 
+ ###########!#################| hormon 
+            !  
+          ######     ##  | #(hormon*pgr) 
+#!## ##################| #pgr 
+# #################!####!##########################| ##p2(nodes)# 
+# | #(meno*pm1(p2(age)))## 
+# #########!#################| p0(age) 
+ ###########!#########################| #p05((hormon*size)) !
+      ##### #  ### ####  !##    ##|  hormon 
+                    ###| #(age*pm1((age*age))) 
+            !!#####   #    ####          | pm1((age*age)) 
+#######| (size*age) 
+            !                 | (age*age) 
+            !                 | p2(nodes) 
+            !     ############| er 
+ ###########!#################| pm2((size*age)) 
+            !                 | (nodes*meno) 
+Replaced feature (hormon*pgr) with p3(nodes) 
+Replaced feature (age*age) with (gradd2*pm2((size*age))) 
+Replaced feature p2(nodes) with pm2(size) 
+Replaced feature (age*pm1((age*age))) with (meno*p2(nodes)) 
+Replaced feature (nodes*meno) with p0(1+1*gradd1+1*er) 
+Replaced feature pm1((age*age)) with p3(age) 
+Population 16 begin.Population 15 begin.Population 15 begin.
+Population 16 done.
+Current best crit: -193.850746523959 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+       #####!#################| pgr 
+            !  ###############| er 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+ ###########!#################| pm1((meno*age)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Population 17 begin.
+Population 16 done.
+Current best crit: -200.142996830126 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+      ######!#################| pgr 
+            !                #| pm2(size) 
+ ###########!#################| hormon 
+            !                 | (age*(age*p05(pgr))) 
+   #########!#################| (age*p05(pgr)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+ ###########!#################| pm05(age) 
+            !                 | p2(1+1*hormon+1*gradd1+1*pm05(age)+1*pgr+1*p2(nodes)) 
+Replaced feature pm2(size) with (hormon*p2(nodes)) 
+
+Population 15 done.
+Current best crit: -194.655196839776 
+Feature importance:
+ ###########!#################| Replaced feature (age*(age*p05(pgr))) with (p2(nodes)*er) 
+age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+     #######!#################| (size*age) 
+ ###########!#################| (gradd2*pm2((size*age))) 
+            !     Replaced feature   p2(1+1*hormon+1*gradd1+1*pm05(age)+1*pgr+1*p2(nodes)) with (age*pm05(age)) 
+        ##| pm2(size) 
+          ##!#################| er 
+ ###########!#################| pm2((size*age)) 
+            !                 | p0(1+1*gradd1+1*er) 
+Replaced feature pm2(size) with p3(pm2(size)) 
+
+Population 15 done.
+Current best crit: -185.14280813086 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+Replaced feature p0(1+1*gradd1+1*er) with p3((meno*pm1(p2(age)))) 
+            ! ################| er 
+ ###########!#################| hormon 
+            !                 | p3(nodes) 
+ ###########!#################| p2(nodes) 
+            !                 | p0(age) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (meno*p2(nodes)) 
+            !                 | p3(age) 
+Population 17 begin.Replaced feature p3(nodes) with pm05(size) 
+Replaced feature p0(age) with p05(er) 
+Replaced feature (meno*p2(nodes)) with (p05((hormon*size))*(meno*p2(nodes))) 
+
+Population 17 done.
+Current best crit: -193.850746523959 
+Feature importance:
+ ###########!#################| Replaced feature p3(age) with (p05((hormon*size))*er) 
+age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+       #####!#################| pgr 
+            !  ###############| er 
+ ###########!#################| hormon 
+ ###########!#################| (size*hormon) 
+ ####Population 16 begin.#######!#################| (gradd2*size) 
+ ###########!#################| pm1((meno*age)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#################| p05(pgr) 
+Population 16 begin.Population 18 begin.
+Population 17 done.
+Current best crit: -204.199193541784 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+            !                 | (hormon*p2(nodes)) 
+ ###########!#################| hormon 
+            !                 | (p2(nodes)*er) 
+   #########!#################| (age*p05(pgr)) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(1+1*meno+1*gradd2+1*nodes) 
+ ###########!#################| pm05(age) 
+ ###########!#################| (age*pm05(age)) 
+Replaced feature (hormon*p2(nodes)) with pm05(nodes) 
+Replaced feature (p2(nodes)*er) with (p05(1+1*meno+1*gradd2+1*nodes)*nodes) 
+
+Population 16 done.
+Current best crit: -198.316950334357 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+       #####!#################| (size*age) 
+ ###########!#################| (gradd2*pm2((size*age))) 
+ ###########!#################| p3(pm2(size)) 
+            !#################| er 
+ ###########!#################| pm2((size*age)) 
+            !                 | p3((meno*pm1(p2(age)))) 
+Replaced feature p3((meno*pm1(p2(age)))) with (nodes*meno) 
+
+Population 16 done.
+Current best crit: -186.905503334806 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+            !                 | pm05(size) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(er) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (p05((hormon*size))*(meno*p2(nodes))) 
+            !                 | (p05((hormon*size))*er) 
+
+Population 18 done.
+Current best crit: -193.850746523959 
+Feature importance:
+ ###########!#################| Population 18 begin.age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+       #####!#################| pgr 
+            !  ###############| er 
+ ###########!#################| Replaced feature pm05(size) with p0(size) 
+hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+ ###########!#################| pm1((meno*age)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!############Replaced feature (p05((hormon*size))*(meno*p2(nodes))) with (hormon*p2(nodes)) 
+#####| p05(pgr) 
+Replaced feature (p05((hormon*size))*er) with p0(nodes) 
+Population 17 begin.Population 19 begin.Population 17 begin.
+Population 18 done.
+Current best crit: -200.142996830126 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ####
+Population 17 done.
+Current best crit: -198.316950334357 
+Feature importance:
+ ################!#########!##################| gradd1## 
+ #############| #####!#################| gradd2 
+ ###########!##########age 
+# #############!#######| nodes 
+   ###  ###########  #####!####| meno 
+ ######################!#########| pgr 
+      ##########| size   
+Population 19 done.
+ Current best crit: -193.850746523959 
+Feature importance:
+ #####
+# ## ########  !      !########### ### ## #### !# #  ## | ########### # ## | #pm05(nodes) #
+|  gradd1 #
+# #########age #
+# ####!###############!####################!#############################| | #meno# 
+hormon # 
+#  |  #gradd2#    # 
+#  ### #  # ##!## ! ##########
+Population 17 done.
+#Current best crit: -188.796749094826 
+       Feature importance:
+##!## ############# ###  # # ## #  ####!####| ####(p05(1+1*meno+1*gradd2+1*nodes)*nodes) 
+# | #size 
+ ############### # ############| |  #nodes 
+  ################!######age####!##!######### ##
+## ###########| #gradd1 
+# ################################!#######| (age*p05(pgr)) 
+ ####!#################!##########| gradd2 
+ ####| ###pgr## 
+# #####################!###############################| nodes# #| ##p2(nodes) 
+# #
+# ! #### |  meno###  
+# #######!##### # ####################################| p05(1+1*meno+1*gradd2+1*nodes) 
+ #######| ##(meno*pm1(p2(age)))!####!## 
+############# ##!#######################################| ###| size 
+pm05(age)# ### 
+# # ### |  #!##pgr # #  
+         ######!##### # #######################   !        # | # |   gradd1 hormon  !
+  
+     #   #  # #   | ##(age*pm05(age)) #
+#########!#########!#########################| ###| (size*age) 
+ #####################!###er# #
+# ####| ##gradd2# 
+# #################| (gradd2*pm2((size*age))) 
+###### ###!##########!######!##################| p3(pm2(size)) 
+### # ##########################| nodes 
+  ######| # #hormon 
+##    !    # # ###!##############################!#####| ##pgr# 
+# ###############| er 
+ ###########!###########################| pm2((size*age)) 
+     !#       !  # ############  ### ###| #|  (size*hormon) 
+ #######er 
+  # #####!###################!### # Replaced feature pm05(nodes) #with ##      | #(nodes*meno)#pm1(p2(nodes))## # 
+#
+###| #(gradd2*size) 
+#######|  #hormon 
+ ################!#############!############| #p0(size) #####
+## #################!#| pm1((meno*age)) 
+ ###############!#######################| p2(nodes) 
+ ##############Replaced feature (p05(1+1*meno+1*gradd2+1*nodes)*nodes) with pm05(1+1*nodes+1*gradd1) 
+#Replaced feature (nodes*meno)!######### with (pm2((size*age))*er) 
+########| p05(er)##| (nodes*p0(size)) 
+ #### 
+# ##############!################!#################| p0(size) 
+ ##########| #####p05((hormon*size)) 
+       !# # ## # ## !#  #  #  ###  ####| p05(pgr) 
+         | (hormon*p2(nodes)) 
+            !                 | p0(nodes) 
+Replaced feature (age*pm05(age)) with (gradd2*pm05(age)) 
+Replaced feature (hormon*p2(nodes)) with p3(pgr) 
+Replaced feature p0(nodes) with pm05(1+1*age) 
+Population 18 begin.Population 20 begin.Population 19 begin.Population 18 begin.
+Population 18 done.
+Current best crit: -187.149674549793 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| p0(size) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(er) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | p3(pgr) 
+ ###########!#################| pm05(1+1*age) 
+Replaced feature p3(pgr) with (p2(nodes)*pm05(1+1*age)) 
+
+Population 19 done.
+Current best crit: -199.242678068033 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+            !                 | pm1(p2(nodes)) 
+ ###########!#################| hormon 
+            !                 | pm05(1+1*nodes+1*gradd1) 
+   #########!##
+Population 20 done.
+#Current best crit: -193.850746523959 
+#Feature importance:
+## ######################| !#(age*p05(pgr)) 
+# #######################!######| ##############| p2(nodes) 
+            !                 | p05(1+1*meno+1*gradd2+1*nodes) 
+age  
+# ###################!######!###################| meno 
+###########|  #pm05(age) 
+ ###############!###################!###########| (gradd2*pm05(age)) 
+##########| size 
+ ##Population 19 begin.#########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+       #####!#################| pgr 
+            !  ###############| er 
+ ###########!##########Replaced feature pm1(p2(nodes)) with p0(age) 
+#######| hormon 
+ ###########!#################| (size*hormon) 
+ ###########!#################| (gradd2*size) 
+ ###########!#################| pm1((meno*age)) 
+ ###########!#################| (nodes*p0(size)) 
+ ###########!#################| p0(size) 
+ ###########!#####Replaced feature pm05(1+1*nodes+1*gradd1) with ((gradd2*pm05(age))*nodes) 
+############| p05(pgr) 
+Replaced feature p05(1+1*meno+1*gradd2+1*nodes) with (age*pgr) 
+
+Population 18 done.
+Current best crit: -198.316950334357 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+       #####!#################| (size*age) 
+ ###########!#################| (gradd2*pm2((size*age))) 
+ ###########!#################| p3(pm2(size)) 
+            !#################| er 
+ ###########!#################| pm2((size*age)) 
+            !          #######| (pm2((size*age))*er) 
+Population 20 begin.Population 19 begin.
+Population 19 done.
+Current best crit: -187.149674549793 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| p0(size) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(er) 
+ ###########!#################| p05((hormon*size)) 
+            !                 | (p2(nodes)*pm05(1+1*age)) 
+ ###########!#################| pm05(1+1*age) 
+Replaced feature (p2(nodes)*pm05(1+1*age)) with p05(nodes) 
+
+Population 20 done.
+Current best crit: -200.363321437091 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+     #######!#################| pgr 
+ ###########!#################| p0(age) 
+ ###########!#################| hormon 
+            !                 | ((gradd2*pm05(age))*nodes) 
+            !            Population 20 begin.     | (age*p05(pgr)) 
+ ###########!#################| p2(nodes) 
+            !                 | (age*pgr) 
+ ###########!#################| pm05(age) 
+ ###########!#################| (gradd2*pm05(age)) 
+
+Population 19 done.
+Current best crit: -198.316950334357 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+       #####!#################| (size*age) 
+ ###########!#################| (gradd2*pm2((size*age))) 
+ ###########!#################| p3(pm2(size)) 
+            !#################| er 
+ ###########!#################| pm2((size*age)) 
+            !          #######| (pm2((size*age))*er) 
+Replaced feature (pm2((size*age))*er) with (pm2((size*age))*age) 
+Population 20 begin.
+Population 20 done.
+Current best crit: -190.115013488815 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+   #########!#################| pgr 
+ ###########!#################| er 
+ ###########!#################| hormon 
+ ###########!#################| p0(size) 
+ ###########!#################| p2(nodes) 
+ ###########!#################| p05(er) 
+ ###########!#################| p05((hormon*size)) 
+ ###########!#################| p05(nodes) 
+ ###########!#################| pm05(1+1*age) 
+
+Population 20 done.
+Current best crit: -202.177491533227 
+Feature importance:
+ ###########!#################| age 
+ ###########!#################| meno 
+ ###########!#################| size 
+ ###########!#################| gradd1 
+ ###########!#################| gradd2 
+ ###########!#################| nodes 
+  ##########!#################| pgr 
+ ###########!#################| (meno*pm1(p2(age))) 
+ ###########!#################| hormon 
+     #######!#################| (size*age) 
+ ###########!#################| (gradd2*pm2((size*age))) 
+ ###########!#################| p3(pm2(size)) 
+         ###!#################| er 
+ ###########!#################| pm2((size*age)) 
+  ##########!#################| (pm2((size*age))*age) 
+
+Top 10 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 10) | SIC: 366.934
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, (meno*pm1(p2(age))), hormon, (size*age), p2(nodes), er
+
+Model #2 (Found in Pop 14) | SIC: 367.285
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p2(nodes), p0(age), p05((hormon*size))
+
+Model #3 (Found in Pop 2) | SIC: 369.218
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p2(age), p05(pgr)
+
+Model #4 (Found in Pop 1) | SIC: 369.403
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon
+
+Model #5 (Found in Pop 6) | SIC: 369.420
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p2(nodes), p05((hormon*size)), pm1((age*age))
+
+Model #6 (Found in Pop 3) | SIC: 369.966
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, pm1(p2(age)), p05(pgr)
+
+Model #7 (Found in Pop 15) | SIC: 370.286
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p2(nodes), p05((hormon*size))
+
+Model #8 (Found in Pop 7) | SIC: 371.144
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, hormon, er, pm1(p2(age)), p05(1+1*meno+1*gradd2+1*nodes), p05(pgr)
+
+Model #9 (Found in Pop 13) | SIC: 371.884
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, hormon, er, p2(nodes), p05(1+1*meno+1*gradd2+1*nodes), pm05(age), p05(pgr)
+
+Model #10 (Found in Pop 5) | SIC: 372.471
+  Features: age, meno, size, gradd1, gradd2, nodes, pgr, er, hormon, p0(size)
+
+No covariates  specified: cens.model coerced to "marginal".
+
+                Model 1 Model 2 Model 3 Model 4 Full Linear Model Null Model
+Model Averaging   0.664   0.664   0.674   0.683             0.643        0.5
+Best Model        0.664   0.664   0.683   0.675             0.643        0.5
+MPM               0.663   0.663   0.663   0.685             0.643        0.5

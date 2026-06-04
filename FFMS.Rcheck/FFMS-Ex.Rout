@@ -1,0 +1,5362 @@
+
+R version 4.4.1 (2024-06-14) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: aarch64-apple-darwin20
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "FFMS"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('FFMS')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("abalone")
+> ### * abalone
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: abalone
+> ### Title: Physical Measurements of 4177 Abalones, a Species of Sea Snail.
+> ### Aliases: abalone
+> ### Keywords: datasets
+> 
+> ### ** Examples
+> 
+> 
+> data(abalone)
+> ## maybe str(abalone) ; plot(abalone) ...
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("aggr.ffms_predict")
+> ### * aggr.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: aggr.ffms_predict
+> ### Title: Access Aggregated Predictions
+> ### Aliases: aggr.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("arcsinh")
+> ### * arcsinh
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: arcsinh
+> ### Title: Arcsinh Transform
+> ### Aliases: arcsinh
+> 
+> ### ** Examples
+> 
+> arcsinh(2)
+[1] 1.443635
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef.bgnlm_model")
+> ### * coef.bgnlm_model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.bgnlm_model
+> ### Title: Coefficients for BGNLM Model
+> ### Aliases: coef.bgnlm_model
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+
+FMS begin.
+
+FMS done.
+> coef(model)
+Posterior mode for the parameters of the best found single model:
+           Intercept                 mass               radius 
+        0.3755770367         0.0794821591         0.1004623567 
+              period         eccentricity        hoststar_mass 
+        0.0004752907         0.9763646345         0.1163041086 
+     hoststar_radius hoststar_metallicity hoststar_temperature 
+       -0.0090497109        -0.1754339576        -0.0000794906 
+          binaryflag 
+       -0.1509672454 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef.ffms_base")
+> ### * coef.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.ffms_base
+> ### Title: Coefficients for FFMS Model
+> ### Aliases: coef.ffms_base
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "ffms_base", transforms = c("sigmoid"))
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+> coef(model)
+Posterior mode for the parameters of the best found single model:
+             Intercept                   mass                 radius 
+         -9.7010577921          -0.3910549185          -4.2833744520 
+                period           eccentricity          hoststar_mass 
+          0.0006959344           0.5628125946           0.4368080090 
+       hoststar_radius   hoststar_metallicity   hoststar_temperature 
+         -0.0155685596          -0.2425884217          -0.0001361690 
+            binaryflag          (mass*radius) (hoststar_mass*period) 
+         -0.1192400603           0.4454137386          -0.0001664327 
+       sigmoid(radius) 
+         19.9248415352 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef.ffms_merged")
+> ### * coef.ffms_merged
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.ffms_merged
+> ### Title: Coefficients for FFMS Merged Model
+> ### Aliases: coef.ffms_merged
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, 
++ method = "ffms.parallel", transforms = c("sigmoid"), 
++ runs = 2, cores = 1)
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_temperature*hoststar_temperature) 
+Added feature (hoststar_mass*hoststar_temperature) 
+Added feature sigmoid(radius) 
+Added feature (hoststar_radius*radius) 
+Added feature (period*hoststar_temperature) 
+Added feature (period*period) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1263.52832289114 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sigmoid(radius) 
+            !                 | (hoststar_radius*radius) 
+            !                 | (period*hoststar_temperature) 
+            !                 | (period*period) 
+Replaced feature (hoststar_temperature*hoststar_temperature) with sigmoid(hoststar_mass) 
+Replaced feature (hoststar_radius*radius) with (hoststar_radius*(period*hoststar_temperature)) 
+Replaced feature (period*hoststar_temperature) with sigmoid(sigmoid(radius)) 
+Replaced feature (period*period) with sigmoid(mass) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1273.86141800474 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | sigmoid(hoststar_mass) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+            !                 | sigmoid(radius) 
+            !                 | (hoststar_radius*(period*hoststar_temperature)) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature sigmoid(hoststar_mass) with sigmoid(hoststar_metallicity) 
+Replaced feature sigmoid(radius) with (hoststar_metallicity*hoststar_mass) 
+Replaced feature (hoststar_radius*(period*hoststar_temperature)) with (period*hoststar_metallicity) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.08247653949 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+            !                 | (hoststar_mass*hoststar_temperature) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature (hoststar_mass*hoststar_temperature) with (mass*(period*hoststar_metallicity)) 
+Replaced feature sigmoid(hoststar_radius) with ((mass*(period*hoststar_metallicity))*mass) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+> coef(model)
+                                  Intercept 
+                               2.230447e+00 
+                                       mass 
+                               2.347027e-02 
+                                     radius 
+                              -2.256350e-01 
+                                     period 
+                               5.418076e-04 
+                               eccentricity 
+                               4.250592e-01 
+                              hoststar_mass 
+                               5.281073e-01 
+                            hoststar_radius 
+                              -1.098179e-02 
+                       hoststar_metallicity 
+                               1.908601e+00 
+                       hoststar_temperature 
+                              -1.775739e-04 
+                                 binaryflag 
+                              -1.394345e-01 
+              sigmoid(hoststar_metallicity) 
+                              -4.981792e+00 
+       (mass*(period*hoststar_metallicity)) 
+                              -1.582062e-04 
+       (hoststar_metallicity*hoststar_mass) 
+                              -1.249967e+00 
+              (period*hoststar_metallicity) 
+                               9.378492e-04 
+((mass*(period*hoststar_metallicity))*mass) 
+                               5.452024e-06 
+                              sigmoid(mass) 
+                               1.735900e+00 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef.fms_base")
+> ### * coef.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.fms_base
+> ### Title: Coefficients for FMS Model
+> ### Aliases: coef.fms_base
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
+
+FMS begin.
+
+FMS done.
+> coef(model)
+Posterior mode for the parameters of the best found single model:
+           Intercept                 mass               radius 
+        0.3755770367         0.0794821591         0.1004623567 
+              period         eccentricity        hoststar_mass 
+        0.0004752907         0.9763646345         0.1163041086 
+     hoststar_radius hoststar_metallicity hoststar_temperature 
+       -0.0090497109        -0.1754339576        -0.0000794906 
+          binaryflag 
+       -0.1509672454 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("coef.fms_parallel")
+> ### * coef.fms_parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: coef.fms_parallel
+> ### Title: Coefficients for FMS Parallel Model
+> ### Aliases: coef.fms_parallel
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms.parallel", cores = 1, runs = 2)
+
+FMS begin.
+
+FMS done.
+
+FMS begin.
+
+FMS done.
+> coef(model)
+Posterior mode for the parameters of the best found single model:
+           Intercept                 mass               radius 
+        0.3755770367         0.0794821591         0.1004623567 
+              period         eccentricity        hoststar_mass 
+        0.0004752907         0.9763646345         0.1163041086 
+     hoststar_radius hoststar_metallicity hoststar_temperature 
+       -0.0090497109        -0.1754339576        -0.0000794906 
+          binaryflag 
+       -0.1509672454 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("compute_effects")
+> ### * compute_effects
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: compute_effects
+> ### Title: Compute Effects for Specified Covariates Using a Fitted Model
+> ### Aliases: compute_effects
+> 
+> ### ** Examples
+> 
+> 
+> data <- data.frame(matrix(rnorm(600), 100))
+> result <- fms.parallel(runs = 2, 
++ cores = 1, 
++ y = matrix(rnorm(100), 100),
++ x = data, 
++ loglik.pi = gaussian.loglik)
+
+FMS begin.
+
+FMS done.
+
+FMS begin.
+
+FMS done.
+> compute_effects(result,labels = names(data))
+  Covariate quant_0.025 quant_0.5 quant_0.975
+1 intercept     -0.2023   -0.2023     -0.2023
+2        X1      0.0844    0.0844      0.0844
+3        X2      -0.122    -0.122      -0.122
+4        X3     -0.0304   -0.0304     -0.0304
+5        X4     -0.1404   -0.1404     -0.1404
+6        X5      0.0674    0.0674      0.0674
+7        X6      0.0068    0.0068      0.0068
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cos_deg")
+> ### * cos_deg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cos_deg
+> ### Title: Cosine Function for Degrees
+> ### Aliases: cos_deg
+> 
+> ### ** Examples
+> 
+> cos_deg(0)
+[1] 1
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("diagn_plot")
+> ### * diagn_plot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: diagn_plot
+> ### Title: Plot Convergence Diagnostics for FFMS or FFMS Merged Results
+> ### Aliases: diagn_plot
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> result <- ffms(semimajoraxis ~ ., data = exoplanet, method = "ffms_base", transforms = c("sin"))
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sin(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sin(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.88689048609 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sin(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sin(radius) 
+Replaced feature (hoststar_metallicity*radius) with sin(hoststar_temperature) 
+Replaced feature sin(hoststar_radius) with (hoststar_temperature*sin(radius)) 
+Replaced feature (hoststar_radius*hoststar_mass) with sin(hoststar_radius) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*hoststar_temperature) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1292.6155518612 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | sin(hoststar_temperature) 
+            !                 | (hoststar_temperature*sin(radius)) 
+ ###########!#################| (mass*radius) 
+            !                 | sin(hoststar_radius) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature sin(hoststar_temperature) with (hoststar_metallicity*period) 
+Replaced feature (hoststar_temperature*sin(radius)) with ((hoststar_mass*hoststar_temperature)*hoststar_mass) 
+Replaced feature sin(hoststar_radius) with sin(mass) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1333.28481958072 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+            !                 | ((hoststar_mass*hoststar_temperature)*hoststar_mass) 
+ ###########!#################| (mass*radius) 
+            !                 | sin(mass) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature ((hoststar_mass*hoststar_temperature)*hoststar_mass) with (sin(radius)*mass) 
+Replaced feature sin(mass) with sin(sin(radius)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1339.30131625253 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+ ###########!#################| (sin(radius)*mass) 
+            !                 | (mass*radius) 
+            !                 | sin(sin(radius)) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature (mass*radius) with sin(hoststar_radius) 
+Replaced feature sin(sin(radius)) with sin((hoststar_mass*hoststar_temperature)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1339.30131625253 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+ ###########!#################| (sin(radius)*mass) 
+            !                 | sin(hoststar_radius) 
+            !                 | sin((hoststar_mass*hoststar_temperature)) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature sin(hoststar_radius) with sin(eccentricity) 
+Replaced feature sin((hoststar_mass*hoststar_temperature)) with sin(hoststar_temperature) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1339.30131625253 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+ ###########!#################| (sin(radius)*mass) 
+            !                 | sin(eccentricity) 
+            !                 | sin(hoststar_temperature) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature sin(eccentricity) with (eccentricity*hoststar_temperature) 
+Replaced feature sin(hoststar_temperature) with sin((hoststar_metallicity*period)) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1339.30131625253 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+ ###########!#################| (sin(radius)*mass) 
+            !                 | (eccentricity*hoststar_temperature) 
+            !                 | sin((hoststar_metallicity*period)) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature (eccentricity*hoststar_temperature) with ((hoststar_metallicity*period)*radius) 
+Replaced feature sin((hoststar_metallicity*period)) with ((hoststar_mass*hoststar_temperature)*hoststar_radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1419.96220947691 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+ ###########!#################| (sin(radius)*mass) 
+ ###########!#################| ((hoststar_metallicity*period)*radius) 
+            !                 | ((hoststar_mass*hoststar_temperature)*hoststar_radius) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+Replaced feature ((hoststar_mass*hoststar_temperature)*hoststar_radius) with sin(hoststar_radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1419.96220947691 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| (hoststar_metallicity*period) 
+ ###########!#################| (sin(radius)*mass) 
+ ###########!#################| ((hoststar_metallicity*period)*radius) 
+            !                 | sin(hoststar_radius) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sin(radius) 
+> diagn_plot(result, FUN = median, conf = 0.95, main = "Convergence Plot")
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("erf")
+> ### * erf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: erf
+> ### Title: Erf Function
+> ### Aliases: erf
+> 
+> ### ** Examples
+> 
+> erf(2)
+[1] 0.9953223
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("exp_dbl")
+> ### * exp_dbl
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: exp_dbl
+> ### Title: Double Exponential Function
+> ### Aliases: exp_dbl
+> 
+> ### ** Examples
+> 
+> exp_dbl(2)
+[1] 0.1353353
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ffms")
+> ### * ffms
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ffms
+> ### Title: Fit a BGNLM Model Using FMS or FFMS Sampling.
+> ### Aliases: ffms
+> 
+> ### ** Examples
+> 
+> # Fit a Gaussian multivariate time series model
+> ffms_result <- ffms(
++  X1 ~ .,
++  family = "gaussian",
++  method = "ffms.parallel",
++  data = data.frame(matrix(rnorm(600), 100)),
++  transforms = c("sin","cos"),
++  P = 10,
++  runs = 1,
++  cores = 1
++ )
+Population 1 begin.
+Population 1 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+Added feature sin(X4) 
+Added feature sin(1+1*X6+1*X3) 
+Added feature sin(X6) 
+Added feature (X4*X6) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | sin(X4) 
+            !                 | sin(1+1*X6+1*X3) 
+            !                 | sin(X6) 
+            !                 | (X4*X6) 
+Removed feature sin(X4) 
+Population shrinking, returning.
+Population 3 begin.
+Population 3 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | sin(1+1*X6+1*X3) 
+            !                 | sin(X6) 
+            !                 | (X4*X6) 
+Replaced feature sin(1+1*X6+1*X3) with (X6*X3) 
+Replaced feature sin(X6) with (X4*X4) 
+Replaced feature (X4*X6) with cos(X4) 
+Added feature cos(1+1*X2+1*X6) 
+Population not growing, returning.
+Population 4 begin.
+Population 4 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | (X6*X3) 
+            !                 | (X4*X4) 
+            !                 | cos(X4) 
+            !                 | cos(1+1*X2+1*X6) 
+Removed feature (X6*X3) 
+Population shrinking, returning.
+Population 5 begin.
+Population 5 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | (X4*X4) 
+            !                 | cos(X4) 
+            !                 | cos(1+1*X2+1*X6) 
+Replaced feature (X4*X4) with cos(X5) 
+Replaced feature cos(X4) with (X4*X3) 
+Replaced feature cos(1+1*X2+1*X6) with (X3*X6) 
+Added feature (X6*X2) 
+Population not growing, returning.
+Population 6 begin.
+Population 6 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | cos(X5) 
+            !                 | (X4*X3) 
+            !                 | (X3*X6) 
+            !                 | (X6*X2) 
+Removed feature cos(X5) 
+Population shrinking, returning.
+Population 7 begin.
+Population 7 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | (X4*X3) 
+            !                 | (X3*X6) 
+            !                 | (X6*X2) 
+Replaced feature (X4*X3) with sin(X2) 
+Replaced feature (X3*X6) with (X6*X6) 
+Replaced feature (X6*X2) with (X4*X6) 
+Added feature ((X4*X6)*X5) 
+Population not growing, returning.
+Population 8 begin.
+Population 8 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | sin(X2) 
+            !                 | (X6*X6) 
+            !                 | (X4*X6) 
+            !                 | ((X4*X6)*X5) 
+Removed feature sin(X2) 
+Population shrinking, returning.
+Population 9 begin.
+Population 9 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | (X6*X6) 
+            !                 | (X4*X6) 
+            !                 | ((X4*X6)*X5) 
+Replaced feature (X6*X6) with cos(X5) 
+Replaced feature (X4*X6) with cos(X4) 
+Replaced feature ((X4*X6)*X5) with cos(1+1*X3+1*X4+1*X6+1*X2+1*X5+1*X2) 
+Added feature cos(1+1*X2+1*X5) 
+Population not growing, returning.
+Population 10 begin.
+Population 10 done.
+Current best crit: -6.53838199463006 
+Feature importance:
+ ###########!#################| X2 
+ ###########!#################| X3 
+ ###########!#################| X4 
+ ###########!#################| X5 
+ ###########!#################| X6 
+            !                 | cos(X5) 
+            !                 | cos(X4) 
+            !                 | cos(1+1*X3+1*X4+1*X6+1*X2+1*X5+1*X2) 
+            !                 | cos(1+1*X2+1*X5) 
+> summary(ffms_result)
+
+Top 1 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 1) | SIC: 13.077
+  Features: X2, X3, X4, X5, X6
+  Coefficients: -0.1929, -0.124, -0.0292, -0.1455, 0.0766, -0.0013
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ffms.mlik.master")
+> ### * ffms.mlik.master
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ffms.mlik.master
+> ### Title: Master Log Marginal Likelihood Function
+> ### Aliases: ffms.mlik.master
+> 
+> ### ** Examples
+> 
+> ffms.mlik.master(y = rnorm(100), 
++ x = matrix(rnorm(100)), 
++ c(TRUE,TRUE), 
++ list(oc = 1),
++ mlpost_params = list(family = "gaussian", beta_prior = list(type = "g-prior", a = 2),
++          r = exp(-0.5)))
+An error occurred: (subscript) logical subscript too long 
+$crit
+[1] -1.797693e+308
+
+$coefs
+[1] 0 0
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ffms.parallel")
+> ### * ffms.parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ffms.parallel
+> ### Title: Run Multiple FFMS (Genetically Modified FMS) Runs in Parallel.
+> ### Aliases: ffms.parallel
+> 
+> ### ** Examples
+> 
+> result <- ffms.parallel(
++   runs = 1,
++   cores = 1,
++   loglik.pi = NULL,
++   y = matrix(rnorm(100), 100),
++   x = matrix(rnorm(600), 100),
++   transforms = c("p0", "exp_dbl")
++ )
+> 
+> summary(result)
+
+Top 2 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 1) | SIC: 17.939
+  Features: x1, x2, x3, x4, x5, x6
+  Coefficients: -0.2023, 0.0844, -0.122, -0.0304, -0.1404, 0.0674, 0.0068
+
+Model #2 (Found in Pop 4) | SIC: 26.078
+  Features: x1, x2, x3, x4, x5, x6, exp_dbl(x2)
+  Coefficients: -0.7136, 0.0823, -0.0879, -0.0093, -0.1046, 0.0481, -0.0254, 0.9444
+
+> 
+> plot(result)
+No valid marginal probabilities to plot.
+[1] "done"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ffms_base")
+> ### * ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ffms_base
+> ### Title: Main Algorithm for FFMS (Genetically Modified FMS)
+> ### Aliases: ffms_base
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100), 
++ P = 2, 
++ transform = c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> summary(result)
+
+Top 1 Distinct Models by SIC:
+
+Model #1 (Found in Pop 1) | SIC: 17.939
+  Features: x1, x2, x3, x4, x5, x6
+  Coefficients: -0.2023, 0.0844, -0.122, -0.0304, -0.1404, 0.0674, 0.0068
+
+> plot(result)
+No valid marginal probabilities to plot.
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fitted.ffms_predict")
+> ### * fitted.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fitted.ffms_predict
+> ### Title: Access Fitted Values
+> ### Aliases: fitted.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fms.parallel")
+> ### * fms.parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fms.parallel
+> ### Title: Run Multiple FMS Runs in Parallel, Merging the Results Before
+> ###   Returning.
+> ### Aliases: fms.parallel
+> 
+> ### ** Examples
+> 
+> result <- fms.parallel(runs = 1, 
++ cores = 1, 
++ loglik.pi = FFMS::gaussian.loglik,
++ y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100))
+
+FMS begin.
+
+FMS done.
+> summary(result)
+
+Top 1 Distinct Models by SIC (Across All Threads):
+
+Model #1 | SIC: 291.389
+  Features: x1, x2, x3, x4, x5, x6
+  Coefficients: 0.1219, -0.0166, 0.0156, -0.0523, 0.1048, -0.096, 0.0581
+
+> plot(result)
+No valid marginal probabilities to plot.
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fms_base")
+> ### * fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fms_base
+> ### Title: Main Algorithm for FMS (Genetically Modified FMS)
+> ### Aliases: fms_base
+> 
+> ### ** Examples
+> 
+> result <- fms_base(
++ y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100),
++ loglik.pi = gaussian.loglik)
+
+FMS begin.
+
+FMS done.
+> summary(result)
+
+Best Model by SIC:
+
+SIC: 328.696
+Features: x1, x2, x3, x4, x5, x6
+Coefficients: -0.2023, 0.0844, -0.122, -0.0304, -0.1404, 0.0674, 0.0068
+
+> plot(result)
+No valid marginal probabilities to plot.
+[1] "done"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gaussian.loglik")
+> ### * gaussian.loglik
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gaussian.loglik
+> ### Title: Log Likelihood Function for Gaussian Regression with a Jeffreys
+> ###   Prior and BIC Approximation
+> ### Aliases: gaussian.loglik
+> 
+> ### ** Examples
+> 
+> gaussian.loglik(rnorm(100), matrix(rnorm(100)), TRUE, list(oc = 1), NULL)
+$crit
+[1] -145.0727
+
+$coefs
+          X1 
+-0.006123917 
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gelu")
+> ### * gelu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gelu
+> ### Title: GELU Function
+> ### Aliases: gelu
+> 
+> ### ** Examples
+> 
+> gelu(2)
+[1] 1.9545
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gen.params.ffms_base")
+> ### * gen.params.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gen.params.ffms_base
+> ### Title: Generate a Parameter List for FFMS (Genetically Modified FMS)
+> ### Aliases: gen.params.ffms_base
+> 
+> ### ** Examples
+> 
+> data <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
+> params <- gen.params.ffms_base(ncol(data) - 1)
+> str(params)
+List of 9
+ $ burn_in      : num 100
+ $ mh           :List of 3
+  ..$ neigh.size: num 1
+  ..$ neigh.min : num 1
+  ..$ neigh.max : num 2
+ $ large        :List of 3
+  ..$ neigh.size: num 0
+  ..$ neigh.min : num 0
+  ..$ neigh.max : num 0
+ $ random       :List of 1
+  ..$ prob: num 0.01
+ $ sa           :List of 5
+  ..$ t.init: num 10
+  ..$ t.min : num 1e-04
+  ..$ dt    : num 3
+  ..$ M     : num 12
+  ..$ kern  :List of 4
+  .. ..$ probs     : num [1:6] 0.1 0.05 0.2 0.3 0.2 0.15
+  .. ..$ neigh.size: num 1
+  .. ..$ neigh.min : num 1
+  .. ..$ neigh.max : num 2
+ $ greedy       :List of 3
+  ..$ steps: num 20
+  ..$ tries: num 3
+  ..$ kern :List of 4
+  .. ..$ probs     : num [1:6] 0.1 0.05 0.2 0.3 0.2 0.15
+  .. ..$ neigh.size: num 1
+  .. ..$ neigh.min : num 1
+  .. ..$ neigh.max : num 2
+ $ feat         :List of 11
+  ..$ D                  : num 5
+  ..$ L                  : num 15
+  ..$ alpha              : chr "unit"
+  ..$ pop.max            : num 3
+  ..$ keep.org           : logi TRUE
+  ..$ prel.filter        : num 0
+  ..$ keep.min           : num 0.8
+  ..$ eps                : num 0.1
+  ..$ check.col          : logi TRUE
+  ..$ col.check.mock.data: logi FALSE
+  ..$ max.proj.size      : num 15
+ $ sic          :List of 6
+  ..$ eps1  : num 1
+  ..$ epsT  : num 1e-06
+  ..$ stepsT: num 50
+  ..$ alpha : num 0.01
+  ..$ decay : num 0.99
+  ..$ subs  : num 0.5
+ $ rescale.large: logi FALSE
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gen.params.fms_base")
+> ### * gen.params.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gen.params.fms_base
+> ### Title: Generate a Parameter List for FMS (Mode Jumping MCMC)
+> ### Aliases: gen.params.fms_base
+> 
+> ### ** Examples
+> 
+> gen.params.fms_base(matrix(rnorm(600), 100))
+$burn_in
+[1] 100
+
+$mh
+$mh$neigh.size
+[1] 1
+
+$mh$neigh.min
+[1] 1
+
+$mh$neigh.max
+[1] 2
+
+
+$large
+$large$neigh.size
+[1] -1
+
+$large$neigh.min
+[1] 0
+
+$large$neigh.max
+[1] -1
+
+
+$random
+$random$prob
+[1] 0.01
+
+
+$sa
+$sa$t.init
+[1] 10
+
+$sa$t.min
+[1] 1e-04
+
+$sa$dt
+[1] 3
+
+$sa$M
+[1] 12
+
+$sa$kern
+$sa$kern$probs
+[1] 0.10 0.05 0.20 0.30 0.20 0.15
+
+$sa$kern$neigh.size
+[1] 1
+
+$sa$kern$neigh.min
+[1] 1
+
+$sa$kern$neigh.max
+[1] 2
+
+
+
+$greedy
+$greedy$steps
+[1] 20
+
+$greedy$tries
+[1] 3
+
+$greedy$kern
+$greedy$kern$probs
+[1] 0.10 0.05 0.20 0.30 0.20 0.15
+
+$greedy$kern$neigh.size
+[1] 1
+
+$greedy$kern$neigh.min
+[1] 1
+
+$greedy$kern$neigh.max
+[1] 2
+
+
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gen.probs.ffms_base")
+> ### * gen.probs.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gen.probs.ffms_base
+> ### Title: Generate a Probability List for FFMS (Genetically Modified FMS)
+> ### Aliases: gen.probs.ffms_base
+> 
+> ### ** Examples
+> 
+> gen.probs.ffms_base(c("p0", "exp_dbl"))
+$large
+[1] 0.05
+
+$large.kern
+[1] 0 0 0 1
+
+$localopt.kern
+[1] 0.5 0.5
+
+$random.kern
+[1] 0.5 0.5
+
+$mh
+[1] 0.2 0.2 0.2 0.2 0.1 0.1
+
+$filter
+[1] 0.6
+
+$gen
+[1] 0.4 0.4 0.1 0.1
+
+$trans
+[1] 0.5 0.5
+
+$trans_priors
+[1] 1 1
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("gen.probs.fms_base")
+> ### * gen.probs.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: gen.probs.fms_base
+> ### Title: Generate a Probability List for FMS (Mode Jumping MCMC)
+> ### Aliases: gen.probs.fms_base
+> 
+> ### ** Examples
+> 
+> gen.probs.fms_base()
+$large
+[1] 0.05
+
+$large.kern
+[1] 0 0 0 1
+
+$localopt.kern
+[1] 0.5 0.5
+
+$random.kern
+[1] 0.5 0.5
+
+$mh
+[1] 0.2 0.2 0.2 0.2 0.1 0.1
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.best.model")
+> ### * get.best.model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.best.model
+> ### Title: Extract the Best Model from MJMCMC or GMJMCMC Results
+> ### Aliases: get.best.model
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> result <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
+
+FMS begin.
+
+FMS done.
+> get.best.model(result)
+BGNLM Model Coefficients:
+           Intercept                 mass               radius 
+        0.3755770367         0.0794821591         0.1004623567 
+              period         eccentricity        hoststar_mass 
+        0.0004752907         0.9763646345         0.1163041086 
+     hoststar_radius hoststar_metallicity hoststar_temperature 
+       -0.0090497109        -0.1754339576        -0.0000794906 
+          binaryflag 
+       -0.1509672454 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("get.mpm.model")
+> ### * get.mpm.model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: get.mpm.model
+> ### Title: Retrieve the Median Probability Model (MPM)
+> ### Aliases: get.mpm.model
+> 
+> ### ** Examples
+> 
+> ## Not run: 
+> ##D # Simulate data
+> ##D set.seed(42)
+> ##D x <- data.frame(
+> ##D   PlanetaryMassJpt = rnorm(100),
+> ##D   RadiusJpt = rnorm(100),
+> ##D   PeriodDays = rnorm(100)
+> ##D )
+> ##D y <- 1 + 0.5 * x$PlanetaryMassJpt - 0.3 * x$RadiusJpt + rnorm(100)
+> ##D 
+> ##D # Assume 'result' is a fitted object from ffms_base or fms_base
+> ##D result <- fms_base(cbind(y,x))  
+> ##D 
+> ##D # Get the MPM
+> ##D mpm_model <- get.mpm.model(result, y, x, family = "gaussian")
+> ##D 
+> ##D # Access coefficients
+> ##D mpm_model$coefs
+> ## End(Not run)
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("hs")
+> ### * hs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: hs
+> ### Title: Heavy Side Function
+> ### Aliases: hs
+> 
+> ### ** Examples
+> 
+> hs(2)
+[1] 1
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("impute_x")
+> ### * impute_x
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: impute_x
+> ### Title: Impute Missing Values in the Data
+> ### Aliases: impute_x
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("impute_x_pred")
+> ### * impute_x_pred
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: impute_x_pred
+> ### Title: Impute Missing Values in Test Data Using Training Data
+> ### Aliases: impute_x_pred
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("log_prior")
+> ### * log_prior
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: log_prior
+> ### Title: Log Model Prior Function
+> ### Aliases: log_prior
+> 
+> ### ** Examples
+> 
+> log_prior(mlpost_params = list(r=2), complex = list(oc = 2))
+[1] 1.386294
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("logistic.loglik")
+> ### * logistic.loglik
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: logistic.loglik
+> ### Title: Log Likelihood Function for Logistic Regression with a Jeffreys
+> ###   Parameter Prior and BIC Approximations of the Posterior.
+> ### Aliases: logistic.loglik
+> 
+> ### ** Examples
+> 
+> logistic.loglik(as.integer(rnorm(100) > 0), matrix(rnorm(100)), TRUE, list(oc = 1))
+$crit
+[1] -68.89189
+
+$coefs
+       X1 
+0.3059845 
+
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("marginal.probs")
+> ### * marginal.probs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: marginal.probs
+> ### Title: Function for Calculating Marginal Inclusion Probabilities of
+> ###   Features Given a List of Models
+> ### Aliases: marginal.probs
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(x = matrix(rnorm(600), 100),
++ y = matrix(rnorm(100), 100), 
++ P = 2, 
++ transforms = c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> marginal.probs(result$models[[1]])
+[1] 1 1 1 1 1 1
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("merge_results")
+> ### * merge_results
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: merge_results
+> ### Title: Merge a List of Multiple Results from Many Runs
+> ### Aliases: merge_results
+> 
+> ### ** Examples
+> 
+> result <-  ffms(semimajoraxis ~ ., data = exoplanet,
++  method = "ffms.parallel", transforms = c("sigmoid"), 
++  runs = 2, cores = 1)
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_temperature*hoststar_temperature) 
+Added feature (hoststar_mass*hoststar_temperature) 
+Added feature sigmoid(radius) 
+Added feature (hoststar_radius*radius) 
+Added feature (period*hoststar_temperature) 
+Added feature (period*period) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1263.52832289114 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sigmoid(radius) 
+            !                 | (hoststar_radius*radius) 
+            !                 | (period*hoststar_temperature) 
+            !                 | (period*period) 
+Replaced feature (hoststar_temperature*hoststar_temperature) with sigmoid(hoststar_mass) 
+Replaced feature (hoststar_radius*radius) with (hoststar_radius*(period*hoststar_temperature)) 
+Replaced feature (period*hoststar_temperature) with sigmoid(sigmoid(radius)) 
+Replaced feature (period*period) with sigmoid(mass) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1273.86141800474 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | sigmoid(hoststar_mass) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+            !                 | sigmoid(radius) 
+            !                 | (hoststar_radius*(period*hoststar_temperature)) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature sigmoid(hoststar_mass) with sigmoid(hoststar_metallicity) 
+Replaced feature sigmoid(radius) with (hoststar_metallicity*hoststar_mass) 
+Replaced feature (hoststar_radius*(period*hoststar_temperature)) with (period*hoststar_metallicity) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.08247653949 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+            !                 | (hoststar_mass*hoststar_temperature) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature (hoststar_mass*hoststar_temperature) with (mass*(period*hoststar_metallicity)) 
+Replaced feature sigmoid(hoststar_radius) with ((mass*(period*hoststar_metallicity))*mass) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+> 
+> summary(result)
+
+Top 9 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 5) | SIC: -2727.681
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (mass*(period*hoststar_metallicity)), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), ((mass*(period*hoststar_metallicity))*mass), sigmoid(mass)
+  Coefficients: 2.2304, 0.0235, -0.2256, 5e-04, 0.4251, 0.5281, -0.011, 1.9086, -2e-04, -0.1394, -4.9818, -2e-04, -1.25, 9e-04, 0, 1.7359
+
+Model #2 (Found in Pop 3) | SIC: -2682.294
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+
+Model #3 (Found in Pop 4) | SIC: -2660.319
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+
+Model #4 (Found in Pop 4) | SIC: -2660.165
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), sigmoid(mass)
+  Coefficients: 3.1829, 0.035, -0.2298, 5e-04, 0.4021, 0.5884, -0.0167, 2.5891, -2e-04, -0.1473, -6.9107, -1.6722, 2e-04, 1.7801
+
+Model #5 (Found in Pop 8) | SIC: -2649.504
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+
+Model #6 (Found in Pop 2) | SIC: -2583.891
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+  Coefficients: -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+
+Model #7 (Found in Pop 1) | SIC: -2549.002
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+  Coefficients: 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+
+Model #8 (Found in Pop 3) | SIC: -2547.723
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(mass)
+  Coefficients: -1.4298, 0.0507, -0.1839, 5e-04, 0.6782, 1.5597, -0.0176, -0.1988, 1e-04, -0.1716, -3e-04, 1.7116
+
+Model #9 (Found in Pop 2) | SIC: -2527.057
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(radius)
+  Coefficients: -4.8776, 0.0766, -1.7187, 5e-04, 0.8923, 1.2024, -0.018, -0.2191, 1e-04, -0.1375, -2e-04, 8.7735
+
+> 
+> plot(result)
+No valid marginal probabilities to plot.
+[1] "done"
+> 
+> merge_results(result$results.raw)
+FFMS Merged Model Summary:
+
+Top 9 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 5) | SIC: -2727.681
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (mass*(period*hoststar_metallicity)), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), ((mass*(period*hoststar_metallicity))*mass), sigmoid(mass)
+  Coefficients: 2.2304, 0.0235, -0.2256, 5e-04, 0.4251, 0.5281, -0.011, 1.9086, -2e-04, -0.1394, -4.9818, -2e-04, -1.25, 9e-04, 0, 1.7359
+
+Model #2 (Found in Pop 3) | SIC: -2682.294
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+
+Model #3 (Found in Pop 4) | SIC: -2660.319
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+
+Model #4 (Found in Pop 4) | SIC: -2660.165
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), sigmoid(mass)
+  Coefficients: 3.1829, 0.035, -0.2298, 5e-04, 0.4021, 0.5884, -0.0167, 2.5891, -2e-04, -0.1473, -6.9107, -1.6722, 2e-04, 1.7801
+
+Model #5 (Found in Pop 8) | SIC: -2649.504
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+
+Model #6 (Found in Pop 2) | SIC: -2583.891
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+  Coefficients: -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+
+Model #7 (Found in Pop 1) | SIC: -2549.002
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+  Coefficients: 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+
+Model #8 (Found in Pop 3) | SIC: -2547.723
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(mass)
+  Coefficients: -1.4298, 0.0507, -0.1839, 5e-04, 0.6782, 1.5597, -0.0176, -0.1988, 1e-04, -0.1716, -3e-04, 1.7116
+
+Model #9 (Found in Pop 2) | SIC: -2527.057
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(radius)
+  Coefficients: -4.8776, 0.0766, -1.7187, 5e-04, 0.8923, 1.2024, -0.018, -0.2191, 1e-04, -0.1375, -2e-04, 8.7735
+
+       crit
+15 1363.840
+3  1341.147
+4  1330.159
+14 1330.082
+8  1324.752
+2  1291.946
+1  1274.501
+13 1273.861
+12 1263.528
+                                                                                                                                                                                                                                                                                                                              feats
+15 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (mass*(period*hoststar_metallicity)), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), ((mass*(period*hoststar_metallicity))*mass), sigmoid(mass)
+3                                                                                                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+4                                                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+14                                                                                    mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), sigmoid(mass)
+8                                                                                 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+2                                                                                                                                                                        mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+1                                                                                                                                                                                                        mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+13                                                                                                                                                  mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(mass)
+12                                                                                                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(radius)
+                                                                                                                                 coefs
+15           2.2304, 0.0235, -0.2256, 5e-04, 0.4251, 0.5281, -0.011, 1.9086, -2e-04, -0.1394, -4.9818, -2e-04, -1.25, 9e-04, 0, 1.7359
+3                         -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+4         -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+14                    3.1829, 0.035, -0.2298, 5e-04, 0.4021, 0.5884, -0.0167, 2.5891, -2e-04, -0.1473, -6.9107, -1.6722, 2e-04, 1.7801
+8  -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+2                                   -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+1                                                       0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+13                                   -1.4298, 0.0507, -0.1839, 5e-04, 0.6782, 1.5597, -0.0176, -0.1988, 1e-04, -0.1716, -3e-04, 1.7116
+12                                    -4.8776, 0.0766, -1.7187, 5e-04, 0.8923, 1.2024, -0.018, -0.2191, 1e-04, -0.1375, -2e-04, 8.7735
+   pop       SIC
+15   5 -2727.681
+3    3 -2682.294
+4    4 -2660.319
+14   4 -2660.165
+8    8 -2649.504
+2    2 -2583.891
+1    1 -2549.002
+13   3 -2547.723
+12   2 -2527.057
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("model.string")
+> ### * model.string
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: model.string
+> ### Title: Function to Generate a Function String for a Model Consisting of
+> ###   Features
+> ### Aliases: model.string
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100), 
++ P = 2, transforms =  c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> summary(result)
+
+Top 1 Distinct Models by SIC:
+
+Model #1 (Found in Pop 1) | SIC: 17.939
+  Features: x1, x2, x3, x4, x5, x6
+  Coefficients: -0.2023, 0.0844, -0.122, -0.0304, -0.1404, 0.0674, 0.0068
+
+> plot(result)
+No valid marginal probabilities to plot.
+> model.string(c(TRUE, FALSE, TRUE, FALSE, TRUE), result$populations[[1]])
+$formula
+[1] "I(x1+x3+x5+x6)"
+
+$count
+[1] 0
+
+> model.string(result$models[[1]][1][[1]]$model, result$populations[[1]])
+$formula
+[1] "I(x1+x2+x3+x4+x5+x6)"
+
+$count
+[1] 0
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ngelu")
+> ### * ngelu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ngelu
+> ### Title: Negative GELU Function
+> ### Aliases: ngelu
+> 
+> ### ** Examples
+> 
+> ngelu(2)
+[1] -0.04550026
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nhs")
+> ### * nhs
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nhs
+> ### Title: Negative Heavy Side Function
+> ### Aliases: nhs
+> 
+> ### ** Examples
+> 
+> nhs(2)
+[1] 0
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("not")
+> ### * not
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: not
+> ### Title: Not x
+> ### Aliases: not
+> 
+> ### ** Examples
+> 
+> not(TRUE)
+[1] 0
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("nrelu")
+> ### * nrelu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: nrelu
+> ### Title: Negative ReLU Function
+> ### Aliases: nrelu
+> 
+> ### ** Examples
+> 
+> nrelu(2)
+[1] 0
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0")
+> ### * p0
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0
+> ### Title: p0 Polynomial Term
+> ### Aliases: p0
+> 
+> ### ** Examples
+> 
+> p0(2)
+[1] 0.6931472
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p05")
+> ### * p05
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p05
+> ### Title: p05 Polynomial Term
+> ### Aliases: p05
+> 
+> ### ** Examples
+> 
+> p05(2)
+[1] 1.414214
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0p0")
+> ### * p0p0
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0p0
+> ### Title: p0p0 Polynomial Term
+> ### Aliases: p0p0
+> 
+> ### ** Examples
+> 
+> p0p0(2)
+[1] 0.480453
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0p05")
+> ### * p0p05
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0p05
+> ### Title: p0p05 Polynomial Term
+> ### Aliases: p0p05
+> 
+> ### ** Examples
+> 
+> p0p05(2)
+[1] 0.9802581
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0p1")
+> ### * p0p1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0p1
+> ### Title: p0p1 Polynomial Term
+> ### Aliases: p0p1
+> 
+> ### ** Examples
+> 
+> p0p1(2)
+[1] 1.386294
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0p2")
+> ### * p0p2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0p2
+> ### Title: p0p2 Polynomial Term
+> ### Aliases: p0p2
+> 
+> ### ** Examples
+> 
+> p0p2(2)
+[1] 2.772589
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0p3")
+> ### * p0p3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0p3
+> ### Title: p0p3 Polynomial Term
+> ### Aliases: p0p3
+> 
+> ### ** Examples
+> 
+> p0p3(2)
+[1] 5.545177
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0pm05")
+> ### * p0pm05
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0pm05
+> ### Title: p0pm05 Polynomial Term
+> ### Aliases: p0pm05
+> 
+> ### ** Examples
+> 
+> p0pm05(2)
+[1] 0.4901291
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0pm1")
+> ### * p0pm1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0pm1
+> ### Title: p0pm1 Polynomial Terms
+> ### Aliases: p0pm1
+> 
+> ### ** Examples
+> 
+> p0pm1(2)
+[1] 0.3465736
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p0pm2")
+> ### * p0pm2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p0pm2
+> ### Title: p0pm2 Polynomial Term
+> ### Aliases: p0pm2
+> 
+> ### ** Examples
+> 
+> p0pm2(2)
+[1] 0.1732868
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p2")
+> ### * p2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p2
+> ### Title: p2 Polynomial Term
+> ### Aliases: p2
+> 
+> ### ** Examples
+> 
+> p2(2)
+[1] 4
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("p3")
+> ### * p3
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: p3
+> ### Title: p3 Polynomial Term
+> ### Aliases: p3
+> 
+> ### ** Examples
+> 
+> p3(2)
+[1] 8
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.bgnlm_model")
+> ### * plot.bgnlm_model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.bgnlm_model
+> ### Title: Plot BGNLM Model
+> ### Aliases: plot.bgnlm_model
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+
+FMS begin.
+
+FMS done.
+> plot(model)
+Posterior mode for the parameters of the best found single model:
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.ffms_base")
+> ### * plot.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.ffms_base
+> ### Title: Function to Plot GMJMCMC Results and Merged Results from
+> ###   merge.results
+> ### Aliases: plot.ffms_base
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100), 
++ P = 2, 
++ transforms = c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> plot(result)
+No valid marginal probabilities to plot.
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.ffms_merged")
+> ### * plot.ffms_merged
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.ffms_merged
+> ### Title: Plot a ffms_merged Run
+> ### Aliases: plot.ffms_merged
+> 
+> ### ** Examples
+> 
+> result <- ffms.parallel(
++  runs = 1,
++  cores = 1,
++  y = matrix(rnorm(100), 100),
++  x = matrix(rnorm(600), 100),
++  P = 2,
++  transforms = c("p0", "exp_dbl")
++ )
+> plot(result)
+No valid marginal probabilities to plot.
+[1] "done"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.ffms_predict")
+> ### * plot.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.ffms_predict
+> ### Title: Plot FFMS Prediction Object
+> ### Aliases: plot.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.fms_base")
+> ### * plot.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.fms_base
+> ### Title: Function to Plot GMJMCMC Results and Merged Results from
+> ###   merge.results
+> ### Aliases: plot.fms_base
+> 
+> ### ** Examples
+> 
+> result <- fms_base(
++ y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100),
++ loglik.pi = gaussian.loglik)
+
+FMS begin.
+
+FMS done.
+> plot(result)
+No valid marginal probabilities to plot.
+[1] "done"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plot.fms_parallel")
+> ### * plot.fms_parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.fms_parallel
+> ### Title: Plot an fms.parallel Run
+> ### Aliases: plot.fms_parallel
+> 
+> ### ** Examples
+> 
+> result <- fms.parallel(runs = 1, 
++ cores = 1, 
++ y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100), 
++ loglik.pi = gaussian.loglik)
+
+FMS begin.
+
+FMS done.
+> plot(result)
+No valid marginal probabilities to plot.
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pm05")
+> ### * pm05
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pm05
+> ### Title: pm05 Polynomial Term
+> ### Aliases: pm05
+> 
+> ### ** Examples
+> 
+> pm05(2)
+[1] 0.7071068
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pm1")
+> ### * pm1
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pm1
+> ### Title: pm1 Polynomial Term
+> ### Aliases: pm1
+> 
+> ### ** Examples
+> 
+> pm1(2)
+[1] 0.5
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pm2")
+> ### * pm2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pm2
+> ### Title: pm2 Polynomial Term
+> ### Aliases: pm2
+> 
+> ### ** Examples
+> 
+> pm2(2)
+[1] 0.25
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.bgnlm_model")
+> ### * predict.bgnlm_model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.bgnlm_model
+> ### Title: Predict Responses from a BGNLM Model
+> ### Aliases: predict.bgnlm_model
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet)
+
+FMS begin.
+
+FMS done.
+> preds <- predict(get.best.model(model), exoplanet[,-1])
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.ffms_base")
+> ### * predict.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.ffms_base
+> ### Title: Predict Using a FFMS Result Object
+> ### Aliases: predict.ffms_base
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(
++  x = matrix(rnorm(600), 100),
++  y = matrix(rnorm(100), 100),
++  P = 2,
++  transforms = c("p0", "exp_dbl")
++ )
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> preds <- predict(result, matrix(rnorm(600), 100))
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.ffms_merged")
+> ### * predict.ffms_merged
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.ffms_merged
+> ### Title: Predict Using a Merged FFMS Result Object
+> ### Aliases: predict.ffms_merged
+> 
+> ### ** Examples
+> 
+> result <- ffms.parallel(
++  runs = 1,
++  cores = 1,
++  x = matrix(rnorm(600), 100),
++  y = matrix(rnorm(100), 100),
++  P = 2,
++  transforms = c("p0", "exp_dbl")
++ )
+> preds <- predict(result, matrix(rnorm(600), 100))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.ffms_parallel")
+> ### * predict.ffms_parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.ffms_parallel
+> ### Title: Predict Using a FFMS Result Object from a Parallel Run
+> ### Aliases: predict.ffms_parallel
+> 
+> ### ** Examples
+> 
+> result <- ffms.parallel(
++  runs = 1,
++  cores = 1,
++  x = matrix(rnorm(600), 100),
++  y = matrix(rnorm(100), 100),
++  P = 2,
++  transforms = c("p0", "exp_dbl")
++ )
+> preds <- predict(result, matrix(rnorm(600), 100))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.fms_base")
+> ### * predict.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.fms_base
+> ### Title: Predict Using an FMS Result Object
+> ### Aliases: predict.fms_base
+> 
+> ### ** Examples
+> 
+> result <- fms_base(
++ x = matrix(rnorm(600), 100),
++ y = matrix(rnorm(100), 100),
++ loglik.pi = gaussian.loglik)
+
+FMS begin.
+
+FMS done.
+> preds <- predict(result, matrix(rnorm(600), 100))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predict.fms_parallel")
+> ### * predict.fms_parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predict.fms_parallel
+> ### Title: Predict Using an FMS Result Object from a Parallel Run
+> ### Aliases: predict.fms_parallel
+> 
+> ### ** Examples
+> 
+> result <- fms.parallel(runs = 1, 
++ cores = 1, 
++ x = matrix(rnorm(600), 100),
++ y = matrix(rnorm(100), 100), 
++ loglik.pi = gaussian.loglik)
+
+FMS begin.
+
+FMS done.
+> preds <- predict(result, matrix(rnorm(600), 100))
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predmean.ffms_predict")
+> ### * predmean.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predmean.ffms_predict
+> ### Title: Access Mean Predictions
+> ### Aliases: predmean.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("predquantiles.ffms_predict")
+> ### * predquantiles.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: predquantiles.ffms_predict
+> ### Title: Access Quantile Predictions
+> ### Aliases: predquantiles.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.bgnlm_model")
+> ### * print.bgnlm_model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.bgnlm_model
+> ### Title: Print BGNLM Model Object
+> ### Aliases: print.bgnlm_model
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, 
++ family = "gaussian"))
+
+FMS begin.
+
+FMS done.
+> print(model)
+BGNLM Model Coefficients:
+           Intercept                 mass               radius 
+        0.3755770367         0.0794821591         0.1004623567 
+              period         eccentricity        hoststar_mass 
+        0.0004752907         0.9763646345         0.1163041086 
+     hoststar_radius hoststar_metallicity hoststar_temperature 
+       -0.0090497109        -0.1754339576        -0.0000794906 
+          binaryflag 
+       -0.1509672454 
+> model <- get.mpm.model(ffms(semimajoraxis ~ ., data = exoplanet, 
++ family = "gaussian"), y = exoplanet[,1],x = exoplanet[,-1])
+
+FMS begin.
+
+FMS done.
+> print(model)
+BGNLM Model Coefficients:
+(Intercept) 
+  0.7889046 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.feature")
+> ### * print.feature
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.feature
+> ### Title: Print Method for \"feature\" Class
+> ### Aliases: print.feature
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(x = matrix(rnorm(600), 100),
++ y = matrix(rnorm(100), 100), 
++ P = 2, 
++ transforms = c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> print(result$populations[[1]][1])
+[[1]]
+
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.ffms_base")
+> ### * print.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.ffms_base
+> ### Title: Print FFMS Model Object
+> ### Aliases: print.ffms_base
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet,method = "ffms_base", transforms = c("sigmoid"))
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+> print(model)
+FFMS Model Summary:
+
+Top 5 Distinct Models by SIC:
+
+Model #1 (Found in Pop 3) | SIC: -2682.294
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+
+Model #2 (Found in Pop 4) | SIC: -2660.319
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+
+Model #3 (Found in Pop 8) | SIC: -2649.504
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+
+Model #4 (Found in Pop 2) | SIC: -2583.891
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+  Coefficients: -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+
+Model #5 (Found in Pop 1) | SIC: -2549.002
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+  Coefficients: 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+
+      crit
+3 1341.147
+4 1330.159
+8 1324.752
+2 1291.946
+1 1274.501
+                                                                                                                                                                                                                                              feats
+3                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+4                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+8 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+2                                                                                        mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+1                                                                                                                        mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+                                                                                                                                coefs
+3                        -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+4        -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+8 -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+2                                  -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+1                                                      0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+  pop       SIC
+3   3 -2682.294
+4   4 -2660.319
+8   8 -2649.504
+2   2 -2583.891
+1   1 -2549.002
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.ffms_merged")
+> ### * print.ffms_merged
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.ffms_merged
+> ### Title: Print FFMS Merged Model Object
+> ### Aliases: print.ffms_merged
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, 
++ method = "ffms.parallel", cores = 1, runs = 2, 
++ transforms = c("sigmoid"))
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_temperature*hoststar_temperature) 
+Added feature (hoststar_mass*hoststar_temperature) 
+Added feature sigmoid(radius) 
+Added feature (hoststar_radius*radius) 
+Added feature (period*hoststar_temperature) 
+Added feature (period*period) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1263.52832289114 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sigmoid(radius) 
+            !                 | (hoststar_radius*radius) 
+            !                 | (period*hoststar_temperature) 
+            !                 | (period*period) 
+Replaced feature (hoststar_temperature*hoststar_temperature) with sigmoid(hoststar_mass) 
+Replaced feature (hoststar_radius*radius) with (hoststar_radius*(period*hoststar_temperature)) 
+Replaced feature (period*hoststar_temperature) with sigmoid(sigmoid(radius)) 
+Replaced feature (period*period) with sigmoid(mass) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1273.86141800474 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | sigmoid(hoststar_mass) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+            !                 | sigmoid(radius) 
+            !                 | (hoststar_radius*(period*hoststar_temperature)) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature sigmoid(hoststar_mass) with sigmoid(hoststar_metallicity) 
+Replaced feature sigmoid(radius) with (hoststar_metallicity*hoststar_mass) 
+Replaced feature (hoststar_radius*(period*hoststar_temperature)) with (period*hoststar_metallicity) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.08247653949 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+            !                 | (hoststar_mass*hoststar_temperature) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature (hoststar_mass*hoststar_temperature) with (mass*(period*hoststar_metallicity)) 
+Replaced feature sigmoid(hoststar_radius) with ((mass*(period*hoststar_metallicity))*mass) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+> 
+> print(model)
+FFMS Merged Model Summary:
+
+Top 9 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 5) | SIC: -2727.681
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (mass*(period*hoststar_metallicity)), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), ((mass*(period*hoststar_metallicity))*mass), sigmoid(mass)
+  Coefficients: 2.2304, 0.0235, -0.2256, 5e-04, 0.4251, 0.5281, -0.011, 1.9086, -2e-04, -0.1394, -4.9818, -2e-04, -1.25, 9e-04, 0, 1.7359
+
+Model #2 (Found in Pop 3) | SIC: -2682.294
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+
+Model #3 (Found in Pop 4) | SIC: -2660.319
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+
+Model #4 (Found in Pop 4) | SIC: -2660.165
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), sigmoid(mass)
+  Coefficients: 3.1829, 0.035, -0.2298, 5e-04, 0.4021, 0.5884, -0.0167, 2.5891, -2e-04, -0.1473, -6.9107, -1.6722, 2e-04, 1.7801
+
+Model #5 (Found in Pop 8) | SIC: -2649.504
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+  Coefficients: -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+
+Model #6 (Found in Pop 2) | SIC: -2583.891
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+  Coefficients: -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+
+Model #7 (Found in Pop 1) | SIC: -2549.002
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+  Coefficients: 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+
+Model #8 (Found in Pop 3) | SIC: -2547.723
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(mass)
+  Coefficients: -1.4298, 0.0507, -0.1839, 5e-04, 0.6782, 1.5597, -0.0176, -0.1988, 1e-04, -0.1716, -3e-04, 1.7116
+
+Model #9 (Found in Pop 2) | SIC: -2527.057
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(radius)
+  Coefficients: -4.8776, 0.0766, -1.7187, 5e-04, 0.8923, 1.2024, -0.018, -0.2191, 1e-04, -0.1375, -2e-04, 8.7735
+
+       crit
+15 1363.840
+3  1341.147
+4  1330.159
+14 1330.082
+8  1324.752
+2  1291.946
+1  1274.501
+13 1273.861
+12 1263.528
+                                                                                                                                                                                                                                                                                                                              feats
+15 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (mass*(period*hoststar_metallicity)), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), ((mass*(period*hoststar_metallicity))*mass), sigmoid(mass)
+3                                                                                                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), (hoststar_mass*period), sigmoid(radius)
+4                                                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), (hoststar_mass*period), sigmoid(radius)
+14                                                                                    mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(hoststar_metallicity), (hoststar_metallicity*hoststar_mass), (period*hoststar_metallicity), sigmoid(mass)
+8                                                                                 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, sigmoid(period), sigmoid(hoststar_metallicity), (mass*radius), sigmoid(mass), (hoststar_mass*period), sigmoid(radius)
+2                                                                                                                                                                        mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (mass*radius), sigmoid(radius)
+1                                                                                                                                                                                                        mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+13                                                                                                                                                  mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(mass)
+12                                                                                                                                                mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag, (hoststar_mass*hoststar_temperature), sigmoid(radius)
+                                                                                                                                 coefs
+15           2.2304, 0.0235, -0.2256, 5e-04, 0.4251, 0.5281, -0.011, 1.9086, -2e-04, -0.1394, -4.9818, -2e-04, -1.25, 9e-04, 0, 1.7359
+3                         -9.7011, -0.3911, -4.2834, 7e-04, 0.5628, 0.4368, -0.0156, -0.2426, -1e-04, -0.1192, 0.4454, -2e-04, 19.9248
+4         -9.6379, -0.3982, -4.3925, 7e-04, 0.4575, 0.5485, -0.0209, 0.1124, -2e-04, -0.1017, 1.1493, -2.7038, 0.4529, -2e-04, 20.5751
+14                    3.1829, 0.035, -0.2298, 5e-04, 0.4021, 0.5884, -0.0167, 2.5891, -2e-04, -0.1473, -6.9107, -1.6722, 2e-04, 1.7801
+8  -8.2577, -0.324, -3.6488, 7e-04, 0.3073, 0.5099, -0.0178, 0.0969, -2e-04, -0.1145, 1.3754, -2.5277, 0.3649, 0.9445, -2e-04, 16.3993
+2                                   -10.3506, -0.55, -4.6354, 5e-04, 0.7404, 0.145, -0.0173, -0.1983, -1e-04, -0.1345, 0.6135, 21.4594
+1                                                       0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+13                                   -1.4298, 0.0507, -0.1839, 5e-04, 0.6782, 1.5597, -0.0176, -0.1988, 1e-04, -0.1716, -3e-04, 1.7116
+12                                    -4.8776, 0.0766, -1.7187, 5e-04, 0.8923, 1.2024, -0.018, -0.2191, 1e-04, -0.1375, -2e-04, 8.7735
+   pop       SIC
+15   5 -2727.681
+3    3 -2682.294
+4    4 -2660.319
+14   4 -2660.165
+8    8 -2649.504
+2    2 -2583.891
+1    1 -2549.002
+13   3 -2547.723
+12   2 -2527.057
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.ffms_predict")
+> ### * print.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.ffms_predict
+> ### Title: Print FFMS Prediction Object
+> ### Aliases: print.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.fms_base")
+> ### * print.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.fms_base
+> ### Title: Print FMS Model Object
+> ### Aliases: print.fms_base
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
+
+FMS begin.
+
+FMS done.
+> print(model)
+FMS Model Summary:
+
+Best Model by SIC:
+
+SIC: -2549.002
+Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+Coefficients: 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+
+      crit
+1 1274.501
+                                                                                                                       feats
+1 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+                                                                           coefs
+1 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+        SIC
+1 -2549.002
+> 
+> 
+> 
+> cleanEx()
+> nameEx("print.fms_parallel")
+> ### * print.fms_parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: print.fms_parallel
+> ### Title: Print FMS Parallel Model Object
+> ### Aliases: print.fms_parallel
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms.parallel", cores = 1, runs = 2)
+
+FMS begin.
+
+FMS done.
+
+FMS begin.
+
+FMS done.
+> print(model)
+FMS Parallel Model Summary:
+
+Top 1 Distinct Models by SIC (Across All Threads):
+
+Model #1 | SIC: -2549.002
+  Features: mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+  Coefficients: 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+
+      crit
+1 1274.501
+                                                                                                                       feats
+1 mass, radius, period, eccentricity, hoststar_mass, hoststar_radius, hoststar_metallicity, hoststar_temperature, binaryflag
+                                                                           coefs
+1 0.3756, 0.0795, 0.1005, 5e-04, 0.9764, 0.1163, -0.009, -0.1754, -1e-04, -0.151
+        SIC
+1 -2549.002
+> 
+> 
+> 
+> cleanEx()
+> nameEx("relu")
+> ### * relu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: relu
+> ### Title: ReLU Function
+> ### Aliases: relu
+> 
+> ### ** Examples
+> 
+> relu(2)
+[1] 2
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("residuals.bgnlm_model")
+> ### * residuals.bgnlm_model
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: residuals.bgnlm_model
+> ### Title: Residuals for BGNLM Model
+> ### Aliases: residuals.bgnlm_model
+> 
+> ### ** Examples
+> 
+> library(FFMS)
+> data(exoplanet)
+> model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+
+FMS begin.
+
+FMS done.
+> hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("residuals.ffms_base")
+> ### * residuals.ffms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: residuals.ffms_base
+> ### Title: Residuals for FFMS Model
+> ### Aliases: residuals.ffms_base
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "ffms_base", transforms = c("sigmoid"))
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+> hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("residuals.ffms_merged")
+> ### * residuals.ffms_merged
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: residuals.ffms_merged
+> ### Title: Residuals for FFMS Merged Model
+> ### Aliases: residuals.ffms_merged
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, 
++ method = "ffms.parallel", transforms = c("sigmoid"), 
++ runs = 2, cores = 1)
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_metallicity*radius) 
+Added feature sigmoid(hoststar_radius) 
+Added feature (mass*radius) 
+Added feature (hoststar_radius*hoststar_mass) 
+Added feature (hoststar_metallicity*hoststar_radius) 
+Added feature sigmoid(radius) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1291.94568718585 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_metallicity*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (mass*radius) 
+            !                 | (hoststar_radius*hoststar_mass) 
+            !                 | (hoststar_metallicity*hoststar_radius) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_metallicity*radius) with (hoststar_temperature*sigmoid(radius)) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(eccentricity) 
+Replaced feature (hoststar_radius*hoststar_mass) with (radius*hoststar_temperature) 
+Replaced feature (hoststar_metallicity*hoststar_radius) with (hoststar_mass*period) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1341.14706401902 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*sigmoid(radius)) 
+            !                 | sigmoid(eccentricity) 
+ ###########!#################| (mass*radius) 
+            !                 | (radius*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (hoststar_temperature*sigmoid(radius)) with sigmoid(period) 
+Replaced feature sigmoid(eccentricity) with sigmoid(hoststar_metallicity) 
+Replaced feature (radius*hoststar_temperature) with (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | (sigmoid(radius)*sigmoid(hoststar_metallicity)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature (sigmoid(radius)*sigmoid(hoststar_metallicity)) with sigmoid((hoststar_mass*period)) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid((hoststar_mass*period)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid((hoststar_mass*period)) with sigmoid(sigmoid(radius)) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1330.15940425661 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Replaced feature sigmoid(hoststar_radius) with sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1324.75210680445 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(period) 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*radius) 
+ ###########!#################| sigmoid(mass) 
+ ###########!#################| (hoststar_mass*period) 
+ ###########!#################| sigmoid(radius) 
+Population 1 begin.
+Population 1 done.
+Current best crit: 1274.50087124422 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+Added feature (hoststar_temperature*hoststar_temperature) 
+Added feature (hoststar_mass*hoststar_temperature) 
+Added feature sigmoid(radius) 
+Added feature (hoststar_radius*radius) 
+Added feature (period*hoststar_temperature) 
+Added feature (period*period) 
+Population 2 begin.
+Population 2 done.
+Current best crit: 1263.52832289114 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | (hoststar_temperature*hoststar_temperature) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+ ###########!#################| sigmoid(radius) 
+            !                 | (hoststar_radius*radius) 
+            !                 | (period*hoststar_temperature) 
+            !                 | (period*period) 
+Replaced feature (hoststar_temperature*hoststar_temperature) with sigmoid(hoststar_mass) 
+Replaced feature (hoststar_radius*radius) with (hoststar_radius*(period*hoststar_temperature)) 
+Replaced feature (period*hoststar_temperature) with sigmoid(sigmoid(radius)) 
+Replaced feature (period*period) with sigmoid(mass) 
+Population 3 begin.
+Population 3 done.
+Current best crit: 1273.86141800474 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+            !                 | sigmoid(hoststar_mass) 
+ ###########!#################| (hoststar_mass*hoststar_temperature) 
+            !                 | sigmoid(radius) 
+            !                 | (hoststar_radius*(period*hoststar_temperature)) 
+            !                 | sigmoid(sigmoid(radius)) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature sigmoid(hoststar_mass) with sigmoid(hoststar_metallicity) 
+Replaced feature sigmoid(radius) with (hoststar_metallicity*hoststar_mass) 
+Replaced feature (hoststar_radius*(period*hoststar_temperature)) with (period*hoststar_metallicity) 
+Replaced feature sigmoid(sigmoid(radius)) with sigmoid(hoststar_radius) 
+Population 4 begin.
+Population 4 done.
+Current best crit: 1330.08247653949 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+            !                 | (hoststar_mass*hoststar_temperature) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+            !                 | sigmoid(hoststar_radius) 
+ ###########!#################| sigmoid(mass) 
+Replaced feature (hoststar_mass*hoststar_temperature) with (mass*(period*hoststar_metallicity)) 
+Replaced feature sigmoid(hoststar_radius) with ((mass*(period*hoststar_metallicity))*mass) 
+Population 5 begin.
+Population 5 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 6 begin.
+Population 6 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 7 begin.
+Population 7 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 8 begin.
+Population 8 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 9 begin.
+Population 9 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+Population 10 begin.
+Population 10 done.
+Current best crit: 1363.84032961271 
+Feature importance:
+ ###########!#################| mass 
+ ###########!#################| radius 
+ ###########!#################| period 
+ ###########!#################| eccentricity 
+ ###########!#################| hoststar_mass 
+ ###########!#################| hoststar_radius 
+ ###########!#################| hoststar_metallicity 
+ ###########!#################| hoststar_temperature 
+ ###########!#################| binaryflag 
+ ###########!#################| sigmoid(hoststar_metallicity) 
+ ###########!#################| (mass*(period*hoststar_metallicity)) 
+ ###########!#################| (hoststar_metallicity*hoststar_mass) 
+ ###########!#################| (period*hoststar_metallicity) 
+ ###########!#################| ((mass*(period*hoststar_metallicity))*mass) 
+ ###########!#################| sigmoid(mass) 
+> hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("residuals.fms_base")
+> ### * residuals.fms_base
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: residuals.fms_base
+> ### Title: Residuals for FMS Model
+> ### Aliases: residuals.fms_base
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
+
+FMS begin.
+
+FMS done.
+> hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("residuals.fms_parallel")
+> ### * residuals.fms_parallel
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: residuals.fms_parallel
+> ### Title: Residuals for FMS Parallel Model
+> ### Aliases: residuals.fms_parallel
+> 
+> ### ** Examples
+> 
+> data(exoplanet)
+> model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms.parallel",runs = 2, cores = 1)
+
+FMS begin.
+
+FMS done.
+
+FMS begin.
+
+FMS done.
+> hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("set.transforms")
+> ### * set.transforms
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: set.transforms
+> ### Title: Set the Transformations Option for FFMS (Genetically Modified
+> ###   FMS).
+> ### Aliases: set.transforms
+> 
+> ### ** Examples
+> 
+> set.transforms(c("p0","p1"))
+[1] "sigmoid"
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sigmoid")
+> ### * sigmoid
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sigmoid
+> ### Title: Sigmoid Function
+> ### Aliases: sigmoid
+> 
+> ### ** Examples
+> 
+> sigmoid(2)
+[1] 0.8807971
+> 
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sin_deg")
+> ### * sin_deg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sin_deg
+> ### Title: Sine Function for Degrees
+> ### Aliases: sin_deg
+> 
+> ### ** Examples
+> 
+> sin_deg(0)
+[1] 0
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sqroot")
+> ### * sqroot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sqroot
+> ### Title: Square Root Function
+> ### Aliases: sqroot
+> 
+> ### ** Examples
+> 
+> sqroot(4)
+[1] 2
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("string.population")
+> ### * string.population
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: string.population
+> ### Title: Function to Get a Character Representation of a List of Features
+> ### Aliases: string.population
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100), 
++ P = 2, 
++ transforms = c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> string.population(result$populations[[1]])
+     [,1]
+[1,] "x1"
+[2,] "x2"
+[3,] "x3"
+[4,] "x4"
+[5,] "x5"
+[6,] "x6"
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("string.population.models")
+> ### * string.population.models
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: string.population.models
+> ### Title: Function to Get a Character Representation of a List of Models
+> ### Aliases: string.population.models
+> 
+> ### ** Examples
+> 
+> result <- ffms_base(y = matrix(rnorm(100), 100),
++ x = matrix(rnorm(600), 100), 
++ P = 2, 
++ transforms = c("p0", "exp_dbl"))
+Population 1 begin.
+Population 1 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+Added feature exp_dbl(x4) 
+Added feature (x4*x6) 
+Added feature (x6*x1) 
+Added feature exp_dbl(x5) 
+Added feature (x1*x5) 
+Population not growing, returning.
+Population 2 begin.
+Population 2 done.
+Current best crit: -8.96972726781325 
+Feature importance:
+ ###########!#################| x1 
+ ###########!#################| x2 
+ ###########!#################| x3 
+ ###########!#################| x4 
+ ###########!#################| x5 
+ ###########!#################| x6 
+            !                 | exp_dbl(x4) 
+            !                 | (x4*x6) 
+            !                 | (x6*x1) 
+            !                 | exp_dbl(x5) 
+            !                 | (x1*x5) 
+> string.population.models(result$populations[[2]], result$models[[2]])
+        [,1]                  
+formula "I(x1+x2+x3+x4+x5+x6)"
+count   0                     
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("summary.ffms_predict")
+> ### * summary.ffms_predict
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: summary.ffms_predict
+> ### Title: Summary of FFMS Prediction Object
+> ### Aliases: summary.ffms_predict
+> 
+> ### ** Examples
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("troot")
+> ### * troot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: troot
+> ### Title: Cube Root Function
+> ### Aliases: troot
+> 
+> ### ** Examples
+> 
+> troot(27)
+[1] 3
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  11.805 0.637 12.587 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

@@ -1,0 +1,2158 @@
+Loading required package: wrswoR
+Loading required package: RcppEigen
+
+Attaching package: ‘irls.sgd’
+
+The following object is masked from ‘package:FFMS’:
+
+    sgd
+
+trying URL 'https://www.kaggle.com/api/v1/datasets/download/alexteboul/heart-disease-health-indicators-dataset?datasetVersionNumber=3'
+Content type 'application/zip' length 2788039 bytes (2.7 MB)
+==================================================
+downloaded 2.7 MB
+
+Rows: 253680 Columns: 22
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (22): HeartDiseaseorAttack, HighBP, HighChol, CholCheck, BMI, Smoker, St...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+ HeartDiseaseorAttack     HighBP         HighChol        CholCheck     
+ Min.   :0.00000      Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.00000      1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:1.0000  
+ Median :0.00000      Median :0.000   Median :0.0000   Median :1.0000  
+ Mean   :0.09419      Mean   :0.429   Mean   :0.4241   Mean   :0.9627  
+ 3rd Qu.:0.00000      3rd Qu.:1.000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :1.00000      Max.   :1.000   Max.   :1.0000   Max.   :1.0000  
+      BMI            Smoker           Stroke           Diabetes     
+ Min.   :12.00   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  
+ 1st Qu.:24.00   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000  
+ Median :27.00   Median :0.0000   Median :0.00000   Median :0.0000  
+ Mean   :28.38   Mean   :0.4432   Mean   :0.04057   Mean   :0.2969  
+ 3rd Qu.:31.00   3rd Qu.:1.0000   3rd Qu.:0.00000   3rd Qu.:0.0000  
+ Max.   :98.00   Max.   :1.0000   Max.   :1.00000   Max.   :2.0000  
+  PhysActivity        Fruits          Veggies       HvyAlcoholConsump
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   
+ 1st Qu.:1.0000   1st Qu.:0.0000   1st Qu.:1.0000   1st Qu.:0.0000   
+ Median :1.0000   Median :1.0000   Median :1.0000   Median :0.0000   
+ Mean   :0.7565   Mean   :0.6343   Mean   :0.8114   Mean   :0.0562   
+ 3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:0.0000   
+ Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000   
+ AnyHealthcare     NoDocbcCost         GenHlth         MentHlth     
+ Min.   :0.0000   Min.   :0.00000   Min.   :1.000   Min.   : 0.000  
+ 1st Qu.:1.0000   1st Qu.:0.00000   1st Qu.:2.000   1st Qu.: 0.000  
+ Median :1.0000   Median :0.00000   Median :2.000   Median : 0.000  
+ Mean   :0.9511   Mean   :0.08418   Mean   :2.511   Mean   : 3.185  
+ 3rd Qu.:1.0000   3rd Qu.:0.00000   3rd Qu.:3.000   3rd Qu.: 2.000  
+ Max.   :1.0000   Max.   :1.00000   Max.   :5.000   Max.   :30.000  
+    PhysHlth         DiffWalk           Sex              Age        
+ Min.   : 0.000   Min.   :0.0000   Min.   :0.0000   Min.   : 1.000  
+ 1st Qu.: 0.000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.: 6.000  
+ Median : 0.000   Median :0.0000   Median :0.0000   Median : 8.000  
+ Mean   : 4.242   Mean   :0.1682   Mean   :0.4403   Mean   : 8.032  
+ 3rd Qu.: 3.000   3rd Qu.:0.0000   3rd Qu.:1.0000   3rd Qu.:10.000  
+ Max.   :30.000   Max.   :1.0000   Max.   :1.0000   Max.   :13.000  
+   Education        Income     
+ Min.   :1.00   Min.   :1.000  
+ 1st Qu.:4.00   1st Qu.:5.000  
+ Median :5.00   Median :7.000  
+ Mean   :5.05   Mean   :6.054  
+ 3rd Qu.:6.00   3rd Qu.:8.000  
+ Max.   :6.00   Max.   :8.000  
+[1] 253680     22
+Population 1 begin.
+Population 1 done.
+Current best crit: -256.531075765907 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+ ###########!#################| PhysHlth 
+ ###########!#################| DiffWalk 
+ ###########!#################| Sex 
+ ###########!#################| Age 
+ ###########!#################| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Population 2 begin.
+Population 2 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Warning message:
+In ffms_base.transition(S[[p]], F.0, data, loglik.alpha, sic.probs[[1]],  :
+  Number of features to keep greater than pop.max! 
+            Continue with first pop.max features to be kept!
+            
+ Ignore if the final set of features with high probabilities is smaller than the specified $feat$pop.max
+            
+ Otherwise check your tuning parameters and increase $feat$pop.max or probs$filter!
+0.415 sec elapsed
+Population 1 begin.
+Population 1 done.
+Current best crit: -373.092211257738 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+ ###########!#################| PhysHlth 
+ ###########!#################| DiffWalk 
+ ###########!#################| Sex 
+ ###########!#################| Age 
+ ###########!#################| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Population 2 begin.
+Population 2 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Warning message:
+In ffms_base.transition(S[[p]], F.0, data, loglik.alpha, sic.probs[[1]],  :
+  Number of features to keep greater than pop.max! 
+            Continue with first pop.max features to be kept!
+            
+ Ignore if the final set of features with high probabilities is smaller than the specified $feat$pop.max
+            
+ Otherwise check your tuning parameters and increase $feat$pop.max or probs$filter!
+0.436 sec elapsed
+$tic
+elapsed 
+  4.807 
+
+$toc
+elapsed 
+  5.222 
+
+$msg
+logical(0)
+
+$callback_msg
+[1] "0.415 sec elapsed"
+
+$tic
+elapsed 
+  5.222 
+
+$toc
+elapsed 
+  5.658 
+
+$msg
+logical(0)
+
+$callback_msg
+[1] "0.436 sec elapsed"
+
+Population 1 begin.Population 1 begin.
+Population 1 done.
+Current best crit: -256.531075765907 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+ ###########!#################| PhysHlth 
+ ###########!#################| DiffWalk 
+ ###########
+Population 1 done.
+Current best crit: -256.531075765907 
+Feature importance:
+!########## ##############| #Sex 
+# ####!##################!################| #########| Age 
+ ###########!########HighBP 
+ #################| Education 
+# ###!####################!########| HighChol 
+## #########################| Income 
+!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+ Removed feature Sex 
+#Removed feature DiffWalk 
+#Removed feature PhysHlth 
+#########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+ ###########!#################| PhysHlth 
+ ###########!#################| DiffWalk 
+ ###########!#################| Sex 
+ ###########!#################| Age 
+ ###########!#################| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Population 2 begin.Population 2 begin.
+Population 2 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| 
+Population 2 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ##HvyAlcoholConsump 
+ ################!#####!#############################| #AnyHealthcare 
+# ####| #########!########HighBP 
+## ##########| NoDocbcCost 
+ ###########!#########################!##| HighChol 
+ #########################!############| GenHlth 
+ #################!##########| CholCheck 
+# ################!#####| MentHlth 
+#############| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 3 begin.Population 3 begin.
+Population 3 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+
+Population 3 done.
+Current best crit: -350.039552110395 
+Feature importance:
+  ###############!########!#####################| ############| Smoker 
+ ###########!HighBP 
+ #######################!##############| Stroke 
+ ##########| HighChol 
+# ################!#############!###################| Diabetes 
+ #######| CholCheck 
+ ###########!###########!#############################| PhysActivity 
+ #######| BMI 
+ #################!##!################################| #Smoker 
+|  Fruits 
+# ##################!###########!######################| Stroke## 
+ ###########| Veggies 
+ #######!##############!#############| Diabetes 
+## #####################| #!#########HvyAlcoholConsump########| PhysActivity 
+ 
+ # ##########!######################!################| Fruits 
+ ########| AnyHealthcare 
+ ##########!############!###########################| Veggies 
+ #############!######| NoDocbcCost 
+ ####################| HvyAlcoholConsump 
+# ##########!############!######################| #GenHlth 
+# ############!###| AnyHealthcare 
+ ######################!#########| MentHlth 
+##############| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+0.782 sec elapsed
+
+Top 2 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 1) | SIC: 513.062
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income
+
+Model #2 (Found in Pop 2) | SIC: 700.079
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth
+
+Population 1 begin.Population 1 begin.
+Population 1 done.
+Current best crit: -373.092211257738 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ #######
+Population 1 done.
+#Current best crit: -373.092211257738 
+Feature importance:
+# ####!#####################!#########| ##Smoker 
+### ##########| #########!#########HighBP 
+ ################| Stroke 
+# ####!##################!################| HighChol 
+ ################| ####!#####Diabetes 
+ #####################!##########| ###CholCheck 
+ ##############| PhysActivity 
+ #######!##############!####################| #BMI 
+# ##########| #Fruits 
+# ########!##############!####################| #Smoker 
+ ###############| Veggies 
+ #######!############!###########################| HvyAlcoholConsump #| Stroke 
+ #####
+# ################!##########!#################| AnyHealthcare 
+# #########| Diabetes 
+ ##########!###########!############################| NoDocbcCost 
+ #########| PhysActivity 
+ ###########!##########!#############################| GenHlth 
+ ###| Fruits 
+ ###############!#############!####################| #MentHlth#####| Veggies 
+ ## 
+ #################!#####!#############################| #PhysHlth 
+# ##| #HvyAlcoholConsump 
+ ##################!##!#############################| AnyHealthcare 
+ ######| DiffWalk 
+ ############!##########!#############################| NoDocbcCost 
+ ######| Sex 
+ ###########!###########!##############################| GenHlth 
+ #########| ###Age 
+ #########!############!###############| MentHlth 
+# ###############!#####| Education 
+ ########################!######| PhysHlth 
+ ######################!######| Income 
+###############| DiffWalk 
+ ###########!#################| Sex 
+ ###########!#################| Age 
+ ##########Removed feature Income 
+Removed feature Education 
+Removed feature Age#!########## 
+Removed feature Sex 
+Removed feature DiffWalk 
+#######| Education 
+ Removed feature PhysHlth 
+###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Population 2 begin.Population 2 begin.
+Population 2 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!##########
+Population 2 done.
+###Current best crit: -468.611093250441 
+Feature importance:
+## ####| #########!########HighBP 
+ ################| ####!###########HighBP 
+# ##########| #HighChol 
+ ##############!###########!##################| CholCheck 
+# ######| HighChol 
+ #################!#############!###########| BMI 
+# #################| CholCheck 
+########!## ############!#############################| Smoker 
+ ########| #BMI 
+# ######!####################!###########| Stroke 
+ ######################| Smoker 
+ ######!#################!##############| Diabetes 
+ ########| Stroke 
+########### ##########!###########!################| PhysActivity 
+# ##############| #Diabetes 
+# ####!###############!############################| Fruits 
+ #######| PhysActivity 
+ ###########!###########!#################| Veggies 
+# ##################| #Fruits 
+# !######################!###########| #HvyAlcoholConsump 
+# ####################| Veggies 
+ #!####################| AnyHealthcare 
+### #########!############!#########################| HvyAlcoholConsump 
+# ######| #NoDocbcCost 
+ ################!######!########################| AnyHealthcare 
+ ##############!###| GenHlth 
+ #######################!##########| NoDocbcCost 
+ #######################!##| MentHlth 
+###############| GenHlth 
+ ###########!#################| MentHlth 
+Population 3 begin.Population 3 begin.
+Population 3 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 3 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+0.852 sec elapsed
+
+Top 2 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 1) | SIC: 746.184
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income
+
+Model #2 (Found in Pop 2) | SIC: 937.222
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth
+
+Population 1 begin.Population 1 begin.Population 1 begin.Population 1 begin.
+Population 1 done.
+Current best crit: -256.531075765907 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+ ###########!#################| PhysHlth 
+ ###########!#################| DiffWalk 
+ ###########!#################| Sex 
+ ###########!#################| Age 
+ ###########!#################| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+
+Population 1 done.
+Current best crit: -256.531075765907 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#####
+Population 1 done.
+######Current best crit: -256.531075765907 
+Feature importance:
+### ####| Fruits 
+ ################!###################!##################| #Veggies #
+|  ###########!########HighBP 
+## ############| #HvyAlcoholConsump #
+# #####!############!#################| AnyHealthcare 
+ ##################!##########| HighChol 
+# #######################!##| #NoDocbcCost 
+# ###################
+Population 1 done.
+###Current best crit: -256.531075765907 
+###| Feature importance:
+CholCheck 
+! # #############################!#####!#################################| ##BMI 
+|  ####| ##GenHlth 
+## ########HighBP 
+ ###########!##############!######!######################| #HighChol 
+# ######################| MentHlth 
+!# ############| Smoker 
+ ##################!########################!###| ###CholCheck ###
+#### ########| ##Stroke 
+# ###########| ###PhysHlth ######!
+###! ############################!#############| ###Diabetes 
+## #######| #BMI 
+### ################!#######!#################################| PhysActivity 
+###| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ #######|  ######DiffWalk# 
+##### ##!##########!#############################!#############| Fruits 
+| Fruits 
+ ######## #################| Sex 
+#!### #####################!#####!####################| Veggies 
+# ##########| ##Veggies 
+# #########| Age 
+## ############!###################!#######!#############################| #HvyAlcoholConsump 
+### #######| ######Education 
+# ######!##| ##HvyAlcoholConsump ######
+### ###############!################| #AnyHealthcare# 
+! ###########################| #AnyHealthcare 
+## !#############################| ##| #Income##NoDocbcCost 
+ ####### !
+#############!##############| NoDocbcCost 
+##### ###########| ######GenHlth 
+ ####!########Removed feature Income 
+Removed feature Education 
+#####Removed feature #Age 
+###Removed feature Sex ###
+!####Removed feature DiffWalk ##| 
+#GenHlth #
+#Removed feature PhysHlth# 
+# #############!##################| MentHlth 
+ ##############| MentHlth 
+ ##########!##################| #####!PhysHlth 
+##### #####################!##| #PhysHlth 
+# ###################!##########| #DiffWalk 
+# #####################!##| DiffWalk 
+ ######################!####################| Sex 
+###|  #####Sex ######
+!# #######################| Age 
+ ##############!##########!#############| #Education 
+# ################| #Age #
+# ###!#####################!#########| #Income 
+#############| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Population 2 begin.Population 2 begin.Population 2 begin.Population 2 begin.
+Population 2 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 2 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 2 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+
+Population 2 done.
+ #Current best crit: -350.039552110395 
+Feature importance:
+# ####################!!##################################| | GenHlth 
+ ###########HighBP 
+! ########################| #MentHlth 
+###!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###Population 3 begin.########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 3 begin.Population 3 begin.Population 3 begin.
+Population 3 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 3 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 3 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ Population 4 begin.###########!################
+Population 3 done.
+Current best crit: -350.039552110395 
+Feature importance:
+# #| ##########!########HighBP 
+# #########| ##########!##HighBP 
+# ####################!#############| HighChol 
+ ###########!###############| HighChol 
+ ######################!#####| CholCheck 
+ ######################!#####| CholCheck 
+ #######################!########| BMI 
+ ################| #BMI####!####### 
+ #############!##################| Smoker 
+# #######| Smoker 
+ ############!#########!#############################| Stroke 
+ #######| Stroke 
+ ############!#########!#############################| Diabetes 
+ ######| Diabetes 
+ ############!###########!###########################| PhysActivity 
+ ########| PhysActivity 
+ ##########!###########!#############################| Fruits 
+ ######| Fruits 
+ ############!#########!#############################| Veggies 
+ #######| Veggies 
+ #################!!##################################| | HvyAlcoholConsump 
+HvyAlcoholConsump ########### 
+ ###########!###!#############################| ##AnyHealthcare 
+| AnyHealthcare # 
+## ################!#######!#########################| ##NoDocbcCost 
+### #| NoDocbcCost 
+# ################!########!##########################| ##GenHlth 
+## #| GenHlth 
+# ################!########!##########################| ##MentHlth 
+##| MentHlth 
+Population 4 begin.Population 4 begin.Population 4 begin.
+Population 4 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 4 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 5 begin.
+Population 4 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 5 begin.
+Population 4 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 5 begin.Population 5 begin.
+Population 5 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 5 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 6 begin.Population 6 begin.
+Population 5 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| 
+Population 5 done.
+BMI 
+Current best crit: -350.039552110395 
+ Feature importance:
+## ####################!###!###############################| | Smoker 
+ ####HighBP 
+# ###############!###!#####################| Stroke 
+ ###################!######| HighChol 
+ ###################| Diabetes 
+ #################!##!########################| ###PhysActivity 
+## #######| ##CholCheck 
+# ################!!#################| Fruits 
+ ########################!#########| BMI 
+## #####################| Veggies 
+ #####!#############!#####################| Smoker 
+ ###############| HvyAlcoholConsump 
+ ###########!#####!###############################| | Stroke 
+AnyHealthcare 
+  ###########!##################| Diabetes ##########!###########
+# #############!#################| PhysActivity 
+ ##############| NoDocbcCost 
+ #!##########################| Fruits 
+ ###########!#!##################################| | Veggies 
+ GenHlth 
+# ##################!#####!#############################| ##HvyAlcoholConsump 
+# | MentHlth 
+###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 6 begin.Population 6 begin.
+Population 6 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 6 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 7 begin.Population 7 begin.
+Population 6 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#############
+Population 6 done.
+####Current best crit: -350.039552110395 
+| HvyAlcoholConsump 
+ #####Feature importance:
+ #########!######################!###########| AnyHealthcare 
+ #############| #######!########HighBP 
+ ####################!#################| NoDocbcCost 
+|  HighChol 
+# ####################!#!##################################| CholCheck 
+ #####| GenHlth 
+# ###########!###########!######################| BMI 
+# ##########| MentHlth 
+######!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 7 begin.Population 7 begin.
+Population 7 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 7 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 8 begin.Population 8 begin.
+Population 7 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 7 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 8 begin.Population 8 begin.
+Population 8 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 8 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 9 begin.Population 9 begin.
+Population 8 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 8 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 9 begin.Population 9 begin.
+Population 9 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 10 begin.
+Population 9 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 9 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!###Population 10 begin.##############| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 9 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 10 begin.Population 10 begin.
+Population 10 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 10 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 10 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 10 done.
+Current best crit: -350.039552110395 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+1.983 sec elapsed
+
+Top 2 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 1) | SIC: 513.062
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income
+
+Model #2 (Found in Pop 2) | SIC: 700.079
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth
+
+Population 1 begin.Population 1 begin.Population 1 begin.Population 1 begin.
+Population 1 done.
+Current best crit: -373.092211257738 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!
+Population 1 done.
+###########Current best crit: -373.092211257738 
+Feature importance:
+## ##############| MentHlth 
+ ###!#################!##########| ################| PhysHlth 
+ ########HighBP 
+# ###!##########################| DiffWalk 
+ ####!###########!#############################| #HighChol 
+# | #Sex 
+ #####################!########!####################| CholCheck 
+ ###
+Population 1 done.
+####Current best crit: -373.092211257738 
+###Feature importance:
+##| Age 
+#####!#### # ##################!####################| #############| !##HighBP# 
+#BMI 
+ ######### ###################| Education!######### ######
+ ########!#################| HighChol 
+ ##########| ##Smoker 
+ ############!#######!#######!###################################| Stroke 
+ ##############| Income 
+####!##########| #####CholCheck 
+ #################| Diabetes 
+ ##!#############Removed feature Income# ####
+#!###Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+#Removed feature DiffWalk 
+#Removed feature PhysHlth# #
+##########| BMI 
+# ##############| PhysActivity 
+## #####!###############!################| ##Smoker 
+ #############!#################| Fruits 
+ #################| Stroke 
+ ###########!#########!#######################| Veggies 
+## ##| ##Diabetes 
+# ############!##############!######################| HvyAlcoholConsump 
+ ##########| #PhysActivity# 
+# ######!############!###########################| ##Fruits 
+|  ##AnyHealthcare 
+# #############!#######################| Veggies 
+! ############################| !########NoDocbcCost 
+ #################| #HvyAlcoholConsump 
+## #######!########!########################| ######AnyHealthcare 
+ #######| GenHlth ##
+ ####!############!#############################| MentHlth 
+ ###| NoDocbcCost 
+ #################!#######!#####################| GenHlth 
+ #################| PhysHlth 
+ ##########!###########!###############| MentHlth 
+ #####################!########| DiffWalk 
+ ###################| PhysHlth 
+ #########!################!############| #Sex 
+ ###########!##########################| DiffWalk# 
+ ######| ######!###Age 
+ ######################!##############| ######| Education 
+ Sex 
+# ###########!####################!############| Income 
+############| Age 
+ ###########!#################| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+
+Population 1 done.
+Current best crit: -373.092211257738 
+Feature importance:
+ ####Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+#Removed feature# Sex 
+#Removed feature DiffWalk 
+#Removed feature PhysHlth 
+###!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+ ###########!#################| PhysHlth 
+ ###########!#################| DiffWalk 
+ ###########!#################| Sex 
+ ###########!#################| Age 
+ ###########!#################| Education 
+ ###########!#################| Income 
+Removed feature Income 
+Removed feature Education 
+Removed feature Age 
+Removed feature Sex 
+Removed feature DiffWalk 
+Removed feature PhysHlth 
+Population 2 begin.Population 2 begin.Population 2 begin.Population 2 begin.
+Population 2 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########
+Population 2 done.
+!
+Population 2 done.
+
+Population 2 done.
+###Current best crit: -468.611093250441 
+Current best crit: -468.611093250441 
+Current best crit: -468.611093250441 
+Feature importance:
+Feature importance:
+ # ###Feature importance:
+# #################################| ###PhysActivity 
+##! ############!##!###################################!######| ############| HighBP 
+ ###########HighBP 
+|  ###################!####HighBP# #####!#########| 
+# Fruits 
+#### ##########| HighChol 
+ #############################!#########!############!#############| ############HighChol 
+ ########| #####HighChol 
+# ##################!##!#####| CholCheck ##
+## #########| #Veggies## ###
+# ##!##########################| CholCheck 
+###### ##################!#########| BMI 
+!########### #######| HvyAlcoholConsump 
+######################!###############| CholCheck 
+ #######| Smoker 
+####  ####| #BMI# ##
+#############!#####!### ###############################!#####!#####################| AnyHealthcare 
+##### ###################| ########Stroke#!## | #Smoker
+ ######################| NoDocbcCost 
+ #### ##
+####|  BMI#### !#######!#############
+# ################!#####################| ########| GenHlth 
+ #######!#############!#############| Stroke 
+ ##########Diabetes 
+ #################| !######Smoker## 
+# #############!#############!#############| MentHlth 
+###| Diabetes 
+ ####################!#####################| PhysActivity 
+ ######| Stroke 
+ ######################!##########!############| PhysActivity 
+ ###################| Fruits 
+ #########!##########| Diabetes 
+# #########!###################!############################| Fruits 
+ #####| #Veggies 
+# ##############| PhysActivity 
+#### ####!#########!###################################| Veggies 
+ ###!#############| HvyAlcoholConsump 
+ ###################!!##################| Fruits 
+ #################| ###HvyAlcoholConsump 
+###########!############| AnyHealthcare 
+ ## ##################!###############!########| Veggies ###########
+ ###################| NoDocbcCost 
+ ######| #AnyHealthcare#####!######!################# 
+########### ##########| HvyAlcoholConsump 
+ #########| GenHlth 
+ ######!#############!#############!############| NoDocbcCost 
+##########| # #AnyHealthcare 
+ ########################!################| MentHlth ##########| 
+!#NoDocbcCost 
+## #######################!#####| GenHlth 
+# #######################!########| GenHlth ##
+ ##################| #!MentHlth 
+#################| MentHlth 
+Population 3 begin.Population 3 begin.Population 3 begin.Population 3 begin.
+Population 3 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 3 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!###########
+Population 3 done.
+Current best crit: -468.611093250441 
+Feature importance:
+# #######| AnyHealthcare 
+ ###################!#!###########################| NoDocbcCost 
+ ########| ##########!####HighBP 
+# ##############| GenHlth 
+#########!############ ################| HighChol 
+ ###!##################!#########| MentHlth 
+###############| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 3 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 4 begin.Population 4 begin.Population 4 begin.Population 4 begin.
+Population 4 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 4 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!###
+Population 4 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ #########################| !MentHlth 
+#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 4 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 5 begin.Population 5 begin.Population 5 begin.Population 5 begin.
+Population 5 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 5 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 5 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 5 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 6 begin.Population 6 begin.Population 6 begin.Population 6 begin.
+Population 6 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 6 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 6 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 6 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ######Population 7 begin.#####!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 7 begin.Population 7 begin.Population 7 begin.
+Population 7 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| 
+Population 7 done.
+Current best crit: -468.611093250441 
+Fruits 
+ ##Feature importance:
+ ############!#########!#########################| Veggies 
+ ############!#########| ###############HighBP 
+|  HvyAlcoholConsump 
+# ##############!###################!##########| AnyHealthcare 
+ #######################!#########| HighChol 
+ ##############| NoDocbcCost 
+# ###############!#####!#################| GenHlth 
+ #######################| CholCheck 
+ ####!########################| !MentHlth 
+#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 7 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 7 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 8 begin.Population 8 begin.Population 8 begin.Population 8 begin.
+Population 8 done.
+
+Population 8 done.
+Current best crit: -468.611093250441 
+Feature importance:
+Current best crit: -468.611093250441 
+Feature importance:
+  ##############!#####################| ####!####HighBP# 
+## ##################| ###!###########HighBP 
+## #########| HighChol 
+ ################!##!####################| HighChol# 
+ #############| CholCheck 
+ ###############!#########!###############################| CholCheck 
+ #| BMI 
+ ####################!##!###################| BMI 
+# #####################| #Smoker #
+ ########!#########!#########################| Stroke 
+ ###########| Smoker 
+ ######!##############!###############| #Diabetes 
+ ###############!############| Stroke 
+ ################| PhysActivity 
+ ##################!#########!############| Diabetes 
+ ##################| #Fruits 
+# ##############!######!##########################| #Veggies 
+# #########| PhysActivity 
+ ########!##################!#############| ##HvyAlcoholConsump 
+# ##############| Fruits## 
+## ##!##################!#################| ##AnyHealthcare 
+# #######| Veggies 
+ ##########!#####################!################| NoDocbcCost 
+# ########| HvyAlcoholConsump 
+ ##########!######################!##########| GenHlth 
+ ######################!##| AnyHealthcare 
+ #######################!##############| MentHlth 
+########| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 8 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ####
+Population 8 done.
+Current best crit: -468.611093250441 
+Feature importance:
+# #################!#!#################| ##############HighBP 
+ #########| ####!######HighBP 
+ ############!##################| ########HighChol#|  HighChol 
+
+ #### ##########!#######################!####| CholCheck## 
+## ######################| !CholCheck ###
+ #######################!####| BMI 
+# #########################!#| BMI 
+# ####################| Smoker ######!####
+ #######################!#########| Smoker 
+ ###############| #Stroke# 
+ ###!############################!#########| Stroke 
+ ##############| Diabetes 
+#####!#### #####################!###########| Diabetes 
+ #############| #######!##############PhysActivity 
+ #############!#######| ####PhysActivity 
+# ############!##############| Fruits 
+ #############| Fruits 
+ ########!############!###########################| Veggies 
+ ######| Veggies 
+ ##########!##########!############################| ##HvyAlcoholConsump 
+# ######| ##HvyAlcoholConsump 
+## #########!#############!#####################| AnyHealthcare 
+## #######| ##AnyHealthcare 
+###### ######!######################!| #NoDocbcCost 
+ ####################!##################| ######| NoDocbcCost 
+GenHlth 
+ ######## #############!##!############################| GenHlth 
+ ###########!#####| MentHlth 
+#################| MentHlth 
+Population 9 begin.Population 9 begin.Population 9 begin.Population 9 begin.
+Population 9 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+Population 9 done.
+
+ #Current best crit: -468.611093250441 
+Feature importance:
+##########!## ##########################!#| PhysActivity 
+# ################!##########################| #| Fruits 
+ ###########HighBP 
+!# #########################!#####| Veggies 
+ #######################!#####| HighChol 
+# ########################!#######| HvyAlcoholConsump 
+# #################| ###!#######CholCheck 
+ ##################| #AnyHealthcare##! 
+ #####################!##############| BMI 
+# ##########| NoDocbcCost ##########
+ #########!###########!################| Smoker 
+# #########| GenHlth 
+ #####################!#########!######################| ##Stroke 
+#|  #MentHlth 
+##########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 9 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 9 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+Population 10 begin.Population 10 begin.Population 10 begin.Population 10 begin.
+Population 10 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 10 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 10 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+
+Population 10 done.
+Current best crit: -468.611093250441 
+Feature importance:
+ ###########!#################| HighBP 
+ ###########!#################| HighChol 
+ ###########!#################| CholCheck 
+ ###########!#################| BMI 
+ ###########!#################| Smoker 
+ ###########!#################| Stroke 
+ ###########!#################| Diabetes 
+ ###########!#################| PhysActivity 
+ ###########!#################| Fruits 
+ ###########!#################| Veggies 
+ ###########!#################| HvyAlcoholConsump 
+ ###########!#################| AnyHealthcare 
+ ###########!#################| NoDocbcCost 
+ ###########!#################| GenHlth 
+ ###########!#################| MentHlth 
+2.142 sec elapsed
+
+Top 2 Distinct Models by SIC (Across All Threads):
+
+Model #1 (Found in Pop 1) | SIC: 746.184
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth, PhysHlth, DiffWalk, Sex, Age, Education, Income
+
+Model #2 (Found in Pop 2) | SIC: 937.222
+  Features: HighBP, HighChol, CholCheck, BMI, Smoker, Stroke, Diabetes, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, GenHlth, MentHlth
+
+HeartDiseaseorAttack               HighBP             HighChol 
+           0.2501828            0.3308207            0.2497177 
+           CholCheck                  BMI               Smoker 
+           0.1408854            0.2446059            0.1676365 
+              Stroke             Diabetes         PhysActivity 
+           0.2501828            0.2765149            0.2799047 
+              Fruits              Veggies    HvyAlcoholConsump 
+           0.2113608            0.2113608            0.1126324 
+       AnyHealthcare          NoDocbcCost              GenHlth 
+           0.2694965            0.2694965            0.5311878 
+            MentHlth             PhysHlth             DiffWalk 
+           0.3073596            0.5311878            0.4712644 
+                 Sex                  Age            Education 
+           0.1827294            0.2487729            0.4776181 
+              Income 
+           0.4776181 

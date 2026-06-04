@@ -1,0 +1,140 @@
+FFMS-package            Frequentist Flexible Model Selection
+SangerData2             Gene Expression Data for Lymphoblastoid Cell
+                        Lines of 210 Unrelated HapMap individuals from
+                        four populations
+abalone                 Physical Measurements of 4177 Abalones, a
+                        Species of Sea Snail.
+aggr                    Generic for Accessing Aggregated Predictions
+aggr.ffms_predict       Access Aggregated Predictions
+arcsinh                 Arcsinh Transform
+breastcancer            Breast Cancer Wisconsin (Diagnostic) Data Set
+coef.bgnlm_model        Coefficients for BGNLM Model
+coef.ffms_base          Coefficients for FFMS Model
+coef.ffms_merged        Coefficients for FFMS Merged Model
+coef.fms_base           Coefficients for FMS Model
+coef.fms_parallel       Coefficients for FMS Parallel Model
+compute_effects         Compute Effects for Specified Covariates Using
+                        a Fitted Model
+cos_deg                 Cosine Function for Degrees
+diagn_plot              Plot Convergence Diagnostics for FFMS or FFMS
+                        Merged Results
+erf                     Erf Function
+exoplanet               Excerpt from the Open Exoplanet Catalogue Data
+                        Set
+exp_dbl                 Double Exponential Function
+ffms                    Fit a BGNLM Model Using FMS or FFMS Sampling.
+ffms.mlik.master        Master Log Marginal Likelihood Function
+ffms.parallel           Run Multiple FFMS (Genetically Modified FMS)
+                        Runs in Parallel.
+ffms_base               Main Algorithm for FFMS (Genetically Modified
+                        FMS)
+fitted.ffms_predict     Access Fitted Values
+fms.parallel            Run Multiple FMS Runs in Parallel, Merging the
+                        Results Before Returning.
+fms_base                Main Algorithm for FMS (Genetically Modified
+                        FMS)
+gaussian.loglik         Log Likelihood Function for Gaussian Regression
+                        with a Jeffreys Prior and BIC Approximation
+gelu                    GELU Function
+gen.params.ffms_base    Generate a Parameter List for FFMS (Genetically
+                        Modified FMS)
+gen.params.fms_base     Generate a Parameter List for FMS (Mode Jumping
+                        MCMC)
+gen.probs.ffms_base     Generate a Probability List for FFMS
+                        (Genetically Modified FMS)
+gen.probs.fms_base      Generate a Probability List for FMS (Mode
+                        Jumping MCMC)
+get.best.model          Extract the Best Model from MJMCMC or GMJMCMC
+                        Results
+get.mpm.model           Retrieve the Median Probability Model (MPM)
+hs                      Heavy Side Function
+impute_x                Impute Missing Values in the Data
+impute_x_pred           Impute Missing Values in Test Data Using
+                        Training Data
+log_prior               Log Model Prior Function
+logistic.loglik         Log Likelihood Function for Logistic Regression
+                        with a Jeffreys Parameter Prior and BIC
+                        Approximations of the Posterior.
+marginal.probs          Function for Calculating Marginal Inclusion
+                        Probabilities of Features Given a List of
+                        Models
+merge_results           Merge a List of Multiple Results from Many Runs
+model.string            Function to Generate a Function String for a
+                        Model Consisting of Features
+ngelu                   Negative GELU Function
+nhs                     Negative Heavy Side Function
+not                     Not x
+nrelu                   Negative ReLU Function
+p0                      p0 Polynomial Term
+p05                     p05 Polynomial Term
+p0p0                    p0p0 Polynomial Term
+p0p05                   p0p05 Polynomial Term
+p0p1                    p0p1 Polynomial Term
+p0p2                    p0p2 Polynomial Term
+p0p3                    p0p3 Polynomial Term
+p0pm05                  p0pm05 Polynomial Term
+p0pm1                   p0pm1 Polynomial Terms
+p0pm2                   p0pm2 Polynomial Term
+p2                      p2 Polynomial Term
+p3                      p3 Polynomial Term
+plot.bgnlm_model        Plot BGNLM Model
+plot.ffms_base          Function to Plot GMJMCMC Results and Merged
+                        Results from merge.results
+plot.ffms_merged        Plot a ffms_merged Run
+plot.ffms_predict       Plot FFMS Prediction Object
+plot.fms_base           Function to Plot GMJMCMC Results and Merged
+                        Results from merge.results
+plot.fms_parallel       Plot an fms.parallel Run
+pm05                    pm05 Polynomial Term
+pm1                     pm1 Polynomial Term
+pm2                     pm2 Polynomial Term
+predict.bgnlm_model     Predict Responses from a BGNLM Model
+predict.ffms_base       Predict Using a FFMS Result Object
+predict.ffms_merged     Predict Using a Merged FFMS Result Object
+predict.ffms_parallel   Predict Using a FFMS Result Object from a
+                        Parallel Run
+predict.fms_base        Predict Using an FMS Result Object
+predict.fms_parallel    Predict Using an FMS Result Object from a
+                        Parallel Run
+predmean                Generic for Accessing Mean Predictions
+predmean.ffms_predict   Access Mean Predictions
+predquantiles           Generic for Accessing Quantile Predictions
+predquantiles.ffms_predict
+                        Access Quantile Predictions
+print.bgnlm_model       Print BGNLM Model Object
+print.feature           Print Method for \"feature\" Class
+print.ffms_base         Print FFMS Model Object
+print.ffms_merged       Print FFMS Merged Model Object
+print.ffms_predict      Print FFMS Prediction Object
+print.fms_base          Print FMS Model Object
+print.fms_parallel      Print FMS Parallel Model Object
+relu                    ReLU Function
+residuals.bgnlm_model   Residuals for BGNLM Model
+residuals.ffms_base     Residuals for FFMS Model
+residuals.ffms_merged   Residuals for FFMS Merged Model
+residuals.fms_base      Residuals for FMS Model
+residuals.fms_parallel
+                        Residuals for FMS Parallel Model
+rmclapply               rmclapply: Cross-Platform mclapply/Forking Hack
+                        for Windows
+set.transforms          Set the Transformations Option for FFMS
+                        (Genetically Modified FMS).
+sic.grad                Gradient for GLM with SIC Penalty
+sigmoid                 Sigmoid Function
+sin_deg                 Sine Function for Degrees
+sqroot                  Square Root Function
+string.population       Function to Get a Character Representation of a
+                        List of Features
+string.population.models
+                        Function to Get a Character Representation of a
+                        List of Models
+summary.ffms_base       Function to Print a Quick Summary of the
+                        Results
+summary.ffms_merged     Function to Print a Quick Summary of the
+                        Results
+summary.ffms_predict    Summary of FFMS Prediction Object
+summary.fms_base        Function to Print a Quick Summary of the
+                        Results
+summary.fms_parallel    Function to Print a Quick Summary of the
+                        Results
+troot                   Cube Root Function

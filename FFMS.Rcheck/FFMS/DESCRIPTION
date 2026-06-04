@@ -1,0 +1,29 @@
+Package: FFMS
+Type: Package
+Title: Frequentist Flexible Model Selection
+Version: 1.3
+Date: 2025-09-30
+Encoding: UTF-8
+Language: en-US
+Authors@R: c(
+    person("Jon", "Lachmann", email = "jon@lachmann.nu", role = c("cre", "aut")),
+    person("Aliaksandr", "Hubin", email = "aliaksah@math.uio.no", role = "aut")
+    )
+Description: Implements the Frequentist Smooth Information Criterion (SIC) continuous optimization approach for flexible nonlinear model selection, translating the Bayesian Genetically Modified MJMCMC into a fast, scalable frequentist counterpart.
+URL: https://github.com/jonlachmann/FFMS
+License: GPL-2
+Depends: R (>= 3.5.0)
+Imports: Rcpp, fastglm, GenSA, parallel, methods, r2r, BAS, tolerance
+LinkingTo: Rcpp
+Suggests: testthat, knitr, rmarkdown, markdown, lme4, kernlab, mvtnorm,
+        cAIC4
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
+VignetteBuilder: knitr
+LazyData: true
+NeedsCompilation: yes
+Packaged: 2026-06-04 14:57:54 UTC; aliaksandrhome
+Author: Jon Lachmann [cre, aut],
+  Aliaksandr Hubin [aut]
+Maintainer: Jon Lachmann <jon@lachmann.nu>
+Built: R 4.4.1; aarch64-apple-darwin20; 2026-06-04 14:58:01 UTC; unix
