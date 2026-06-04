@@ -1,20 +1,20 @@
-#' Residuals for GMJMCMC Model
+#' Residuals for FFMS Model
 #'
 #' Computes residuals as the difference between observed and predicted values.
 #'
-#' @param object Object of class "gmjmcmc".
+#' @param object Object of class "ffms_base".
 #' @param y Respnse.
 #' @param x Covariates.
 #' @param ... Additional arguments (ignored).
 #' @return Vector of residuals.
-#' @method residuals gmjmcmc
+#' @method residuals ffms_base
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sigmoid"))
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "ffms_base", transforms = c("sigmoid"))
 #' hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
-residuals.gmjmcmc <- function(object, y, x, ...) {
-  stopifnot(inherits(object, "gmjmcmc"))
+residuals.ffms_base <- function(object, y, x, ...) {
+  stopifnot(inherits(object, "ffms_base"))
   if (is.null(object$residuals)) {
     pred <- predict(object, x)$aggr$mean
     return(y - pred)
@@ -23,23 +23,23 @@ residuals.gmjmcmc <- function(object, y, x, ...) {
   }
 }
 
-#' Residuals for MJMCMC Model
+#' Residuals for FMS Model
 #'
 #' Computes residuals as the difference between observed and predicted values.
 #'
-#' @param object Object of class "mjmcmc".
+#' @param object Object of class "fms_base".
 #' @param y Respnse.
 #' @param x Covariates.
 #' @param ... Additional arguments (ignored).
 #' @return Vector of residuals.
-#' @method residuals mjmcmc
+#' @method residuals fms_base
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
 #' hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
-residuals.mjmcmc <- function(object, y, x, ...) {
-  stopifnot(inherits(object, "mjmcmc"))
+residuals.fms_base <- function(object, y, x, ...) {
+  stopifnot(inherits(object, "fms_base"))
   if (is.null(object$residuals)) {
     pred <- predict(object, x)$aggr$mean
     return(y - pred)
@@ -60,9 +60,9 @@ residuals.mjmcmc <- function(object, y, x, ...) {
 #' @method residuals bgnlm_model
 #' @export
 #' @examples
-#' library(FBMS)
+#' library(FFMS)
 #' data(exoplanet)
-#' model <- get.best.model(fbms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+#' model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
 #' hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
 residuals.bgnlm_model <- function(object,y, x, ...) {
   stopifnot(inherits(object, "bgnlm_model"))
@@ -74,23 +74,23 @@ residuals.bgnlm_model <- function(object,y, x, ...) {
   }
 }
 
-#' Residuals for MJMCMC Parallel Model
+#' Residuals for FMS Parallel Model
 #'
 #' Computes residuals as the difference between observed and predicted values.
 #'
-#' @param object Object of class "mjmcmc_parallel".
+#' @param object Object of class "fms_parallel".
 #' @param y Respnse.
 #' @param x Covariates.
 #' @param ... Additional arguments (ignored).
 #' @return Vector of residuals.
-#' @method residuals mjmcmc_parallel
+#' @method residuals fms_parallel
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc.parallel",runs = 2, cores = 1)
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms.parallel",runs = 2, cores = 1)
 #' hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
-residuals.mjmcmc_parallel <- function(object, y, x, ...) {
-  stopifnot(inherits(object, "mjmcmc_parallel"))
+residuals.fms_parallel <- function(object, y, x, ...) {
+  stopifnot(inherits(object, "fms_parallel"))
   if (is.null(object$residuals)) {
     pred <- predict(object, x)$aggr$mean
     return(y - pred)
@@ -100,25 +100,25 @@ residuals.mjmcmc_parallel <- function(object, y, x, ...) {
 }
 
 
-#' Residuals for GMJMCMC Merged Model
+#' Residuals for FFMS Merged Model
 #'
 #' Computes residuals as the difference between observed and predicted values.
 #'
-#' @param object Object of class "gmjmcmc_merged".
+#' @param object Object of class "ffms_merged".
 #' @param y Respnse.
 #' @param x Covariates.
 #' @param ... Additional arguments (ignored).
 #' @return Vector of residuals.
-#' @method residuals gmjmcmc_merged
+#' @method residuals ffms_merged
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, 
-#' method = "gmjmcmc.parallel", transforms = c("sigmoid"), 
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, 
+#' method = "ffms.parallel", transforms = c("sigmoid"), 
 #' runs = 2, cores = 1)
 #' hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
-residuals.gmjmcmc_merged <- function(object, y, x, ...) {
-  stopifnot(inherits(object, "gmjmcmc_merged"))
+residuals.ffms_merged <- function(object, y, x, ...) {
+  stopifnot(inherits(object, "ffms_merged"))
   if (is.null(object$residuals)) {
     pred <- predict(object, x)$aggr$mean
     return(y - pred)

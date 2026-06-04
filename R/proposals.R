@@ -1,9 +1,9 @@
-# Title     : MJMCMC Proposal Generator
-# Objective : Generate models for proposals in MJMCMC
+# Title     : FMS Proposal Generator
+# Objective : Generate models for proposals in FMS
 # Created by: jonlachmann
 # Created on: 2021-02-11
 
-### Generators for proposal models in MJMCMC
+### Generators for proposal models in FMS
 ### From page 8 in Hubin et. al. 2018
 ### "Mode Jumping MCMC for Bayesian variable selection in GLMM"
 

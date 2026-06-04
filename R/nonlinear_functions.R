@@ -1,5 +1,5 @@
-# Title     : Nonlinear functions for GMJMCMC
-# Objective : Give an example library of nonlinear functions to use for GMJMCMC
+# Title     : Nonlinear functions for FFMS
+# Objective : Give an example library of nonlinear functions to use for FFMS
 # Created by: jonlachmann
 # Created on: 2021-03-22
 

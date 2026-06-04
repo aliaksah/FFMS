@@ -19,6 +19,6 @@ Extracts coefficients from a BGNLM model.
 }
 \examples{
 data(exoplanet)
-model <- get.best.model(fbms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
 coef(model)
 }

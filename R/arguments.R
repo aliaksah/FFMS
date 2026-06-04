@@ -3,7 +3,7 @@
 # Created by: jonlachmann
 # Created on: 2021-02-19
 
-#' Generate a Probability List for MJMCMC (Mode Jumping MCMC)
+#' Generate a Probability List for FMS (Mode Jumping MCMC)
 #'
 #' @return A named list with five elements:
 #' \describe{
@@ -22,11 +22,11 @@
 #' }
 #'
 #' @examples
-#' gen.probs.mjmcmc()
+#' gen.probs.fms_base()
 #' 
-#' @export gen.probs.mjmcmc
+#' @export gen.probs.fms_base
 #' 
-gen.probs.mjmcmc <- function () {
+gen.probs.fms_base <- function () {
   ## Mode jumping algorithm probabilities
   large <- 0.05                         # probability of a large jump
   large.kern <- c(0, 0, 0, 1)           # probability for type of large jump, only allow type 1-4
@@ -41,13 +41,13 @@ gen.probs.mjmcmc <- function () {
   return(probs)
 }
 
-#' Generate a Probability List for GMJMCMC (Genetically Modified MJMCMC)
+#' Generate a Probability List for FFMS (Genetically Modified FMS)
 #'
 #' @param transforms A list of the transformations used (to get the count).
 #'
 #' @return A named list with eight elements:
 #' \describe{
-#'   \item{\code{large}}{The probability of a large jump kernel in the MJMCMC algorithm. 
+#'   \item{\code{large}}{The probability of a large jump kernel in the FMS algorithm. 
 #'   With this probability, a large jump proposal will be made; otherwise, a local 
 #'   Metropolis-Hastings proposal will be used. One needs to consider good mixing 
 #'   around and between modes when specifying this parameter.}
@@ -93,16 +93,16 @@ gen.probs.mjmcmc <- function () {
 #' }
 #'
 #' @examples
-#' gen.probs.gmjmcmc(c("p0", "exp_dbl"))
+#' gen.probs.ffms_base(c("p0", "exp_dbl"))
 #' 
 #'
-#' @export gen.probs.gmjmcmc
-gen.probs.gmjmcmc <- function (transforms) {
+#' @export gen.probs.ffms_base
+gen.probs.ffms_base <- function (transforms) {
   if (!is.character(transforms))
     stop("The argument transforms must be a character vector specifying the transformations.")
 
-  # Get probs for mjmcmc
-  probs <- gen.probs.mjmcmc()
+  # Get probs for fms_base
+  probs <- gen.probs.fms_base()
 
   ## Feature generation probabilities
   transcount <- length(transforms)
@@ -119,16 +119,16 @@ gen.probs.gmjmcmc <- function (transforms) {
   return(probs)
 }
 
-#' Generate a Parameter List for MJMCMC (Mode Jumping MCMC)
+#' Generate a Parameter List for FMS (Mode Jumping MCMC)
 #'
 #' @param ncov The number of covariates in the dataset that will be used in the algorithm
 #'
-#' @return A list of parameters to use when running the mjmcmc function.
+#' @return A list of parameters to use when running the fms_base function.
 #' 
 #' The list contains the following elements:
 #' 
 #' \describe{
-#'   \item{\code{burn_in}}{The burn-in period for the MJMCMC algorithm, which is set to 100 iterations by default.}
+#'   \item{\code{burn_in}}{The burn-in period for the FMS algorithm, which is set to 100 iterations by default.}
 #'
 #'   \item{\code{mh}}{A list containing parameters for the regular Metropolis-Hastings (MH) kernel:
 #'     \describe{
@@ -183,11 +183,11 @@ gen.probs.gmjmcmc <- function (transforms) {
 #' intended to store parameters that the estimator function should use.
 #'
 #' @examples
-#' gen.params.mjmcmc(matrix(rnorm(600), 100))
+#' gen.params.fms_base(matrix(rnorm(600), 100))
 #' 
 #'
-#' @export gen.params.mjmcmc
-gen.params.mjmcmc <- function (ncov) {
+#' @export gen.params.fms_base
+gen.params.fms_base <- function (ncov) {
   ### Create a list of parameters for the algorithm
 
   ## Local optimization parameters
@@ -198,7 +198,7 @@ gen.params.mjmcmc <- function (ncov) {
                       neigh.size=1, neigh.min=1, neigh.max=2)           # Greedy algorithm proposal kernel parameters
   greedy_params <- list(steps=20, tries=3, kern=greedy_kern)            # Greedy algorithm parameters (60 models default)
 
-  ## MJMCMC parameters
+  ## FMS parameters
   burn_in <- 100                                                        # TODO
 
   # Large jump parameters
@@ -216,12 +216,12 @@ gen.params.mjmcmc <- function (ncov) {
   return(params)
 }
 
-#' Generate a Parameter List for GMJMCMC (Genetically Modified MJMCMC)
+#' Generate a Parameter List for FFMS (Genetically Modified FMS)
 #'
-#' This function generates the full list of parameters required for the Generalized Mode Jumping Markov Chain Monte Carlo (GMJMCMC) algorithm, building upon the parameters from \code{gen.params.mjmcmc}. The generated parameter list includes feature generation settings, population control parameters, and optimization controls for the search process.
+#' This function generates the full list of parameters required for the Generalized Mode Jumping Markov Chain Monte Carlo (FFMS) algorithm, building upon the parameters from \code{gen.params.fms_base}. The generated parameter list includes feature generation settings, population control parameters, and optimization controls for the search process.
 #'
 #' @param ncov The number of covariates in the dataset that will be used in the algorithm
-#' @return A list of parameters for controlling GMJMCMC behavior:
+#' @return A list of parameters for controlling FFMS behavior:
 #'
 #' @section Feature Generation Parameters (\code{feat}):
 #' \describe{
@@ -248,9 +248,9 @@ gen.params.mjmcmc <- function (ncov) {
 #'   \item{\code{rescale.large}}{Logical flag for rescaling large data values for numerical stability. Default \code{FALSE}.}
 #' }
 #'
-#' @section MJMCMC Parameters:
+#' @section FMS Parameters:
 #' \describe{
-#'   \item{\code{burn_in}}{The burn-in period for the MJMCMC algorithm, which is set to 100 iterations by default.}
+#'   \item{\code{burn_in}}{The burn-in period for the FMS algorithm, which is set to 100 iterations by default.}
 #'
 #'   \item{\code{mh}}{A list containing parameters for the regular Metropolis-Hastings (MH) kernel:
 #'     \describe{
@@ -303,15 +303,15 @@ gen.params.mjmcmc <- function (ncov) {
 #'
 #' @examples
 #' data <- data.frame(y = rnorm(100), x1 = rnorm(100), x2 = rnorm(100))
-#' params <- gen.params.gmjmcmc(ncol(data) - 1)
+#' params <- gen.params.ffms_base(ncol(data) - 1)
 #' str(params)
 #'
-#' @seealso \code{\link{gen.params.mjmcmc}}, \code{\link{gmjmcmc}}
+#' @seealso \code{\link{gen.params.fms_base}}, \code{\link{ffms_base}}
 #' 
-#' @export gen.params.gmjmcmc
-gen.params.gmjmcmc <- function (ncov) {
-  # Get mjmcmc params
-  params <- gen.params.mjmcmc(ncov)
+#' @export gen.params.ffms_base
+gen.params.ffms_base <- function (ncov) {
+  # Get fms_base params
+  params <- gen.params.fms_base(ncov)
 
   feat_params <- list(D = 5, L = 15,                                # Hard limits on feature complexity
                       alpha = "unit",                               # alpha strategy ("unit" = None, "deep" strategy 3 from Hubin et al., "random" fully Bayesian strategy) 
@@ -324,6 +324,16 @@ gen.params.gmjmcmc <- function (ncov) {
                       col.check.mock.data = FALSE,                  # Use mock data when checking for colinearity during feature generation
                       max.proj.size = 15)                           # Maximum projection size
   params$feat <- feat_params
+  
+  # SIC Optimization and SGD Parameters
+  params$sic <- list(
+      eps1 = 1.0,
+      epsT = 1e-4,
+      stepsT = 50,
+      alpha = 0.01,
+      decay = 0.99,
+      subs = 0.5
+  )
   
    # Large jump parameters
   large_params <- list(

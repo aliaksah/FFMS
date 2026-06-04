@@ -34,7 +34,7 @@ rmclapply <- function(runs, args, fun, mc.cores = NULL) {
     tryCatch({
       ## Copy over all of the objects within scope to
       ## all clusters.
-      clusterEvalQ(cl, library(FBMS))
+      clusterEvalQ(cl, library(FFMS))
       clusterExport(cl, "args")
       clusterExport(cl, ls(all.names = TRUE, envir = globalenv()), envir = globalenv())
       # Load required packages on each cluster node
@@ -81,35 +81,35 @@ rmclapply <- function(runs, args, fun, mc.cores = NULL) {
 
 
 
-#' Run Multiple MJMCMC Runs in Parallel, Merging the Results Before Returning.
+#' Run Multiple FMS Runs in Parallel, Merging the Results Before Returning.
 #' @param runs The number of runs to run
 #' @param cores The number of cores to run on
-#' @param ... Further parameters passed to mjmcmc.
-#' @return Merged results from multiple mjmcmc runs
+#' @param ... Further parameters passed to fms_base.
+#' @return Merged results from multiple fms_base runs
 #'
 #' @examples
-#' result <- mjmcmc.parallel(runs = 1, 
+#' result <- fms.parallel(runs = 1, 
 #' cores = 1, 
-#' loglik.pi = FBMS::gaussian.loglik,
+#' loglik.pi = FFMS::gaussian.loglik,
 #' y = matrix(rnorm(100), 100),
 #' x = matrix(rnorm(600), 100))
 #' summary(result)
 #' plot(result)
 #'
 #' @export
-mjmcmc.parallel <- function(runs = 2, cores = getOption("mc.cores", 2L), ...) {
+fms.parallel <- function(runs = 2, cores = getOption("mc.cores", 2L), ...) {
   results <- list()
-  results$chains <- rmclapply(seq_len(runs), args = list(...), mc.cores = cores, fun = mjmcmc)
+  results$chains <- rmclapply(seq_len(runs), args = list(...), mc.cores = cores, fun = fms_base)
   results$fixed <- results$chains[[1]]$fixed
   results$intercept <- results$chains[[1]]$intercept
   results$labels <- results$chains[[1]]$labels
-  class(results) <- "mjmcmc_parallel"
+  class(results) <- "fms_parallel"
   gc()
   return(results)
 }
 
 
-#' Run Multiple GMJMCMC (Genetically Modified MJMCMC) Runs in Parallel.
+#' Run Multiple FFMS (Genetically Modified FMS) Runs in Parallel.
 #' @param x matrix containing the design matrix with data to use in the algorithm
 #' @param y response variable 
 #' @param loglik.pi The (log) density to explore
@@ -120,11 +120,11 @@ mjmcmc.parallel <- function(runs = 2, cores = getOption("mc.cores", 2L), ...) {
 #' @param cores The number of cores to run on
 #' @param verbose A logical denoting if messages should be printed
 #' @param merge.options A list of options to pass to the [merge_results()] function run after the run
-#' @param ... Further parameters passed to mjmcmc.
-#' @return Results from multiple gmjmcmc runs
+#' @param ... Further parameters passed to fms_base.
+#' @return Results from multiple ffms_base runs
 #'
 #' @examples
-#' result <- gmjmcmc.parallel(
+#' result <- ffms.parallel(
 #'   runs = 1,
 #'   cores = 1,
 #'   loglik.pi = NULL,
@@ -138,22 +138,26 @@ mjmcmc.parallel <- function(runs = 2, cores = getOption("mc.cores", 2L), ...) {
 #' plot(result)
 #'
 #' @export
-gmjmcmc.parallel <- function(
+ffms.parallel <- function(
   x,
   y,
   loglik.pi = NULL,
   mlpost_params = list(family = "gaussian", beta_prior = list(type = "g-prior")),
   loglik.alpha = gaussian.loglik.alpha,
   transforms,
+  pop.max = 15,
+  penalty_a = 1,
+  prob_filter = 0.6,
+  prob_gen = c(0.4, 0.4, 0.1, 0.1),
   runs = 2,
   cores = getOption("mc.cores", 2L),
   verbose = FALSE,
   merge.options = list(populations = "best", complex.measure = 2, tol = 0.0000001),
   ...
 ) {
-  options("gmjmcmc-transformations" = transforms)
-  results <- rmclapply(seq_len(runs), args = list(x = x, y = y, loglik.pi = loglik.pi, loglik.alpha = loglik.alpha, mlpost_params = mlpost_params, transforms = transforms, verbose = verbose, ...), mc.cores = cores, fun = gmjmcmc)
-  class(results) <- "gmjmcmc_parallel"
+  options("ffms_base-transformations" = transforms)
+  results <- rmclapply(seq_len(runs), args = list(x = x, y = y, loglik.pi = loglik.pi, loglik.alpha = loglik.alpha, mlpost_params = mlpost_params, transforms = transforms, pop.max = pop.max, penalty_a = penalty_a, prob_filter = prob_filter, prob_gen = prob_gen, verbose = verbose, ...), mc.cores = cores, fun = ffms_base)
+  class(results) <- "ffms_parallel"
   merged <- merge_results(results, merge.options$populations, merge.options$complex.measure, merge.options$tol, data = list(x = x, y = y))
   merged$labels <- merged$results.raw[[1]]$labels
   gc()

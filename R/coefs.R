@@ -1,38 +1,38 @@
-#' Coefficients for GMJMCMC Model
+#' Coefficients for FFMS Model
 #'
-#' Extracts coefficients from the best GMJMCMC model found.
+#' Extracts coefficients from the best FFMS model found.
 #'
-#' @param object Object of class "gmjmcmc".
+#' @param object Object of class "ffms_base".
 #' @param ... Additional arguments (ignored).
 #' @return Vector of coefficients from the best model found.
-#' @method coef gmjmcmc
+#' @method coef ffms_base
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sigmoid"))
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "ffms_base", transforms = c("sigmoid"))
 #' coef(model)
-coef.gmjmcmc <- function(object, ...) {
-  stopifnot(inherits(object, "gmjmcmc"))
+coef.ffms_base <- function(object, ...) {
+  stopifnot(inherits(object, "ffms_base"))
   cat("Posterior mode for the parameters of the best found single model:\n")
   best.mod <- get.best.model(object)
   best.mod$coefs
 }
 
-#' Coefficients for MJMCMC Model
+#' Coefficients for FMS Model
 #'
-#' Extracts coefficients from the best MJMCMC model.
+#' Extracts coefficients from the best FMS model.
 #'
-#' @param object Object of class "mjmcmc".
+#' @param object Object of class "fms_base".
 #' @param ... Additional arguments (ignored).
 #' @return Vector of coefficients from the best model found.
-#' @method coef mjmcmc
+#' @method coef fms_base
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
 #' coef(model)
-coef.mjmcmc <- function(object, ...) {
-  stopifnot(inherits(object, "mjmcmc"))
+coef.fms_base <- function(object, ...) {
+  stopifnot(inherits(object, "fms_base"))
   cat("Posterior mode for the parameters of the best found single model:\n")
   best.mod <- get.best.model(object)
   best.mod$coefs
@@ -49,7 +49,7 @@ coef.mjmcmc <- function(object, ...) {
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- get.best.model(fbms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+#' model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
 #' coef(model)
 coef.bgnlm_model <- function(object, ...) {
   stopifnot(inherits(object, "bgnlm_model"))
@@ -57,43 +57,43 @@ coef.bgnlm_model <- function(object, ...) {
   object$coefs
 }
 
-#' Coefficients for MJMCMC Parallel Model
+#' Coefficients for FMS Parallel Model
 #'
-#' Extracts coefficients from the best MJMCMC parallel model.
+#' Extracts coefficients from the best FMS parallel model.
 #'
-#' @param object Object of class "mjmcmc_parallel".
+#' @param object Object of class "fms_parallel".
 #' @param ... Additional arguments (ignored).
 #' @return Vector of coefficients from the best model found.
-#' @method coef mjmcmc_parallel
+#' @method coef fms_parallel
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc.parallel", cores = 1, runs = 2)
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms.parallel", cores = 1, runs = 2)
 #' coef(model)
-coef.mjmcmc_parallel <- function(object, ...) {
-  stopifnot(inherits(object, "mjmcmc_parallel"))
+coef.fms_parallel <- function(object, ...) {
+  stopifnot(inherits(object, "fms_parallel"))
   cat("Posterior mode for the parameters of the best found single model:\n")
   best.mod <- get.best.model(object)
   best.mod$coefs
 }
 
-#' Coefficients for GMJMCMC Merged Model
+#' Coefficients for FFMS Merged Model
 #'
-#' Extracts coefficients from the best GMJMCMC merged model.
+#' Extracts coefficients from the best FFMS merged model.
 #'
-#' @param object Object of class "gmjmcmc_merged".
+#' @param object Object of class "ffms_merged".
 #' @param ... Additional arguments (ignored).
 #' @return Vector of coefficients from the best model found.
-#' @method coef gmjmcmc_merged
+#' @method coef ffms_merged
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, 
-#' method = "gmjmcmc.parallel", transforms = c("sigmoid"), 
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, 
+#' method = "ffms.parallel", transforms = c("sigmoid"), 
 #' runs = 2, cores = 1)
 #' coef(model)
-coef.gmjmcmc_merged <- function(object, ...) {
-  stopifnot(inherits(object, "gmjmcmc_merged"))
+coef.ffms_merged <- function(object, ...) {
+  stopifnot(inherits(object, "ffms_merged"))
   best.mod <- get.best.model(object)
   best.mod$coefs
 }

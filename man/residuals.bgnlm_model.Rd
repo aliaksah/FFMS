@@ -22,8 +22,8 @@ Vector of residuals.
 Computes residuals as the difference between observed and predicted values.
 }
 \examples{
-library(FBMS)
+library(FFMS)
 data(exoplanet)
-model <- get.best.model(fbms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
+model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, family = "gaussian"))
 hist(residuals(model, exoplanet[,1], exoplanet[,-1]))
 }

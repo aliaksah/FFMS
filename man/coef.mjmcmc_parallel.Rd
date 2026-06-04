@@ -19,6 +19,6 @@ Extracts coefficients from the best MJMCMC parallel model.
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc.parallel", cores = 1, runs = 2)
+model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc.parallel", cores = 1, runs = 2)
 coef(model)
 }

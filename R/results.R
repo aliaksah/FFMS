@@ -16,7 +16,7 @@
 #' @param data Data to use when comparing features, default is NULL meaning that mock data will be generated,
 #' if data is supplied it should be of the same form as is required by gmjmcmc, i.e. with both x, y and an intercept.
 #'
-#' @return An object of class "gmjmcmc_merged" containing the following elements:
+#' @return An object of class "ffms_merged" containing the following elements:
 #' \item{features}{The features where equivalent features are represented in their simplest form.}
 #' \item{marg.probs}{Importance of features.}
 #' \item{counts}{Counts of how many versions that were present of each feature.}
@@ -179,7 +179,7 @@ merge_results <- function (results, populations = NULL, complex.measure = NULL, 
     fixed = results[[1]]$fixed,
     intercept = results[[1]]$intercept
   )
-  attr(merged, "class") <- "gmjmcmc_merged"
+  attr(merged, "class") <- "ffms_merged"
   return(merged)
 }
 
@@ -314,15 +314,15 @@ get.mpm.model <- function(result, y, x, labels = F, family = "gaussian", loglik.
   if (family == "binomial")
     loglik.pi <- logistic.loglik
   
-  if (is(result, "mjmcmc_parallel")) {
+  if (is(result, "fms_parallel")) {
     models <- unlist(lapply(result$chains, function (x) x$models), recursive = FALSE)
     marg.probs <- marginal.probs.renorm(models)$probs
     features <- result$chains[[1]]$populations
-  } else if (is(result, "gmjmcmc")) {
+  } else if (is(result, "ffms_base")) {
     best_pop <- which.max(unlist(result$best.margs))
     marg.probs <- result$marg.probs[[best_pop]]
     features <- result$populations[[best_pop]]
-  } else if (is(result, "gmjmcmc_merged")) {
+  } else if (is(result, "ffms_merged")) {
     marg.probs <- result$marg.probs
     features <- result$features
   }else
@@ -392,13 +392,13 @@ get.mpm.model <- function(result, y, x, labels = F, family = "gaussian", loglik.
 #'
 #' @examples
 #' data(exoplanet)
-#' result <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
+#' result <- fbms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
 #' get.best.model(result)
 #'
 #' @export
 get.best.model <- function(result, labels = FALSE, ...) {
-  if (!inherits(result, c("mjmcmc", "mjmcmc_parallel", "gmjmcmc", "gmjmcmc_merged"))) {
-    stop("result must be of class 'mjmcmc', 'mjmcmc_parallel', 'gmjmcmc', or 'gmjmcmc_merged'")
+  if (!inherits(result, c("fms_base", "fms_parallel", "ffms_base", "ffms_merged"))) {
+    stop("result must be of class 'fms_base', 'fms_parallel', 'ffms_base', or 'ffms_merged'")
   }
   if (!is.logical(labels) && !is.character(labels)) {
     stop("labels must be a logical value or a character vector")
@@ -406,12 +406,12 @@ get.best.model <- function(result, labels = FALSE, ...) {
   UseMethod("get.best.model")
 }
 
-#' @method get.best.model mjmcmc
+#' @method get.best.model.fms_base
 #' @export
-get.best.model.mjmcmc <- function(result, labels = FALSE, ...) {
+get.best.model.fms_base <- function(result, labels = FALSE, ...) {
   # Input validation
   stopifnot(
-    "result must be of class 'mjmcmc'" = inherits(result, "mjmcmc"),
+    "result must be of class 'mjmcmc'" = inherits(result, "fms_base"),
     "result must contain models" = !is.null(result$models) && length(result$models) > 0,
     "result must contain populations" = !is.null(result$populations) && length(result$populations) > 0
   )
@@ -441,12 +441,12 @@ get.best.model.mjmcmc <- function(result, labels = FALSE, ...) {
   return(ret)
 }
 
-#' @method get.best.model mjmcmc_parallel
+#' @method get.best.model.fms_parallel
 #' @export
-get.best.model.mjmcmc_parallel <- function(result, labels = FALSE, ...) {
+get.best.model.fms_parallel <- function(result, labels = FALSE, ...) {
   # Input validation
   stopifnot(
-    "result must be of class 'mjmcmc_parallel'" = inherits(result, "mjmcmc_parallel"),
+    "result must be of class 'mjmcmc_parallel'" = inherits(result, "fms_parallel"),
     "result must contain chains" = !is.null(result$chains) && length(result$chains) > 0
   )
   if (is.character(labels)) {
@@ -460,18 +460,18 @@ get.best.model.mjmcmc_parallel <- function(result, labels = FALSE, ...) {
   
   # Get best chain and model
   best.chain <- which.max(sapply(result$chains, function(x) x$best.crit))
-  mod <- get.best.model.mjmcmc(result$chains[[best.chain]], labels = labels)
+  mod <- get.best.model.fms_base(result$chains[[best.chain]], labels = labels)
   attr(mod, which = "imputed") <- attr(result, which = "imputed")
   
   return(mod)
 }
 
-#' @method get.best.model gmjmcmc
+#' @method get.best.model.ffms_base
 #' @export
-get.best.model.gmjmcmc <- function(result, labels = FALSE, ...) {
+get.best.model.ffms_base <- function(result, labels = FALSE, ...) {
   # Input validation
   stopifnot(
-    "result must be of class 'gmjmcmc'" = inherits(result, "gmjmcmc"),
+    "result must be of class 'gmjmcmc'" = inherits(result, "ffms_base"),
     "result must contain models" = !is.null(result$models) && length(result$models) > 0,
     "result must contain populations" = !is.null(result$populations) && length(result$populations) > 0,
     "result must contain best.margs" = !is.null(result$best.margs) && length(result$best.margs) > 0
@@ -511,12 +511,12 @@ get.best.model.gmjmcmc <- function(result, labels = FALSE, ...) {
   return(ret)
 }
 
-#' @method get.best.model gmjmcmc_merged
+#' @method get.best.model.ffms_merged
 #' @export
-get.best.model.gmjmcmc_merged <- function(result, labels = FALSE, ...) {
+get.best.model.ffms_merged <- function(result, labels = FALSE, ...) {
   # Input validation
   stopifnot(
-    "result must be of class 'gmjmcmc_merged'" = inherits(result, "gmjmcmc_merged"),
+    "result must be of class 'gmjmcmc_merged'" = inherits(result, "ffms_merged"),
     "result must contain results" = !is.null(result$results) && length(result$results) > 0,
     "result must contain results.raw" = !is.null(result$results.raw) && length(result$results.raw) > 0
   )
@@ -531,7 +531,7 @@ get.best.model.gmjmcmc_merged <- function(result, labels = FALSE, ...) {
   
   # Get best chain and model
   best.chain <- which.max(sapply(result$results, function(x) x$best))
-  mod <- get.best.model.gmjmcmc(result$results.raw[[best.chain]], labels = labels)
+  mod <- get.best.model.ffms_base(result$results.raw[[best.chain]], labels = labels)
   attr(mod, which = "imputed") <- attr(result, which = "imputed")
   
   return(mod)
@@ -598,12 +598,12 @@ string.population.models <- function(features, models, round = 2, link = "I") {
 #' 
 #'
 #' @export 
-plot.gmjmcmc <- function (x, count = "all", pop = "best", tol = 0.0000001, data = NULL, ...) {
+plot.ffms_base <- function (x, count = "all", pop = "best", tol = 0.0000001, data = NULL, ...) {
   transforms.bak <- set.transforms(x$transforms)
   if (pop != "last") {
     results <- list()
     results[[1]] <- x
-    x <- merge_results(results, pop, 2, 0.0000001, data = data)
+    x <- merge_results(results, pop, 2, 0.0000001, data = NULL)
     return(marg.prob.plot(sapply(x$features, print), x$marg.probs, count = count))
   }
   
@@ -615,7 +615,7 @@ plot.gmjmcmc <- function (x, count = "all", pop = "best", tol = 0.0000001, data 
     pops <- x$populations[[pop]]
     marg.probs <- x$marg.probs[[pop]]
   }
-  plot.mjmcmc(list(populations = pops, marg.probs = marg.probs), count)
+  plot.fms_base(list(populations = pops, marg.probs = marg.probs), count)
   set.transforms(transforms.bak)
   return("done")
 }
@@ -657,7 +657,7 @@ plot.bgnlm_model <- function(x, ...) {
 #' plot(result)
 #'
 #' @export 
-plot.mjmcmc <- function (x, count = "all", ...) {
+plot.fms_base <- function (x, count = "all", ...) {
   transforms.bak <- set.transforms(x$transforms)
   ## Get features as strings for printing and marginal posteriors
   # If this is a merged results the structure is one way
@@ -687,7 +687,7 @@ marg.prob.plot <- function (feats.strings, marg.probs, count = "all", ...) {
 }
 
 #' Plot an mjmcmc_parallel Run
-#' @inheritParams plot.mjmcmc
+#' @inheritParams plot.fms_base
 #' @return No return value, just creates a plot
 #' 
 #' @examples
@@ -699,7 +699,7 @@ marg.prob.plot <- function (feats.strings, marg.probs, count = "all", ...) {
 #' plot(result)
 #' 
 #' @export 
-plot.mjmcmc_parallel <- function (x, count = "all", ...) {
+plot.fms_parallel <- function (x, count = "all", ...) {
   merged <- merge_mjmcmc_parallel(x)
   marg.prob.plot(merged$features, merged$marg.probs, count)
 }
@@ -728,7 +728,7 @@ run.weigths <- function (results) {
 }
 
 #' Plot a gmjmcmc_merged Run
-#' @inheritParams plot.gmjmcmc
+#' @inheritParams plot.ffms_base
 #' @return No return value, just creates a plot
 #' 
 #' @examples
@@ -743,10 +743,10 @@ run.weigths <- function (results) {
 #' plot(result)
 #' 
 #' @export 
-plot.gmjmcmc_merged <- function (x, count = "all", pop = NULL,tol =  0.0000001, data = NULL, ...) {
+plot.ffms_merged <- function (x, count = "all", pop = NULL,tol =  0.0000001, data = NULL, ...) {
   transforms.bak <- set.transforms(x$transforms)
   if (!is.null(pop)) {
-    x <- merge_results(x$results.raw, pop, 2, 0.0000001, data = data)
+    x <- merge_results(x$results.raw, pop, 2, 0.0000001, data = NULL)
   }
   
   marg.prob.plot(sapply(x$features[x$marg.probs > tol], print), x$marg.probs[x$marg.probs > tol], count = count)

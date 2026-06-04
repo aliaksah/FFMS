@@ -3,7 +3,7 @@
 # -------------------------------------------------------------
 # This script reproduces examples in:
 #
-#   FBMS: Flexible Bayesian Model Selection and Model Averaging
+#   FFMS: Frequentist Flexible Model Selection
 #
 # It installs the correct package versions and runs the two
 # main examples used in the article.
@@ -11,7 +11,7 @@
 # The script uses minimal, readable checks suitable for SoftwareX:
 #  - Mandatory packages are installed if missing
 #  - Optional packages are installed if possible; otherwise skipped
-#  - FBMS is always installed from a dedicated GitHub branch "softwareX"
+#  - FFMS is always installed from a dedicated GitHub branch "softwareX"
 ###############################################################
 
 
@@ -44,14 +44,14 @@ library(devtools)
 
 
 ###############################################################
-# 2. Install FBMS (always from GitHub to enforce correct version)
+# 2. Install FFMS (always from GitHub to enforce correct version)
 ###############################################################
 
-message("Installing FBMS from GitHub (branch softwareX)...")
-install_github("jonlachmann/FBMS@jsoftwareX",
-               force = TRUE, build_vignettes = FALSE)
+# message("Installing FFMS from GitHub (branch softwareX)...")
+# install_github("jonlachmann/FFMS@jsoftwareX",
+#                force = TRUE, build_vignettes = FALSE)
 
-library(FBMS)
+library(FFMS)
 library(tictoc)
 
 ################################################################
@@ -64,7 +64,7 @@ library(tictoc)
 ################################################################
 ################################################################
 
-library(FBMS)
+library(FFMS)
 data(exoplanet)
 
 train.indx <- 1:500
@@ -72,42 +72,34 @@ df.train = exoplanet[train.indx, ]
 df.test  = exoplanet[-train.indx, ]
 
 to3 <- function(x) x^3
-transforms <- c("sigmoid", "sin_deg", "exp_dbl", "p0", "troot", "to3")
+p2 <- function(x) x^2
+transforms <- c("sigmoid", "sin_deg", "exp_dbl", "p0", "p2", "troot", "to3")
 
 
 ###############################################################
-# Example 1.1 — Default single-thread GMJMCMC (Section 3)
+# Example 1.1 — Default single-thread FFMS (Section 3)
 ###############################################################
 set.seed(123)
 
-result.default <- fbms(
+result.default <- ffms(
   formula = semimajoraxis ~ 1 + .,
   data = df.train,
-  method = "gmjmcmc",
+  method = "ffms_base",
   transforms = transforms
 )
 
 
 ###############################################################
-# Example 1.2 — Alternative priors 
+# Example 1.2 — High Penalty 
 ###############################################################
 
 set.seed(234)
-result.BIC <- fbms(
+result.high.penalty <- ffms(
   formula = semimajoraxis ~ 1 + .,
   data = df.train,
-  method = "gmjmcmc",
+  method = "ffms_base",
   transforms = transforms,
-  beta_prior = list(type = "Jeffreys-BIC", Var = "unknown")
-)
-
-set.seed(345)
-result.EB <- fbms(
-  formula = semimajoraxis ~ 1 + .,
-  data = df.train,
-  method = "gmjmcmc",
-  transforms = transforms,
-  beta_prior = list(type = "EB-global", a = 1)
+  penalty_a = 1.5
 )
 
 
@@ -116,26 +108,30 @@ result.EB <- fbms(
 ###############################################################
 set.seed(123)
 
-result.P50 <- fbms(
+result.P50 <- ffms(
   data = df.train,
-  method = "gmjmcmc",
+  method = "ffms_base",
   transforms = transforms,
-  P = 50, N = 1000, N.final = 5000
+  pop.max = 20,
+  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_filter = 0.5,
+  P = 25, N = 1000, N.final = 5000
 )
 
 
 ###############################################################
-# Example 1.4 — Parallel GMJMCMC 
+# Example 1.4 — Parallel FFMS 
 ###############################################################
 set.seed(123)
 
-result.parallel <- fbms(
+result.parallel <- ffms(
   data = df.train,
-  method = "gmjmcmc.parallel",
+  method = "ffms.parallel",
   transforms = transforms,
-  runs = 40,
+  runs = 16,
+  pop.max = 20,
   cores = parallel::detectCores() - 1,
-  P = 25
+  P = 20
 )
 
 
@@ -221,7 +217,7 @@ sqrt(mean((predict(mpm.default, df.test[,-1]) -
 ################################################################
 
 rm(list = ls())
-library(FBMS)
+library(FFMS)
 
 
 ###############################################################
@@ -250,10 +246,10 @@ transforms <- c("p0","p2","p3","p05","pm05","pm1","pm2",
                 "p0p05","p0pm05","p0pm1","p0pm2")
 
 
-probs <- gen.probs.gmjmcmc(transforms)
+probs <- gen.probs.ffms_base(transforms)
 probs$gen <- c(1/3,1/3,0,1/3) # Modifications and interactions!
 
-params <- gen.params.gmjmcmc(ncol(df) - 1)
+params <- gen.params.ffms_base(ncol(df) - 1)
 params$feat$D <- 1   # Set depth of features to 1 (still allows for interactions)
 params$feat$pop.max <- 10
 
@@ -296,8 +292,8 @@ mixed.model.loglik.lme4 <- function (y, x, model, complex, mlpost_params)
 set.seed(03052024)
 
 tic()
-result1a <- fbms(formula = z ~ 1+., data = df, transforms = transforms,
-                 method = "gmjmcmc",probs = probs, params = params, P=3, N = 30,
+result1a <- ffms(formula = z ~ 1+., data = df, transforms = transforms,
+                 method = "ffms_base",probs = probs, params = params, P=3, N = 30,
                  family = "custom", loglik.pi = mixed.model.loglik.lme4,
                  model_prior = list(r = 1/dim(df)[1]), 
                  extra_params = list(dr = droplevels(Zambia$dr)))
@@ -320,17 +316,17 @@ run.long.mixed <- TRUE
 
 if(run.long.mixed)
 {
-  probs <- gen.probs.gmjmcmc(transforms)
-  params <- gen.params.gmjmcmc(ncol(df) - 1)
+  probs <- gen.probs.ffms_base(transforms)
+  params <- gen.params.ffms_base(ncol(df) - 1)
   params$feat$D <- 1
   params$feat$pop.max <- 10
   
   
   # No nonlinear features
-  result2a <- fbms(
+  result2a <- ffms(
     formula = z ~ 1+., data = df,
     N = 5000,
-    method = "mjmcmc.parallel",
+    method = "fms.parallel",
     runs = 40,
     cores = parallel::detectCores() - 1,
     family = "custom",
@@ -344,11 +340,11 @@ if(run.long.mixed)
   
   
   # Fractional polynomials
-  result2b <- fbms(
+  result2b <- ffms(
     formula = z ~ 1+., data = df,
     transforms = transforms, probs = probs, params = params,
     P = 25, N = 100,
-    method = "gmjmcmc.parallel",
+    method = "ffms.parallel",
     runs = 40,
     cores = parallel::detectCores() - 1,
     family = "custom",
@@ -362,19 +358,19 @@ if(run.long.mixed)
   
   # Non-linear projections
   transforms.sigmoid <- c("sigmoid")
-  probs.sigmoid <- gen.probs.gmjmcmc(transforms.sigmoid)
+  probs.sigmoid <- gen.probs.ffms_base(transforms.sigmoid)
   probs.sigmoid$gen <- c(0, 0, 0.5, 0.5)
   
-  params.sigmoid <- gen.params.gmjmcmc(ncol(df) - 1)
+  params.sigmoid <- gen.params.ffms_base(ncol(df) - 1)
   params.sigmoid$feat$pop.max <- 10
   
-  result2c <- fbms(
+  result2c <- ffms(
     formula = z ~ 1+., data = df,
     transforms = transforms.sigmoid,
     probs = probs.sigmoid,
     params = params.sigmoid,
     P = 25, N = 100,
-    method = "gmjmcmc.parallel",
+    method = "ffms.parallel",
     runs = 40,
     cores = parallel::detectCores() - 1,
     family = "custom",

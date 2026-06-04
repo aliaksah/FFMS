@@ -19,10 +19,10 @@ Displays the coefficients of a BGNLM model object.
 }
 \examples{
 data(exoplanet)
-model <- get.best.model(fbms(semimajoraxis ~ ., data = exoplanet, 
+model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, 
 family = "gaussian"))
 print(model)
-model <- get.mpm.model(fbms(semimajoraxis ~ ., data = exoplanet, 
+model <- get.mpm.model(ffms(semimajoraxis ~ ., data = exoplanet, 
 family = "gaussian"), y = exoplanet[,1],x = exoplanet[,-1])
 print(model)
 }

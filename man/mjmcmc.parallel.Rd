@@ -22,7 +22,7 @@ Run Multiple MJMCMC Runs in Parallel, Merging the Results Before Returning.
 \examples{
 result <- mjmcmc.parallel(runs = 1, 
 cores = 1, 
-loglik.pi = FBMS::gaussian.loglik,
+loglik.pi = FFMS::gaussian.loglik,
 y = matrix(rnorm(100), 100),
 x = matrix(rnorm(600), 100))
 summary(result)

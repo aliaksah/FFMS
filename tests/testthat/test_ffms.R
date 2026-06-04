@@ -3,9 +3,9 @@
 # Created by: jonlachmann
 # Created on: 2021-02-25
 
-context("MJMCMC")
+context("FMS")
 
-test_that("Test (G)MJMCMC through the fbms function", {
+test_that("Test (G)FMS through the ffms function", {
   RNGkind("L'Ecuyer-CMRG")
   set.seed(123)
   x <- matrix(rnorm(300), 100)
@@ -20,7 +20,7 @@ test_that("Test (G)MJMCMC through the fbms function", {
     expect_true(all(c(model$marg.probs[1:2] > 0.9, model$marg.probs[3] < 0.9)))
     summary <- summary(model, labels = c("a", "b", "c"), tol = -1)
     expect_true(all(c(summary$marg.probs[1:2] > 0.9, summary$marg.probs[3] < 0.9)))
-    plot(model)
+    #plot(model)
     pred <- predict(model, x)
     # Handle paralell runs
     if (!is.null(pred$aggr)) {
@@ -36,7 +36,7 @@ test_that("Test (G)MJMCMC through the fbms function", {
     suppressMessages(summary <- summary(model, labels = c("a", "b", "c"), tol = -1))
     expect_true(all(c(summary$marg.probs[1:2] > 0.9, summary$marg.probs[-(1:2)] < 0.9)))
     expect_true(all(summary$feats.strings[1:2] %in% c("sin(a)", "sin(b)")))
-    plot(model)
+    #plot(model)
     pred <- predict(model, x)
     # Handle paralell runs
     if (!is.null(pred$aggr)) {
@@ -48,8 +48,8 @@ test_that("Test (G)MJMCMC through the fbms function", {
     mpm_model <- get.mpm.model(model, y, x)
   }
 
-  params <- gen.params.gmjmcmc(ncol(x))
-  probs <- gen.probs.gmjmcmc("sin")
+  params <- gen.params.ffms_base(ncol(x))
+  probs <- gen.probs.ffms_base("sin")
   probs$gen <- c(0, 1, 0, 0)
   params$feat$D <- 1
   params$feat$L <- 2
@@ -57,30 +57,30 @@ test_that("Test (G)MJMCMC through the fbms function", {
   # No intercept
   data <- as.data.frame(cbind(y, x))
   colnames(data) <- c("y", "a", "b", "c")
-  mod1 <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "mjmcmc", data = data, verbose = FALSE)
-  mod1p <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "mjmcmc.parallel", data = data, verbose = FALSE)
+  mod1 <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "fms_base", data = data, verbose = FALSE)
+  mod1p <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "fms.parallel", data = data, verbose = FALSE)
   validate.model(mod1, x, y)
   validate.model(mod1p, x, y)
 
   set.seed(123)
   data$y <- y_sin
-  gmod1 <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "gmjmcmc", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
-  gmod1p <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "gmjmcmc.parallel", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
+  gmod1 <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "ffms_base", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
+  gmod1p <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "ffms.parallel", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
   validate.gmodel(gmod1, x, y_sin)
   validate.gmodel(gmod1p, x, y_sin)
 
   # Model defined intercept
   set.seed(123)
   data$y <- y_shift
-  mod2 <- fbms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "mjmcmc", data = data, verbose = FALSE)
-  mod2p <- fbms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "mjmcmc.parallel", data = data, verbose = FALSE)
+  mod2 <- ffms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "fms_base", data = data, verbose = FALSE)
+  mod2p <- ffms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "fms.parallel", data = data, verbose = FALSE)
   validate.model(mod2, x, y_shift)
   validate.model(mod2p, x, y_shift)
 
   set.seed(123)
   data$y <- y_sin_shift
-  gmod2 <- fbms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "gmjmcmc", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
-  gmod2p <- fbms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "gmjmcmc.parallel", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
+  gmod2 <- ffms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "ffms_base", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
+  gmod2p <- ffms(y ~ ., family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "ffms.parallel", data = data, transforms = "sin", params = params, probs = probs, P = 20, verbose = FALSE)
   validate.gmodel(gmod2, x, y_sin_shift)
   validate.gmodel(gmod2p, x, y_sin_shift)
 
@@ -89,15 +89,15 @@ test_that("Test (G)MJMCMC through the fbms function", {
   data <- cbind(data[, 1], 1, data[, -1])
   colnames(data) <- c("y", "const", "a", "b", "c")
   data$y <- y_shift
-  mod3 <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "mjmcmc", data = data, fixed = 1, verbose = FALSE)
-  mod3p <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "mjmcmc.parallel", data = data, fixed = 1, verbose = FALSE)
+  mod3 <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "fms_base", data = data, fixed = 1, verbose = FALSE)
+  mod3p <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "fms.parallel", data = data, fixed = 1, verbose = FALSE)
   validate.model(mod3, cbind(1, x), y_shift)
   validate.model(mod3p, cbind(1, x), y_shift)
 
   set.seed(123)
   data$y <- y_sin_shift
-  gmod3 <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "gmjmcmc", data = data, transforms = "sin", params = params, probs = probs, P = 20, fixed = 1, verbose = FALSE)
-  gmod3p <- fbms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "gmjmcmc.parallel", data = data, transforms = "sin", params = params, probs = probs, P = 20, fixed = 1, verbose = FALSE)
+  gmod3 <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "ffms_base", data = data, transforms = "sin", params = params, probs = probs, P = 20, fixed = 1, verbose = FALSE)
+  gmod3p <- ffms(y ~ . - 1, family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"), method = "ffms.parallel", data = data, transforms = "sin", params = params, probs = probs, P = 20, fixed = 1, verbose = FALSE)
   validate.gmodel(gmod3, cbind(1, x), y_sin_shift)
   validate.gmodel(gmod3p, cbind(1, x), y_sin_shift)
 })

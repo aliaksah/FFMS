@@ -5,7 +5,7 @@
 
 context("Priors")
 
-test_that("Test various priors through the fbms function", {
+test_that("Test various priors through the ffms function", {
   set.seed(123)
   x <- matrix(rnorm(300), 100)
   y <- rnorm(100, 0, 0.5) + rowSums(x[, 1:2])
@@ -66,18 +66,18 @@ test_that("Test various priors through the fbms function", {
   # for (prior in gaussian_priors) {
   #   if (prior == "TG") next
   #   beta_prior$type <- prior
-  #   results[[prior]] <- fbms.mlpost.master(data[, 1], x, c(TRUE, TRUE, TRUE), list(), list(beta_prior = beta_prior, family = "gaussian", r = exp(-0.5)))
+  #   results[[prior]] <- ffms.mlpost.master(data[, 1], x, c(TRUE, TRUE, TRUE), list(), list(beta_prior = beta_prior, family = "gaussian", r = exp(-0.5)))
   #   print(prior)
   #   print(results[[prior]]$crit)
   #   #expect_equal(results[[prior]]$crit, expected[[prior]]$crit)
-  #   #mod1 <- fbms(y ~ ., family = family, beta_prior = beta_prior, method = "mjmcmc", data = data, verbose = FALSE)
+  #   #mod1 <- ffms(y ~ ., family = family, beta_prior = beta_prior, method = "mjmcmc", data = data, verbose = FALSE)
   #   #if (!(prior %in% c("hyper-g", "EB-local", "uniform", "ZS-null", "ZS-full", "BIC", "hyper-g-laplace", "AIC", "EB-global", "hyper-g-n", "JZS"))) {
   #   #  validate.model(mod1, x, y)
   #   #}
   # }
   # results2 <- list()
   # for (prior in gaussian_priors) {
-  #   results2[[prior]] <- fbms.mlik.master2(data[, 1], x, c(TRUE, TRUE, TRUE), list(), list(prior_beta = prior, family = "gaussian", r = exp(-0.5), g = 5, a = 3, b = 1, s = 1, rho = 0, v = 1, k = 1))
+  #   results2[[prior]] <- ffms.mlik.master2(data[, 1], x, c(TRUE, TRUE, TRUE), list(), list(prior_beta = prior, family = "gaussian", r = exp(-0.5), g = 5, a = 3, b = 1, s = 1, rho = 0, v = 1, k = 1))
   #   print(prior)
   #   print(results[[prior]]$crit)
   # }

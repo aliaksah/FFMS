@@ -1,4 +1,4 @@
-#' Fit a BGNLM Model Using MJMCMC or GMJMCMC Sampling.
+#' Fit a BGNLM Model Using FMS or FFMS Sampling.
 #'
 #' This function fits a model using the relevant MCMC sampling. The user can specify the formula,
 #' family, data, transforms, and other parameters to customize the model.
@@ -37,8 +37,8 @@
 #' @param model_prior a list with parameters of model priors, by default r should be provided
 #' @param extra_params extra parameters to be passed to the loglik.pi function
 #' @param loglik.pi Custom function to compute the logarithm of the posterior mode based on logarithm of marginal likelihood and logarithm of prior functions (needs specification only used if family = "custom")
-#' @param data A data frame or matrix containing the data to be used for model fitting. If the outcome variable is in the first column of the data frame, the formula argument in fbms can be omitted, provided that all other columns are intended to serve as input covariates.
-#' @param method Which fitting algorithm should be used, currently implemented options include "gmjmcmc", "gmjmcmc.parallel", "mjmcmc" and "mjmcmc.parallel" with "mjmcmc" being the default and 'mjmcmc' means that only linear models will be estimated
+#' @param data A data frame or matrix containing the data to be used for model fitting. If the outcome variable is in the first column of the data frame, the formula argument in ffms can be omitted, provided that all other columns are intended to serve as input covariates.
+#' @param method Which fitting algorithm should be used, currently implemented options include "ffms_base", "ffms.parallel", "fms_base" and "fms.parallel" with "fms_base" being the default and 'fms_base' means that only linear models will be estimated
 #' @param verbose If TRUE, print detailed progress information during the fitting process. Default is TRUE.
 #' @param impute TRUE  means imputation combined with adding a dummy column with indicators of imputed values, FALSE (default) means only full data is used.
 #' @param ... Additional parameters to be passed to the underlying method.
@@ -47,32 +47,36 @@
 #'
 #' @examples
 #' # Fit a Gaussian multivariate time series model
-#' fbms_result <- fbms(
+#' ffms_result <- ffms(
 #'  X1 ~ .,
 #'  family = "gaussian",
-#'  method = "gmjmcmc.parallel",
+#'  method = "ffms.parallel",
 #'  data = data.frame(matrix(rnorm(600), 100)),
 #'  transforms = c("sin","cos"),
 #'  P = 10,
 #'  runs = 1,
 #'  cores = 1
 #' )
-#' summary(fbms_result)
+#' summary(ffms_result)
 #' 
 #'
-#' @seealso \code{\link{mjmcmc}}, \code{\link{gmjmcmc}}, \code{\link{gmjmcmc.parallel}}
+#' @seealso \code{\link{fms_base}}, \code{\link{ffms_base}}, \code{\link{ffms.parallel}}
 #' @export
 #' @importFrom stats terms
-fbms <- function (
+ffms <- function (
   formula = NULL,
   family = "gaussian",
+  pop.max = 15,
+  penalty_a = 1,
+  prob_filter = 0.6,
+  prob_gen = c(0.4, 0.4, 0.1, 0.1),
   beta_prior = list(type = "g-prior"),
   model_prior = NULL,
   extra_params = NULL,
   data = NULL,
   impute = FALSE,
   loglik.pi = NULL,
-  method = "mjmcmc",
+  method = "fms_base",
   verbose = TRUE,
   ...
 ) {
@@ -158,16 +162,16 @@ fbms <- function (
     }
   }
   
-  if (method == "mjmcmc.parallel")
-    res <- mjmcmc.parallel(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, verbose = verbose, ...)
-  else if (method == "mjmcmc")
-    res <- mjmcmc(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, verbose = verbose, ...)
-  else if (method == "gmjmcmc.parallel")
-    res <- gmjmcmc.parallel(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, verbose = verbose,...)
-  else if (method == "gmjmcmc")
-    res <- gmjmcmc(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, verbose = verbose, ...)
+  if (method == "fms.parallel")
+    res <- fms.parallel(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, verbose = verbose, ...)
+  else if (method == "fms_base")
+    res <- fms_base(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, verbose = verbose, ...)
+  else if (method == "ffms.parallel")
+    res <- ffms.parallel(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, pop.max = pop.max, penalty_a = penalty_a, prob_filter = prob_filter, prob_gen = prob_gen, verbose = verbose,...)
+  else if (method == "ffms_base")
+    res <- ffms_base(x = X, y = Y, loglik.pi = loglik.pi, mlpost_params = mlpost_params, intercept = intercept, pop.max = pop.max, penalty_a = penalty_a, prob_filter = prob_filter, prob_gen = prob_gen, verbose = verbose, ...)
   else
-    stop("Error: Method must be one of gmjmcmc, gmjmcmc.parallel, mjmcmc or mjmcmc.parallel!")
+    stop("Error: Method must be one of ffms_base, ffms.parallel, fms_base or fms.parallel!")
   
   attr(res, "imputed") <- imputed
   attr(res, "all_names") <- names(X)[1:(dim(X)[2] - 1)]

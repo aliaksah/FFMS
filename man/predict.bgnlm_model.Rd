@@ -39,6 +39,6 @@ This function generates predictions from a fitted \code{bgnlm_model} object give
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet)
+model <- ffms(semimajoraxis ~ ., data = exoplanet)
 preds <- predict(get.best.model(model), exoplanet[,-1])
 }

@@ -19,6 +19,6 @@ Displays a concise summary of an MJMCMC model object.
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
+model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
 print(model)
 }

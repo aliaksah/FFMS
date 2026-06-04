@@ -1,4 +1,4 @@
-# Title     : Features for use in GMJMCMC
+# Title     : Features for use in FFMS
 # Objective : Define the features and get a useful way to turn them into a string
 # Created by: jonlachmann
 # Created on: 2021-02-10
@@ -106,7 +106,7 @@ update.alphas <- function (feature, alphas, recurse=FALSE) {
 #' @return String representation of a feature
 #' 
 #' @examples
-#' result <- gmjmcmc(x = matrix(rnorm(600), 100),
+#' result <- ffms_base(x = matrix(rnorm(600), 100),
 #' y = matrix(rnorm(100), 100), 
 #' P = 2, 
 #' transforms = c("p0", "exp_dbl"))
@@ -118,8 +118,8 @@ print.feature <- function (x, dataset = FALSE, fixed = 0, alphas = FALSE, labels
   feat <- x[[length(x)]]
   # This is a more complex feature
   if (is.matrix(feat)) {
-    transforms <- getOption("gmjmcmc-transformations")
-    if (is.null(transforms)) stop("Please set the gmjmcmc-transformations option to your non-linear functions (see ?set.transforms).")
+    transforms <- getOption("ffms_base-transformations")
+    if (is.null(transforms)) stop("Please set the ffms_base-transformations option to your non-linear functions (see ?set.transforms).")
     # Assume that we are not doing multiplication
     op <- "+"
     # Add the outer transform is there is one

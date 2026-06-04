@@ -1,14 +1,14 @@
 \docType{package}
 
-\name{FBMS-package}
-\alias{FBMS-package}
-\alias{FBMS}
+\name{FFMS-package}
+\alias{FFMS-package}
+\alias{FFMS}
 
 \title{
-\packageTitle{FBMS}
+\packageTitle{FFMS}
 }
 \description{
-\packageDescription{FBMS}
+\packageDescription{FFMS}
 }
 \author{
     \strong{Maintainer}: Jon Lachmann \email{jon@lachmann.nu}

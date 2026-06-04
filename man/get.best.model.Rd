@@ -42,7 +42,7 @@ Selection logic depends on the class of the \code{result} object:
 }
 \examples{
 data(exoplanet)
-result <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
+result <- ffms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
 get.best.model(result)
 
 }

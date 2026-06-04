@@ -38,7 +38,7 @@ over populations for a GMJMCMC or GMJMCMC merged result object, with confidence 
 }
 \examples{
 data(exoplanet)
-result <- fbms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sin"))
+result <- ffms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sin"))
 diagn_plot(result, FUN = median, conf = 0.95, main = "Convergence Plot")
 
 }

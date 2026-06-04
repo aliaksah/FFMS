@@ -23,7 +23,7 @@ Computes residuals as the difference between observed and predicted values.
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet, 
+model <- ffms(semimajoraxis ~ ., data = exoplanet, 
 method = "gmjmcmc.parallel", transforms = c("sigmoid"), 
 runs = 2, cores = 1)
 hist(residuals(model, exoplanet[,1], exoplanet[,-1]))

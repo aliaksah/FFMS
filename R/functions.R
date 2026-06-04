@@ -1,5 +1,5 @@
 # Title     : General functions
-# Objective : General functions used by, but not specific to GMJMCMC
+# Objective : General functions used by, but not specific to FFMS
 # Created by: jonlachmann
 # Created on: 2021-02-16
 

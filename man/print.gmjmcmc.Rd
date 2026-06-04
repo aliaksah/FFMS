@@ -19,6 +19,6 @@ Displays a concise summary of a GMJMCMC model object.
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet,method = "gmjmcmc", transforms = c("sigmoid"))
+model <- ffms(semimajoraxis ~ ., data = exoplanet,method = "gmjmcmc", transforms = c("sigmoid"))
 print(model)
 }

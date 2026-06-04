@@ -1,4 +1,4 @@
 library(testthat)
-library(FBMS)
+library(FFMS)
 
-test_check("FBMS")
+test_check("FFMS")

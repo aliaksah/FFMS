@@ -1,15 +1,15 @@
 # Title     : Diagnostic functions
-# Objective : Functions to do diagnostics on a GMJMCMC run
+# Objective : Functions to do diagnostics on a FFMS run
 # Created by: jonlachmann
 # Created on: 2021-02-24
 
 
-#' Plot Convergence Diagnostics for GMJMCMC or GMJMCMC Merged Results
+#' Plot Convergence Diagnostics for FFMS or FFMS Merged Results
 #'
 #' Plots the convergence of summary statistics (e.g., median, mean) of log posteriors or marginal likelihoods
-#' over populations for a GMJMCMC or GMJMCMC merged result object, with confidence intervals.
+#' over populations for a FFMS or FFMS merged result object, with confidence intervals.
 #'
-#' @param res Object of class \code{gmjmcmc} or \code{gmjmcmc_merged} containing results from a GMJMCMC run or merged runs.
+#' @param res Object of class \code{ffms_base} or \code{ffms_merged} containing results from a FFMS run or merged runs.
 #' @param FUN Function to compute summary statistics (e.g., \code{median}, \code{mean}). Default is \code{median}.
 #' @param conf Numeric; confidence level for intervals (e.g., 0.95 for 95%). Default is 0.95.
 #' @param burnin Integer; number of initial populations to skip. Default is 0.
@@ -21,14 +21,14 @@
 #'
 #' @examples
 #' data(exoplanet)
-#' result <- fbms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sin"))
+#' result <- ffms(semimajoraxis ~ ., data = exoplanet, method = "ffms_base", transforms = c("sin"))
 #' diagn_plot(result, FUN = median, conf = 0.95, main = "Convergence Plot")
 #'
 #' @export
 diagn_plot <- function(res, FUN = median, conf = 0.95, burnin = 0, window = 5, ylim = NULL, ...) {
   # Input validation
   stopifnot(
-    "res must be of class 'gmjmcmc' or 'gmjmcmc_merged'" = inherits(res, c("gmjmcmc", "gmjmcmc_merged")),
+    "res must be of class 'ffms_base' or 'ffms_merged'" = inherits(res, c("ffms_base", "ffms_merged")),
     "res must contain best.log.posteriors or best.margs" = length(res$thread.best) > 0 || length(res$best.margs) > 0,
     "FUN must be a function" = is.function(FUN),
     "conf must be between 0 and 1" = is.numeric(conf) && conf > 0 && conf < 1,

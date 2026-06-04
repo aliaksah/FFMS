@@ -19,6 +19,6 @@ Extracts coefficients from the best GMJMCMC model found.
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sigmoid"))
+model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "gmjmcmc", transforms = c("sigmoid"))
 coef(model)
 }

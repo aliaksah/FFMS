@@ -3,9 +3,9 @@
 # Created by: jonlachmann
 # Created on: 2021-02-25
 
-context("MJMCMC")
+context("FMS")
 
-test_that("Test (G)MJMCMC", {
+test_that("Test (G)FMS", {
   RNGkind("L'Ecuyer-CMRG")
   set.seed(123)
   x <- matrix(rnorm(300), 100)
@@ -20,7 +20,7 @@ test_that("Test (G)MJMCMC", {
     expect_true(all(c(model$marg.probs[1:2] > 0.9, model$marg.probs[3] < 0.9)))
     summary <- summary(model, labels = c("a", "b", "c"), tol = -1)
     expect_true(all(c(summary$marg.probs[1:2] > 0.9, summary$marg.probs[3] < 0.9)))
-    plot(model)
+    #plot(model)
     pred <- predict(model, x)
     # Handle paralell runs
     if (!is.null(pred$aggr)) {
@@ -36,7 +36,7 @@ test_that("Test (G)MJMCMC", {
     summary <- summary(model, labels = c("a", "b", "c"), tol = -1)
     expect_true(all(c(summary$marg.probs[1:2] > 0.9, summary$marg.probs[-(1:2)] < 0.9)))
     expect_true(all(summary$feats.strings[1:2] %in% c("sin(a)", "sin(b)")))
-    plot(model)
+    #plot(model)
     pred <- predict(model, x)
     # Handle paralell runs
     if (!is.null(pred$aggr)) {
@@ -48,42 +48,42 @@ test_that("Test (G)MJMCMC", {
     mpm_model <- get.mpm.model(model, y, x)
   }
 
-  params <- gen.params.gmjmcmc(ncol(x))
-  probs <- gen.probs.gmjmcmc("sin")
+  params <- gen.params.ffms_base(ncol(x))
+  probs <- gen.probs.ffms_base("sin")
   probs$gen <- c(0, 1, 0, 0)
   params$feat$D <- 1
   params$feat$L <- 2
   mlpost_params = list(family = "gaussian", beta_prior = list(type = "Jeffreys-BIC"))
 
   # No intercept
-  mod1 <- mjmcmc(x = x, y = y, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, intercept = FALSE)
-  mod1p <- mjmcmc.parallel(runs = 2, cores = 2, x = x, y = y, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, intercept = FALSE)
+  mod1 <- fms_base(x = x, y = y, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, intercept = FALSE)
+  mod1p <- fms.parallel(runs = 2, cores = 2, x = x, y = y, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, intercept = FALSE)
   validate.model(mod1, x, y)
   validate.model(mod1p, x, y)
 
   set.seed(123)
-  gmod1 <- gmjmcmc(x = x, y = y_sin, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, P = 20, intercept = FALSE, verbose = FALSE)
-  gmod1p <- gmjmcmc.parallel(runs = 2, cores = 2, x = x, y = y_sin, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, intercept = FALSE, verbose = FALSE)
+  gmod1 <- ffms_base(x = x, y = y_sin, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, P = 20, intercept = FALSE, verbose = FALSE)
+  gmod1p <- ffms.parallel(runs = 2, cores = 2, x = x, y = y_sin, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, intercept = FALSE, verbose = FALSE)
   validate.gmodel(gmod1, x, y_sin)
   validate.gmodel(gmod1p, x, y_sin)
 
   # Model defined intercept
-  mod2 <- mjmcmc(x = x, y = y_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, intercept = TRUE)
+  mod2 <- fms_base(x = x, y = y_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, intercept = TRUE)
   validate.model(mod2, x, y_shift)
 
   set.seed(123)
-  gmod2 <- gmjmcmc(x = x, y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, intercept = TRUE, P = 20, verbose = FALSE)
-  gmod2p <- gmjmcmc.parallel(runs = 2, cores = 2, x = x, y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, intercept = TRUE, verbose = FALSE)
+  gmod2 <- ffms_base(x = x, y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, intercept = TRUE, P = 20, verbose = FALSE)
+  gmod2p <- ffms.parallel(runs = 2, cores = 2, x = x, y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, intercept = TRUE, verbose = FALSE)
   validate.gmodel(gmod2, x, y_sin_shift)
   validate.gmodel(gmod2p, x, y_sin_shift)
 
   # User defined intercept
-  mod3 <- mjmcmc(x = cbind(1, x), y = y_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, fixed = 1)
+  mod3 <- fms_base(x = cbind(1, x), y = y_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, fixed = 1, intercept = FALSE)
   validate.model(mod3, cbind(1, x), y_shift)
 
   set.seed(123)
-  gmod3 <- gmjmcmc(x = cbind(1, x), y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, fixed = 1, intercept = FALSE, P = 20, verbose = FALSE)
-  gmod3p <- gmjmcmc.parallel(runs = 2, cores = 2, x = cbind(1, x), y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, fixed = 1, intercept = FALSE, verbose = FALSE)
+  gmod3 <- ffms_base(x = cbind(1, x), y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, fixed = 1, intercept = FALSE, P = 20, verbose = FALSE)
+  gmod3p <- ffms.parallel(runs = 2, cores = 2, x = cbind(1, x), y = y_sin_shift, loglik.pi = gaussian.loglik, mlpost_params = mlpost_params, transforms = "sin", params = params, probs = probs, fixed = 1, intercept = FALSE, verbose = FALSE)
   validate.gmodel(gmod3, cbind(1, x), y_sin_shift)
   validate.gmodel(gmod3p, cbind(1, x), y_sin_shift)
 })

@@ -1,39 +1,39 @@
 
-#' Print GMJMCMC Model Object
+#' Print FFMS Model Object
 #'
-#' Displays a concise summary of a GMJMCMC model object.
+#' Displays a concise summary of a FFMS model object.
 #'
-#' @param x Object of class "gmjmcmc".
+#' @param x Object of class "ffms_base".
 #' @param ... Additional arguments passed to summary method.
 #' @return Prints a summary of the model and returns NULL
-#' @method print gmjmcmc
+#' @method print ffms_base
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet,method = "gmjmcmc", transforms = c("sigmoid"))
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet,method = "ffms_base", transforms = c("sigmoid"))
 #' print(model)
-print.gmjmcmc <- function(x, ...) {
-  stopifnot(inherits(x, "gmjmcmc")) 
-  cat("GMJMCMC Model Summary:\n")
+print.ffms_base <- function(x, ...) {
+  stopifnot(inherits(x, "ffms_base")) 
+  cat("FFMS Model Summary:\n")
   print(summary(x, ...))
 }
 
-#' Print MJMCMC Model Object
+#' Print FMS Model Object
 #'
-#' Displays a concise summary of an MJMCMC model object.
+#' Displays a concise summary of an FMS model object.
 #'
-#' @param x Object of class "mjmcmc".
+#' @param x Object of class "fms_base".
 #' @param ... Additional arguments passed to summary method.
 #' @return Prints a summary of the model and returns NULL
-#' @method print mjmcmc
+#' @method print fms_base
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc")
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms_base")
 #' print(model)
-print.mjmcmc <- function(x, ...) {
-  stopifnot(inherits(x, "mjmcmc"))
-  cat("MJMCMC Model Summary:\n")
+print.fms_base <- function(x, ...) {
+  stopifnot(inherits(x, "fms_base"))
+  cat("FMS Model Summary:\n")
   print(summary(x, ...))
 }
 
@@ -48,10 +48,10 @@ print.mjmcmc <- function(x, ...) {
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- get.best.model(fbms(semimajoraxis ~ ., data = exoplanet, 
+#' model <- get.best.model(ffms(semimajoraxis ~ ., data = exoplanet, 
 #' family = "gaussian"))
 #' print(model)
-#' model <- get.mpm.model(fbms(semimajoraxis ~ ., data = exoplanet, 
+#' model <- get.mpm.model(ffms(semimajoraxis ~ ., data = exoplanet, 
 #' family = "gaussian"), y = exoplanet[,1],x = exoplanet[,-1])
 #' print(model)
 print.bgnlm_model <- function(x, ...) {
@@ -61,43 +61,43 @@ print.bgnlm_model <- function(x, ...) {
 }
 
 
-#' Print MJMCMC Parallel Model Object
+#' Print FMS Parallel Model Object
 #'
-#' Displays a concise summary of an MJMCMC parallel model object.
+#' Displays a concise summary of an FMS parallel model object.
 #'
-#' @param x Object of class "mjmcmc_parallel".
+#' @param x Object of class "fms_parallel".
 #' @param ... Additional arguments passed to summary method.
 #' @return Prints a summary of the model and returns NULL
-#' @method print mjmcmc_parallel
+#' @method print fms_parallel
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, method = "mjmcmc.parallel", cores = 1, runs = 2)
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, method = "fms.parallel", cores = 1, runs = 2)
 #' print(model)
-print.mjmcmc_parallel <- function(x, ...) {
-  stopifnot(inherits(x, "mjmcmc_parallel"))
-  cat("MJMCMC Parallel Model Summary:\n")
+print.fms_parallel <- function(x, ...) {
+  stopifnot(inherits(x, "fms_parallel"))
+  cat("FMS Parallel Model Summary:\n")
   print(summary(x, ...))
 }
 
-#' Print GMJMCMC Merged Model Object
+#' Print FFMS Merged Model Object
 #'
-#' Displays a concise summary of a GMJMCMC merged model object.
+#' Displays a concise summary of a FFMS merged model object.
 #'
-#' @param x Object of class "gmjmcmc_merged".
+#' @param x Object of class "ffms_merged".
 #' @param ... Additional arguments passed to summary method.
 #' @return Prints a summary of the model and returns NULL
-#' @method print gmjmcmc_merged
+#' @method print ffms_merged
 #' @export
 #' @examples
 #' data(exoplanet)
-#' model <- fbms(semimajoraxis ~ ., data = exoplanet, 
-#' method = "gmjmcmc.parallel", cores = 1, runs = 2, 
+#' model <- ffms(semimajoraxis ~ ., data = exoplanet, 
+#' method = "ffms.parallel", cores = 1, runs = 2, 
 #' transforms = c("sigmoid"))
 #' 
 #' print(model)
-print.gmjmcmc_merged <- function(x, ...) {
-  stopifnot(inherits(x, "gmjmcmc_merged"))
-  cat("GMJMCMC Merged Model Summary:\n")
+print.ffms_merged <- function(x, ...) {
+  stopifnot(inherits(x, "ffms_merged"))
+  cat("FFMS Merged Model Summary:\n")
   print(summary(x, ...))
 }

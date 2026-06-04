@@ -19,7 +19,7 @@ Displays a concise summary of a GMJMCMC merged model object.
 }
 \examples{
 data(exoplanet)
-model <- fbms(semimajoraxis ~ ., data = exoplanet, 
+model <- ffms(semimajoraxis ~ ., data = exoplanet, 
 method = "gmjmcmc.parallel", cores = 1, runs = 2, 
 transforms = c("sigmoid"))
 

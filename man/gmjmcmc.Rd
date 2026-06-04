@@ -49,7 +49,7 @@ Typically assumes a Gaussian model with Zellner's with \eqn{g = max(n,p^2) by de
 \item{loglik.alpha}{Relevant only if the non-linear projection features depend on parameters \eqn{\alpha}.
 If \eqn{\alpha} is estimated, this argument specifies the corresponding marginal log-likelihood.
 The default method sets all \eqn{\alpha} to 1 (fastest, but sometimes suboptimal).
-Alternative estimation strategies ("deep" and "random") are implemented in \pkg{FBMS}.}
+Alternative estimation strategies ("deep" and "random") are implemented in \pkg{FFMS}.}
 
 \item{mlpost_params}{All parameters for the estimator function loglik.pi}
 

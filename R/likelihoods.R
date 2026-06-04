@@ -1,5 +1,5 @@
 # Title     : Log likelihood functions
-# Objective : Log likelihood functions with priors to be used as templates or directly in GMJMCMC
+# Objective : Log likelihood functions with priors to be used as templates or directly in FFMS
 # Created by: jonlachmann
 # Created on: 2021-02-24
 
@@ -480,7 +480,7 @@ gaussian.loglik.alpha <- function (a, data, mu_func) {
 
 
 #' Log Model Prior Function
-#' @param mlpost_params list of passed parameters of the likelihood in GMJMCMC
+#' @param mlpost_params list of passed parameters of the likelihood in FFMS
 #' @param complex list of complexity measures of the features included into the model
 #'
 #' @return A numeric with the log model prior.
@@ -542,7 +542,7 @@ log_prior <- function (mlpost_params, complex) {
 #'   \item{coefs}{Posterior mode of the coefficients.}
 #'
 #' @examples
-#' fbms.mlik.master(y = rnorm(100), 
+#' ffms.mlik.master(y = rnorm(100), 
 #' x = matrix(rnorm(100)), 
 #' c(TRUE,TRUE), 
 #' list(oc = 1),
@@ -551,7 +551,7 @@ log_prior <- function (mlpost_params, complex) {
 #'
 #' @importFrom BAS robust beta.prime bic.prior CCH EB.local g.prior hyper.g hyper.g.n tCCH intrinsic TG Jeffreys uniform
 #' @export
-fbms.mlik.master <- function(y, x, model, complex, mlpost_params = list(family = "gaussian", beta_prior = list(type = "g-prior"), r = NULL)) {
+ffms.mlik.master <- function(y, x, model, complex, mlpost_params = list(family = "gaussian", beta_prior = list(type = "g-prior"), r = NULL)) {
   # Extract dimensions
   n <- length(y)
   p <- length(model) - 1  # Number of predictors excluding intercept

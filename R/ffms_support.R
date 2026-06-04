@@ -1,15 +1,15 @@
-# Title     : GMJMCMC Support functions
-# Objective : Support functions for GMJMCMC (Genetically Modified MJMCMC) algorithm
+# Title     : FFMS Support functions
+# Objective : Support functions for FFMS (Genetically Modified FMS) algorithm
 # Created by: jonlachmann
 # Created on: 2021-02-11
 
-#' Set the Transformations Option for GMJMCMC (Genetically Modified MJMCMC).
+#' Set the Transformations Option for FFMS (Genetically Modified FMS).
 #'
 #' This is also done when running the algorithm, but this function allows for it to be done manually.
 #'
 #' @param transforms The vector of non-linear transformations
 #'
-#' @return No return value, just sets the gmjmcmc-transformations option
+#' @return No return value, just sets the ffms_base-transformations option
 #'
 #' @examples
 #' set.transforms(c("p0","p1"))
@@ -17,8 +17,8 @@
 #'
 #' @export set.transforms
 set.transforms <- function (transforms) {
-  old_transforms <- getOption("gmjmcmc-transformations")
-  options("gmjmcmc-transformations" = transforms)
+  old_transforms <- getOption("ffms_base-transformations")
+  options("ffms_base-transformations" = transforms)
   return(old_transforms)
 }
 
@@ -45,7 +45,7 @@ verify.inputs <- function (data, loglik.pi, transforms, T, N, N.final, probs, pa
 #' @return A numeric vector of marginal model probabilities based on relative frequencies of model visits in MCMC.
 #'
 #' @examples
-#' result <- gmjmcmc(x = matrix(rnorm(600), 100),
+#' result <- ffms_base(x = matrix(rnorm(600), 100),
 #' y = matrix(rnorm(100), 100), 
 #' P = 2, 
 #' transforms = c("p0", "exp_dbl"))
@@ -71,8 +71,8 @@ marginal.probs.renorm <- function (models, type = "features") {
   models <- lapply(models, function (x) x[c("model", "crit")])
   model.size <- length(models[[1]]$model)
   models.matrix <- matrix(unlist(models), ncol = model.size + 1, byrow = TRUE)
-  duplicates <- duplicated(models.matrix[, 1:(model.size)], dim = 1, fromLast = TRUE)
-  models.matrix <- models.matrix[!duplicates, ]
+  duplicates <- duplicated(models.matrix[, 1:(model.size), drop = FALSE], MARGIN = 1, fromLast = TRUE)
+  models.matrix <- models.matrix[!duplicates, , drop = FALSE]
   if(!is.matrix(models.matrix))
     models.matrix <- t(as.matrix(models.matrix))
   

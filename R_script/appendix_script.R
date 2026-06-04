@@ -59,10 +59,10 @@ transforms <- c("p0","p2","p3","p05","pm05","pm1","pm2",
                 "p0p05","p0pm05","p0pm1","p0pm2")
 
 
-probs <- gen.probs.gmjmcmc(transforms)
+probs <- gen.probs.ffms_base(transforms)
 probs$gen <- c(1/3,1/3,0,1/3) # Modifications and interactions!
 
-params <- gen.params.gmjmcmc(ncol(df) - 1)
+params <- gen.params.ffms_base(ncol(df) - 1)
 params$feat$D <- 1   # Set depth of features to 1 (still allows for interactions)
 params$feat$pop.max = 10
 
@@ -175,7 +175,7 @@ if (requireNamespace("INLA", quietly = TRUE)) {
   result1b <- fbms(
     formula = z ~ 1+., data = df,
     transforms = transforms,
-    method = "gmjmcmc", P = 3, N = 30,
+    method = "ffms_base", P = 3, N = 30,
     family = "custom",
     loglik.pi = mixed.model.loglik.inla,
     model_prior = list(r = 1/nrow(df)),
@@ -197,7 +197,7 @@ if (requireNamespace("RTMB", quietly = TRUE)) {
   result1c <- fbms(
     formula = z ~ 1+., data = df,
     transforms = transforms,
-    method = "gmjmcmc", P = 3, N = 30,
+    method = "ffms_base", P = 3, N = 30,
     family = "custom",
     loglik.pi = mixed.model.loglik.rtmb,
     model_prior = list(r = 1/nrow(df)),

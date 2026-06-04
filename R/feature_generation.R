@@ -1,29 +1,29 @@
-# Title     : Features generation for use in GMJMCMC (Genetically Modified MJMCMC)
-# Objective : Generate features for use in GMJMCMC at the population transition step
+# Title     : Features generation for use in FFMS (Genetically Modified FMS)
+# Objective : Generate features for use in FFMS at the population transition step
 # Created by: jonlachmann
 # Created on: 2021-02-10
 
 # Generate a multiplication feature
-gen.multiplication <- function (features, marg.probs) {
+gen.multiplication <- function (features, sic.probs) {
   # Sample two features to be multiplied
-  feats <- sample.int(n = length(features), size = 2, prob = marg.probs+0.00001, replace = TRUE)
+  feats <- sample.int(n = length(features), size = 2, prob = sic.probs+0.00001, replace = TRUE)
   create.feature(0, features[feats])
 }
 
 # Generate a modification feature
-gen.modification <- function (features, marg.probs, trans.probs, trans.priors) {
-  feat <- sample.int(n = length(features), size = 1, prob = marg.probs+0.00001)
+gen.modification <- function (features, sic.probs, trans.probs, trans.priors) {
+  feat <- sample.int(n = length(features), size = 1, prob = sic.probs+0.00001)
   trans <- sample.int(n = length(trans.probs), size = 1, prob = trans.probs)
   create.feature(trans, features[feat], trans.priors)
 }
 
 # Generate a projection feature
-gen.projection <- function (features, marg.probs, trans.probs, max.width, max.size, trans.priors) {
+gen.projection <- function (features, sic.probs, trans.probs, max.width, max.size, trans.priors) {
   if (!is.null(max.size)) {
     max.width <- min(max.width, max.size + 1)
   }
   feat.count <- sample.int(n = (min(max.width, (length(features)))-1), size = 1)
-  feats <- sample.int(n = length(features), size = feat.count, prob = marg.probs+0.00001)
+  feats <- sample.int(n = length(features), size = feat.count, prob = sic.probs+0.00001)
   trans <- sample.int(n = length(trans.probs), size = 1, prob = trans.probs)
   # TODO: Generate alphas properly using various methods
   alphas <- rep(1, length(feats)+1)
@@ -37,14 +37,14 @@ gen.new <- function (features, F.0.size) {
 }
 
 # Select a feature to generate and generate it
-gen.feature <- function (features, marg.probs, data, loglik.alpha, probs, F.0.size, params, verbose = TRUE) {
+gen.feature <- function (features, sic.probs, data, loglik.alpha, probs, F.0.size, params, verbose = TRUE) {
   tries <- 0
   feat.ok <- F
   while (!feat.ok && tries < 50) {
     feat.type <- sample.int(n = 4, size = 1, prob = probs$gen)
-    if (feat.type == 1) feat <- gen.multiplication(features, marg.probs)
-    if (feat.type == 2) feat <- gen.modification(features, marg.probs, probs$trans, probs$trans_priors)
-    if (feat.type == 3) feat <- gen.projection(features, marg.probs, probs$trans, params$L, params$max.proj.size, probs$trans_priors)
+    if (feat.type == 1) feat <- gen.multiplication(features, sic.probs)
+    if (feat.type == 2) feat <- gen.modification(features, sic.probs, probs$trans, probs$trans_priors)
+    if (feat.type == 3) feat <- gen.projection(features, sic.probs, probs$trans, params$L, params$max.proj.size, probs$trans_priors)
     if (feat.type == 4) feat <- gen.new(features, F.0.size)
     # Check that the feature is not too wide or deep
     if (!(depth.feature(feat) > params$D || width.feature(feat) > params$L)) {
@@ -64,7 +64,7 @@ gen.feature <- function (features, marg.probs, data, loglik.alpha, probs, F.0.si
     }
     tries <- tries + 1
     params$eps <- min(params$eps + 0.01, 0.5)
-    marg.probs <- pmin(pmax(marg.probs, params$eps), (1 - params$eps))
+    sic.probs <- pmin(pmax(sic.probs, params$eps), (1 - params$eps))
   }
   if (!feat.ok) return(NULL)
   else return(feat)
