@@ -135,7 +135,7 @@ result.parallel <- ffms(
   pop.max = 80,
   prob_gen = c(0.5, 0.3, 0.1, 0.1),  # more multiplications for chaining nested features
   prob_filter = 0.3,                   # looser filter keeps building blocks alive
-  P = 50,
+  P = 80,
   N = 500,
   cores = parallel::detectCores() - 1
 )
