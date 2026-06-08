@@ -15,22 +15,23 @@
 library(mvtnorm)
 library(FFMS)
 
-n <- 100  # sample size
+n <- 1000  # sample size
 p <- 20   # number of covariates
-
+sd <- 1
 # Model:  
 # X1: Pure Main effect
 # X2 : X3: Pure interaction effect
 # X4 * X5: Main effects plus interaction effect
 
 
-set.seed(1003)
+#set.seed(1003)
+set.seed(1370)
 
 x = rmvnorm(n, rep(0, p))
 X <- as.matrix(x)
 X <- scale(X)/sqrt(n)
 
-y <- (1.2 * x[,1] + 1.5 * x[,2]* x[,3] - x[,4] + 1.1*x[,5] - 1.3 * x[,4]*x[,5])+ rnorm(n)
+y <- (1.2 * x[,1] + 1.5 * x[,2]* x[,3] - x[,4] + 1.1*x[,5] - 1.3 * x[,4]*x[,5])+ rnorm(n, sd=sd)
 y<-scale(y)
 
 df <- data.frame(y = y, X)
@@ -67,7 +68,7 @@ summary(result2, tol = 0.01)
 
 set.seed(123)
 
-  result_parallel <- ffms(data = df, method = "ffms.parallel", transforms = transforms,
+result_parallel <- ffms(data = df, method = "ffms.parallel", transforms = transforms,
                           runs = 4, cores = 4,
                           probs = probs, P=25)
 
@@ -79,10 +80,17 @@ summary(result_parallel, tol = 0.01)
 set.seed(123)
 
 result_parallel2 <- ffms(data = df, method = "ffms.parallel", transforms = transforms,
-                           runs = 4, cores = 4, N=1000, N.final=2000,
+                           runs = 8, cores = 4, N=1000, N.final=2000,
                            probs = probs, P=25)
 summary(result_parallel2, tol = 0.01)
 
 #summary(result_parallel2, pop = "all", tol = 0.01)
 
 
+true_lm <- lm(y~ X1 + X2:X3 + X4*X5, data=df)
+summary(true_lm)
+BIC(true_lm)
+
+model_chosen <- lm(y~ X1 + X2*X3 + X4*X5, data=df)
+summary(model_chosen)
+BIC(model_chosen)

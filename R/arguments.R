@@ -316,7 +316,7 @@ gen.params.ffms_base <- function (ncov) {
   feat_params <- list(D = 5, L = 15,                                # Hard limits on feature complexity
                       alpha = "unit",                               # alpha strategy ("unit" = None, "deep" strategy 3 from Hubin et al., "random" fully Bayesian strategy) 
                       pop.max = min(100, as.integer(ncov * 1.5)),   # Max features population size
-                      keep.org = TRUE,                              # Always keep original covariates in every population
+                      keep.org = FALSE,                             # Let original covariates leave the active population; F.0 remains available for generation
                       prel.filter = 0,                              # Filtration threshold for first population (i.e. filter covariates even if keep.org=TRUE)
                       keep.min = 0.8,                               # Minimum proportion of features to always keep [0,1]
                       eps = 0.1,                                    # Inclusion probability floor for feature generation (higher = more diversity)
@@ -327,9 +327,9 @@ gen.params.ffms_base <- function (ncov) {
   
   # SIC Optimization and SGD Parameters
   params$sic <- list(
-      eps1 = 1.0,
-      epsT = 1e-6,
-      stepsT = 50,
+      eps1 = 10.0,
+      epsT = 1e-5,
+      stepsT = 100,
       alpha = 0.01,
       decay = 0.99,
       subs = 0.5

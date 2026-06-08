@@ -275,6 +275,7 @@ ffms_base.transition <- function (S.t, F.0, data, loglik.alpha, sic.probs.F.0, s
   if (length(S.t) > params$pop.max)
     feats.replace <- sort(feats.replace,decreasing = T)
   for (i in feats.replace) {
+    if (i > length(S.t)) next
     prev.size <- length(S.t)
     prev.feat.string <- print.feature(S.t[[i]], labels = labels, round = 2)
     if (prev.size > params$pop.max) {
