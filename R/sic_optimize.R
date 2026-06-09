@@ -83,7 +83,8 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
     } else {
       oc_j <- complex$oc[j - fixed_cols]
       if (is.null(oc_j) || is.na(oc_j)) oc_j <- 1
-      oc_j <- max(1, oc_j)
+      #oc_j <- max(1, oc_j)
+      oc_j <- 1 + oc_j
       # BIC-consistent penalty: each complexity unit costs log(n).
       # oc_j counts total operations/nodes in the feature tree.
       # Intercept costs 1*log(n) (handled via rank in glm), each nonlinear
@@ -160,59 +161,6 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
       })
   }
 
-  # SIC polish: choose the active coefficient set after refitting candidate
-  # supports. Features that leave the current model can still be sampled from
-  # F.0 by the genetic generator in later populations.
-  optimize_active <- function(active) {
-      active[seq_len(fixed_cols)] <- TRUE
-      theta <- numeric(nvars)
-      if (family_str == "gaussian") {
-          fit <- lm.fit(X_scaled[, active, drop = FALSE], y)
-          theta[active] <- fit$coefficients
-      } else {
-          fit <- glm.fit(X_scaled[, active, drop = FALSE], y, family = family_use)
-          theta[active] <- fit$coefficients
-      }
-      theta
-  }
-
-  exact_ic <- function(active) {
-      active[seq_len(fixed_cols)] <- TRUE
-      if (family_str == "gaussian") {
-          fit <- lm.fit(X_scaled[, active, drop = FALSE], y)
-          rss <- sum(fit$residuals^2)
-          return(nobs * log(max(rss / nobs, 1e-10)) + sum(lambda[active]))
-      }
-      fit <- glm.fit(X_scaled[, active, drop = FALSE], y, family = family_use)
-      fit$deviance + sum(lambda[active])
-  }
-
-  active <- rep(TRUE, nvars)
-  current_ic <- exact_ic(active)
-  improved <- TRUE
-  while (improved) {
-      improved <- FALSE
-      candidates <- which(active)
-      candidates <- candidates[candidates > fixed_cols]
-      best_active <- active
-      best_ic <- current_ic
-      for (j in candidates) {
-          proposal_active <- active
-          proposal_active[j] <- FALSE
-          proposal_ic <- tryCatch(exact_ic(proposal_active), error = function(e) Inf)
-          if (proposal_ic < best_ic) {
-              best_active <- proposal_active
-              best_ic <- proposal_ic
-          }
-      }
-      if (best_ic < current_ic) {
-          active <- best_active
-          current_ic <- best_ic
-          improved <- TRUE
-      }
-  }
-  beta_cur <- optimize_active(active)
-  
   # Unscale betas
   beta_unscaled <- beta_cur
   if (nvars > fixed_cols) {
@@ -224,21 +172,34 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
       }
   }
   
-  sic.probs.full <- beta_cur^2 / (beta_cur^2 + epsT^2)
+  sic.probs.full <- beta_unscaled^2 / (beta_unscaled^2 + epsT^2)
   if (fixed_cols > 0) {
       sic.probs.full[1:fixed_cols] <- 1.0
   }
   
+  binary_model <- (sic.probs.full > 0.5)
   marg.probs_vec <- if(n_features > 0) sic.probs.full[(fixed_cols + 1):nvars] else numeric(0)
   sic.probs <- matrix(marg.probs_vec, nrow = 1)
   
-  # Keep the selected active set in the model object. The full original
-  # covariate pool remains available to the genetic generator via F.0.
-  best.crit <- -current_ic / 2
-  coefs_active <- beta_unscaled[active]
+  # Evaluate the exact criterion on the thresholded active set so the stored
+  # model stays on the same scale as the discrete evaluator used elsewhere.
+  X_active <- X[, binary_model, drop = FALSE]
+  complex_active <- list(oc = complex$oc[binary_model[(fixed_cols + 1):nvars]])
+  if (!is.null(loglik.pi)) {
+      exact_res <- loglik.pi(y, X, binary_model, complex_active, params$mlpost)
+      best.crit <- exact_res$crit
+      coefs_active <- exact_res$coefs
+  } else {
+      fit <- glm.fit(X_active, y, family = family_use)
+      k <- ncol(X_active)
+      r_use <- if (!is.null(params$mlpost$r)) params$mlpost$r else 1 / nobs
+      oc_sum <- sum(complex_active$oc)
+      best.crit <- -(fit$aic + (log(nobs) - 2) * k - 2 * log(r_use) * oc_sum) / 2
+      coefs_active <- fit$coefficients
+  }
   
   mock_model <- list(
-      model = active[(fixed_cols + 1):nvars],
+      model = if(n_features > 0) as.vector(sic.probs > 0.5) else logical(0),
       coefs = coefs_active,
       crit = best.crit
   )
