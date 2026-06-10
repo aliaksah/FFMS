@@ -8,7 +8,7 @@
 #' @param pop.max Maximum population size. Default is 15.
 #' @param penalty_a Penalty parameter for features. Default is 1.
 #' @param prob_filter Probability for filtering. Default is 0.6.
-#' @param prob_gen Probabilities for generation operators. Default is c(0.4, 0.4, 0.1, 0.1).
+#' @param prob_gen Optional probabilities for generation operators. If NULL, use probs$gen.
 
 #' @param beta_prior Type of prior as a string (default: "g-prior" with a = max(n, p^2)). Possible values include:
 #'     - "beta.prime": Beta-prime prior (GLM/Gaussian, no additional args)
@@ -76,7 +76,7 @@ ffms <- function (
   pop.max = 15,
   penalty_a = 1,
   prob_filter = 0.6,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = NULL,
   beta_prior = list(type = "g-prior"),
   model_prior = NULL,
   extra_params = NULL,
@@ -393,4 +393,3 @@ select.mlpost.fun <- function (beta_prior, family) {
   }
   stop("Unknown prior, please verify your inputs.")
 }
-

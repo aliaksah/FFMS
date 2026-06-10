@@ -184,9 +184,14 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
   # Evaluate the exact criterion on the thresholded active set so the stored
   # model stays on the same scale as the discrete evaluator used elsewhere.
   X_active <- X[, binary_model, drop = FALSE]
-  complex_active <- list(oc = complex$oc[binary_model[(fixed_cols + 1):nvars]])
+  active_features <- if (n_features > 0) binary_model[(fixed_cols + 1):nvars] else logical(0)
+  complex_active <- list(
+      width = complex$width[active_features],
+      oc = complex$oc[active_features],
+      depth = complex$depth[active_features]
+  )
   if (!is.null(loglik.pi)) {
-      exact_res <- loglik.pi(y, X, binary_model, complex_active, params$mlpost)
+      exact_res <- loglik.pi(y, X_active, rep(TRUE, sum(binary_model)), complex_active, params$mlpost)
       best.crit <- exact_res$crit
       coefs_active <- exact_res$coefs
   } else {

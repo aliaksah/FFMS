@@ -11,7 +11,7 @@ ffms_base(
   pop.max = 15,
   penalty_a = 1,
   prob_filter = 0.6,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = NULL,
   P = 10,
   N = 100,
   N.final = NULL,
@@ -39,7 +39,7 @@ ffms_base(
 
 \item{prob_filter}{Probability for filtering. Default is 0.6.}
 
-\item{prob_gen}{Probabilities for generation operators. Default is c(0.4, 0.4, 0.1, 0.1).}
+\item{prob_gen}{Optional probabilities for generation operators. If NULL, use probs$gen.}
 
 \item{P}{The number of population iterations for FFMS. The default value is P = 10, which was used in our initial example for illustrative purposes. However, a larger value, such as P = 50, is typically more appropriate for most practical applications.}
 

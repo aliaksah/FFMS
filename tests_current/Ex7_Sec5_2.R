@@ -2,18 +2,15 @@
 #
 # Example 7 (Section 5.2):
 #
-# Logic regression with a different model prior
+# Logic-regression-style FFMS with a frequentist BIC score
 #
 # DATA - simulated 
 #
 #
 #
-# This is the valid version for the JSS Paper
+# Frequentist adaptation of the ordinal logic-regression example
 #
 #######################################################
-
-#library(devtools)
-#devtools::install_github("jonlachmann/FBMS@v1_arxiv", force=T, build_vignettes=F)
 
 library(FFMS)
 library(fastglm)
@@ -24,7 +21,7 @@ p = 50
 set.seed(1)
 X2 <- as.data.frame(array(data = rbinom(n = n*p,size = 1,prob = runif(n = n*p,0,1)),dim = c(n,p)))
 y2.Mean = 1+7*(X2$V4*X2$V17*X2$V30*X2$V10) + 9*(X2$V7*X2$V20*X2$V12)+ 3.5*(X2$V9*X2$V2)+1.5*(X2$V37)
-Y2 <- rnorm(n = n,mean = y2.Mean,sd = 1)
+Y2 <- rnorm(n = n,mean = y2.Mean,sd = 0.7)
 df <- data.frame(Y2,X2)
 summary(df)
 
@@ -40,15 +37,14 @@ df.test$Mean <- y2.Mean[(n/2 + 1):n]
 
 #############################################################################
 #
-#   FBMS logic regression with a Jeffreys parameter prior
+#   FFMS logic regression with a BIC score and logic-tree penalty
 #
 #############################################################################
 
 
 
-# FBMS - unlike the EMJMCMC package - does not explicitly have GMJMCMC for logic regression, 
-# but we can easily run it without an "or" operator as "and" and "not" allow 
-# to compute "or" through de Morgan law.
+# FFMS can represent logic-regression-style effects without an explicit "or"
+# operator, since "and" and "not" can compute "or" via De Morgan's law.
 
 transforms <- c("not")
 probs <- gen.probs.ffms_base(transforms)
@@ -59,26 +55,34 @@ params$feat$pop.max <- 50
 params$feat$L <- 15
 
 
-
-estimate.logic.lm = function(y, x, model, complex, mlpost_params)
+logic_width_penalty <- function(width, p)
 {
-  # Computation of marginal log-likelihood using Jeffreys prior
+  if (length(width) == 0)
+    return(0)
+
+  # Approximate log inverse of the number of logic trees of each width:
+  # N(w) ~= choose(p, w) * 2^(2w - 2) ~= (4p)^w / (4*w!).
+  sum(log(factorial(width))) - sum(width * log(4 * p) - log(4))
+}
+
+estimate.logic.bic = function(y, x, model, complex, mlpost_params)
+{
+  # Gaussian model fit and BIC-adjusted model score
   suppressWarnings({
     mod <- fastglm(as.matrix(x[, model]), y, family = gaussian())
   })
-  mloglik <- -(mod$aic + (log(length(y))-2) * (mod$rank))/2 
+  fit_score <- -(mod$aic + (log(length(y))-2) * (mod$rank))/2
+
+  # Structural multiplicity penalty for logic-feature width
+  complexity_penalty <- logic_width_penalty(complex$width, mlpost_params$p)
   
-  # Computation of log of model prior
-  wj <- complex$width
-  lp <- sum(log(factorial(wj))) - sum(wj*log(4*mlpost_params$p) - log(4))
+  # Penalized score used for model selection
+  score <- fit_score + complexity_penalty
+
+  if(score==-Inf)
+    score = -10000
   
-  # log posterior up to a constant
-  logpost <- mloglik + lp 
-  
-  if(logpost==-Inf)
-    logpost = -10000
-  
-  return(list(crit = logpost, coefs = mod$coefficients))
+  return(list(crit = score, coefs = mod$coefficients))
 }
 
 
@@ -93,12 +97,12 @@ set.seed(5001)
 
 result <- ffms(formula = Y2~1+., data = df.training, probs = probs, params = params,  
                method = "ffms_base", transforms = transforms, N = 500, P = 25,
-               family = "custom", loglik.pi = estimate.logic.lm,
-               model_prior = list(p = p))
+               family = "custom", loglik.pi = estimate.logic.bic, pop.max = 50,
+               extra_params = list(p = p))
 summary(result)
-mpm <- get.mpm.model(result, y = df.training$Y2, x = df.training[,-1], family = "custom", loglik.pi = estimate.logic.lm,params = list(p = 50))
-mpm$coefs
-mpm <- get.mpm.model(result, y = df.training$Y2, x = df.training[,-1])
+mpm <- get.mpm.model(result, y = df.training$Y2, x = df.training[,-1],
+                     family = "custom", loglik.pi = estimate.logic.bic,
+                     params = list(p = p))
 mpm$coefs
 mbest <- get.best.model(result)
 mbest$coefs
@@ -132,7 +136,7 @@ points(pred_mpm,df.test$Mean,col = 4)
 
 #############################################################################
 #
-#   Parallel version just 16 chains on 8 cores
+#   Parallel version
 #
 #############################################################################
 
@@ -141,10 +145,12 @@ set.seed(5002)
 
 result_parallel <- ffms(formula = Y2~1+.,data = df.training, probs = probs, params = params, 
                    method = "ffms.parallel", transforms = transforms, N = 500, P=25,
-                   family = "custom", loglik.pi = estimate.logic.lm, 
-                   model_prior = list(p = p), runs = 2, cores = 2)
+                   family = "custom", loglik.pi = estimate.logic.bic, pop.max = 50,
+                   extra_params = list(p = p), runs = 2, cores = 2)
 summary(result_parallel)
-mpm <- get.mpm.model(result_parallel, y = df.training$Y2, x = df.training[,-1], family = "custom", loglik.pi = estimate.logic.lm,params = list(p = 50))
+mpm <- get.mpm.model(result_parallel, y = df.training$Y2, x = df.training[,-1],
+                     family = "custom", loglik.pi = estimate.logic.bic,
+                     params = list(p = p))
 mbest <- get.best.model(result_parallel)
 
 
@@ -170,123 +176,3 @@ plot(pred_parallel$aggr$mean, df.test$Y2)
 points(pred_parallel$aggr$mean,df.test$Mean,col = 2)
 points(pred_par_best,df.test$Mean,col = 3)
 points(pred_par_mpm,df.test$Mean,col = 4)
-
-
-
-#############################################################################
-#
-#   FBMS logic regression with a tCCH parameter prior
-#
-#############################################################################
-
-
-library(BAS) #needed for hypergeometric functions
-estimate.logic.tcch = function(y, x, model, complex, mlpost_params)
-{
-  # Computation of marginal log likelihood
-  
-  suppressWarnings({
-    mod <- fastglm(as.matrix(x[, model]), y, family = gaussian())
-  })
-  
-  p.v <- (mlpost_params$n+1)/(mod$rank+1)
-  
-  y_mean <- mean(y)
-  TSS <- sum((y - y_mean)^2)
-  RSS <- sum(mod$residuals^2)
-  R.2 <- 1 - (RSS / TSS)
-  p <- mod$rank
-  
-  mloglik = (-0.5*p*log(p.v) -0.5*(mlpost_params$n-1)*log(1-(1-1/p.v)*R.2) + log(beta((mlpost_params$p.a+p)/2,mlpost_params$p.b/2)) - log(beta(mlpost_params$p.a/2,mlpost_params$p.b/2)) + log(phi1(mlpost_params$p.b/2,(mlpost_params$n-1)/2,(mlpost_params$p.a+mlpost_params$p.b+p)/2,mlpost_params$p.s/2/p.v,R.2/(p.v-(p.v-1)*R.2))) - hypergeometric1F1(mlpost_params$p.b/2,(mlpost_params$p.a+mlpost_params$p.b)/2,mlpost_params$p.s/2/p.v,log = T)) 
-  if(mloglik ==-Inf||is.na(mloglik )||is.nan(mloglik ))
-    mloglik  = -10000
- 
-  # Computation of log of model prior
-  
-  wj <- complex$width
-  lp <- sum(log(factorial(wj))) - sum(wj*log(mlpost_params$p) + (2*wj-2)*log(2))
-  
-   
-  logpost <- mloglik + lp + mlpost_params$n
-  
-  if(logpost==-Inf)
-    logpost = -10000
-  
-  return(list(crit = logpost, coefs = mod$coefficients))
-}
-
-
-set.seed(5001)
-
-
-
-result.tcch <- ffms(formula = Y2~1+.,data = df.training, probs = probs, params = params,
-               method = "ffms_base", transforms = transforms, N = 500, P = 25,
-               family = "custom", loglik.pi = estimate.logic.tcch,
-               model_prior = list(p = p, n = n),
-               beta_prior =  list(p.a = 1, p.b = 1, p.r = 1.5, p.s = 0, p.k = 1))
-summary(result.tcch)
-mpm.tcch <- get.mpm.model(result.tcch, y = df.training$Y2, x = df.training[,-1], family = "custom", loglik.pi = estimate.logic.lm,params = list(p = 50, n = n, p.a = 1, p.b = 1, p.r = 1.5, p.s = 0, p.k = 1))
-mbest.tcch <- get.best.model(result.tcch)
-
-
-pred.tcch <- predict(result.tcch, x =  df.test[,-1], link = function(x)(x))  
-pred_mpm.tcch <- predict(mpm.tcch, x =  df.test[,-1], link = function(x)(x))
-pred_best.tcch <- predict(mbest.tcch, x =  df.test[,-1], link = function(x)(x))
-
-
-#prediction errors
-sqrt(mean((pred.tcch$aggr$mean - df.test$Y2)^2))
-sqrt(mean((pred_best.tcch - df.test$Y2)^2))
-sqrt(mean((pred_mpm.tcch - df.test$Y2)^2))
-sqrt(mean((df.test$Mean - df.test$Y2)^2))
-
-#prediction errors to the true means
-sqrt(mean((pred.tcch$aggr$mean - df.test$Mean)^2))
-sqrt(mean((pred_best.tcch - df.test$Mean)^2))
-sqrt(mean((pred_mpm.tcch - df.test$Mean)^2))
-
-
-
-plot(pred.tcch$aggr$mean, df.test$Y2)
-points(pred.tcch$aggr$mean,df.test$Mean,col = 2)
-points(pred_best.tcch,df.test$Mean,col = 3)
-points(pred_mpm.tcch,df.test$Mean,col = 4)
-
-
-# Now parallel inference
-
-set.seed(5002)
-
-result_parallel.tcch <- ffms(formula = Y2~1+.,data = df.training, probs = probs, params = params,
-                    method = "ffms.parallel", transforms = transforms, N = 500, P = 25,
-                    family = "custom", loglik.pi = estimate.logic.tcch,
-                    runs = 2, cores = 2, model_prior = list(p = p, n = n),
-                    beta_prior =  list(p.a = 1, p.b = 1, p.r = 1.5, p.s = 0, p.k = 1))
-summary(result_parallel.tcch)
-mpm <- get.mpm.model(result_parallel.tcch,y = df.training$Y2,x = df.training[,-1],family = "custom", loglik.pi = estimate.logic.lm,params = list(p = 50, n = n, p.a = 1, p.b = 1, p.r = 1.5, p.s = 0, p.k = 1))
-mbest <- get.best.model(result_parallel.tcch)
-
-
-pred_parallel.tcch <- predict(result_parallel.tcch, x =  df.test[,-1], link = function(x)(x))  
-pred_par_mpm.tcch <- predict(mpm, x =  df.test[,-1], link = function(x)(x))
-pred_par_best.tcch <- predict(mbest, x =  df.test[,-1], link = function(x)(x))
-
-
-#prediction errors
-sqrt(mean((pred_parallel.tcch$aggr$mean - df.test$Y2)^2))
-sqrt(mean((pred_par_best.tcch - df.test$Y2)^2))
-sqrt(mean((pred_par_mpm.tcch - df.test$Y2)^2))
-sqrt(mean((df.test$Mean - df.test$Y2)^2))
-
-#prediction errors to the true means
-sqrt(mean((pred_parallel.tcch$aggr$mean - df.test$Mean)^2))
-sqrt(mean((pred_par_best.tcch - df.test$Mean)^2))
-sqrt(mean((pred_par_mpm.tcch - df.test$Mean)^2))
-
-
-
-plot(pred_parallel.tcch$aggr$mean, df.test$Y2)
-points(pred_parallel.tcch$aggr$mean,df.test$Mean,col = 2)
-points(pred_par_best.tcch,df.test$Mean,col = 3)
-points(pred_par_mpm.tcch,df.test$Mean,col = 4)

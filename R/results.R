@@ -336,8 +336,13 @@ get.mpm.model <- function(result, y, x, labels = F, family = "gaussian", loglik.
     x <- cbind(1, x)
   }
   precalc <- precalc.features(list(x = x, y = y, fixed = result$fixed), features)
+  complex <- if (length(features) > 0) {
+    complex.features(features)
+  } else {
+    list(width = numeric(0), oc = numeric(0), depth = numeric(0))
+  }
   
-  coefs <- loglik.pi(y = y, x = precalc$x, model = rep(TRUE, length(features) + result$fixed), complex = list(oc = 0), mlpost_params = params)$coefs
+  coefs <- loglik.pi(y = y, x = precalc$x, model = rep(TRUE, length(features) + result$fixed), complex = complex, mlpost_params = params)$coefs
   
   coefs[is.na(coefs)] <- 0
   

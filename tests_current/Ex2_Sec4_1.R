@@ -19,13 +19,13 @@ library(FFMS)
 n <- 100  # sample size
 p <- 20   # number of covariates
 p.vec <- 1:p
-
+sd <- 0.8
 
 k <- 5    #size of the data generating model
 
 
 correct.model <- 1:k
-beta.k <- (1:5)/5   # Coefficents of the correct submodel
+beta.k <- ((1:5)/5)*3   # Coefficents of the correct submodel
 
 beta <- c(rep(0, p))
 beta[correct.model] <- beta.k
@@ -56,16 +56,16 @@ to3 <- function(x) x^3
 transforms <- c("sigmoid","sin_deg","exp_dbl","p0","troot","to3")
 
 set.seed(1)
-  result <- ffms(data = df, method = "ffms_base", transforms = transforms)
-  summary(result)
-  plot(result)
+result <- ffms(data = df, method = "ffms_base", transforms = transforms, pop.max = 80)
+summary(result)
+
 
    
 set.seed(2)
-  result2 <- ffms(data = df, method = "ffms_base", transforms = transforms, 
+result2 <- ffms(data = df, method = "ffms_base", transforms = transforms, 
                             N = 1000, P = 40)
-  summary(result2, tol = 0.1)
-  plot(result)
+summary(result2, tol = 0.1)
+
 
 
 
@@ -87,6 +87,3 @@ set.seed(2)
   summary(result.lin)
   plot(result.lin)
   
-
-
-

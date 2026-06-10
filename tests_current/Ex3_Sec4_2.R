@@ -15,9 +15,9 @@
 library(mvtnorm)
 library(FFMS)
 
-n <- 1000  # sample size
+n <- 100  # sample size
 p <- 20   # number of covariates
-sd <- 1
+sd <- 0.8
 # Model:  
 # X1: Pure Main effect
 # X2 : X3: Pure interaction effect
@@ -87,10 +87,4 @@ summary(result_parallel2, tol = 0.01)
 #summary(result_parallel2, pop = "all", tol = 0.01)
 
 
-true_lm <- lm(y~ X1 + X2:X3 + X4*X5, data=df)
-summary(true_lm)
-BIC(true_lm)
 
-model_chosen <- lm(y~ X1 + X2*X3 + X4*X5, data=df)
-summary(model_chosen)
-BIC(model_chosen)

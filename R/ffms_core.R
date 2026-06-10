@@ -16,7 +16,7 @@ NULL
 #' @param pop.max Maximum population size. Default is 15.
 #' @param penalty_a Penalty parameter for features. Default is 1.
 #' @param prob_filter Probability for filtering. Default is 0.6.
-#' @param prob_gen Probabilities for generation operators. Default is c(0.4, 0.4, 0.1, 0.1).
+#' @param prob_gen Optional probabilities for generation operators. If NULL, use probs$gen.
 
 #' @param P The number of population iterations for FFMS. The default value is P = 10, which was used in our initial example for illustrative purposes. However, a larger value, such as P = 50, is typically more appropriate for most practical applications.
 #' @param N The number of FMS iterations per population. 
@@ -67,7 +67,7 @@ ffms_base <- function (
   pop.max = 15,
   penalty_a = 1,
   prob_filter = 0.6,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = NULL,
   P = 10,
   N = 100,
   N.final = NULL,
@@ -104,7 +104,7 @@ ffms_base <- function (
   # Generate default probabilities and parameters if there are none supplied.
   if (is.null(probs)) probs <- gen.probs.ffms_base(transforms)
   probs$filter <- prob_filter
-  probs$gen <- prob_gen
+  if (!is.null(prob_gen)) probs$gen <- prob_gen
   
   if (is.null(params)) params <- gen.params.ffms_base(ncol(data$x) - data$fixed)
   params$feat$pop.max <- pop.max

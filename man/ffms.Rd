@@ -10,7 +10,7 @@ ffms(
   pop.max = 15,
   penalty_a = 1,
   prob_filter = 0.6,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = NULL,
   beta_prior = list(type = "g-prior"),
   model_prior = NULL,
   extra_params = NULL,
@@ -33,7 +33,7 @@ ffms(
 
 \item{prob_filter}{Probability for filtering. Default is 0.6.}
 
-\item{prob_gen}{Probabilities for generation operators. Default is c(0.4, 0.4, 0.1, 0.1).}
+\item{prob_gen}{Optional probabilities for generation operators. If NULL, use probs$gen.}
 
 \item{beta_prior}{Type of prior as a string (default: "g-prior" with a = max(n, p^2)). Possible values include:
 - "beta.prime": Beta-prime prior (GLM/Gaussian, no additional args)

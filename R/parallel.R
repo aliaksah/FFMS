@@ -119,7 +119,7 @@ fms.parallel <- function(runs = 2, cores = getOption("mc.cores", 2L), ...) {
 #' @param pop.max Maximum population size. Default is 15.
 #' @param penalty_a Penalty parameter for features. Default is 1.
 #' @param prob_filter Probability for filtering. Default is 0.6.
-#' @param prob_gen Probabilities for generation operators. Default is c(0.4, 0.4, 0.1, 0.1).
+#' @param prob_gen Optional probabilities for generation operators. If NULL, use probs$gen.
 
 #' @param runs The number of runs to run
 #' @param cores The number of cores to run on
@@ -153,7 +153,7 @@ ffms.parallel <- function(
   pop.max = 15,
   penalty_a = 1,
   prob_filter = 0.6,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = NULL,
   runs = 2,
   cores = getOption("mc.cores", 2L),
   verbose = FALSE,

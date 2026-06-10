@@ -14,7 +14,7 @@ ffms.parallel(
   pop.max = 15,
   penalty_a = 1,
   prob_filter = 0.6,
-  prob_gen = c(0.4, 0.4, 0.1, 0.1),
+  prob_gen = NULL,
   runs = 2,
   cores = getOption("mc.cores", 2L),
   verbose = FALSE,
@@ -41,7 +41,7 @@ ffms.parallel(
 
 \item{prob_filter}{Probability for filtering. Default is 0.6.}
 
-\item{prob_gen}{Probabilities for generation operators. Default is c(0.4, 0.4, 0.1, 0.1).}
+\item{prob_gen}{Optional probabilities for generation operators. If NULL, use probs$gen.}
 
 \item{runs}{The number of runs to run}
 
