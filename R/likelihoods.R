@@ -38,17 +38,39 @@ logistic.loglik <- function (y, x, model, complex, mlpost_params = list(r = exp(
   return(list(crit = ret, coefs = mod$coefficients))
 }
 
-sic.feature.penalty <- function(complex, n, penalty_a = 1) {
+sic.feature.penalty <- function(complex, n, penalty_a = 1, coefs = NULL, x = NULL, epsilon = 1e-5) {
   if (is.null(complex$oc) || length(complex$oc) == 0) {
     return(0)
   }
-  penalty_a * log(n) * sum(1 + complex$oc)
+  feature_cost <- 1 + complex$oc
+  if (is.null(coefs)) {
+    return(penalty_a * log(n) * sum(feature_cost))
+  }
+
+  feature_count <- length(feature_cost)
+  fixed_count <- length(coefs) - feature_count
+  if (fixed_count < 0) {
+    stop("coefs must contain at least as many feature coefficients as complex$oc")
+  }
+
+  feature_coefs <- tail(coefs, feature_count)
+  feature_coefs[is.na(feature_coefs)] <- 0
+  if (!is.null(x)) {
+    x <- as.matrix(x)
+    feature_cols <- seq.int(fixed_count + 1, length(coefs))
+    feature_sds <- apply(x[, feature_cols, drop = FALSE], 2, stats::sd)
+    feature_sds[is.na(feature_sds) | feature_sds == 0] <- 1
+    feature_coefs <- feature_coefs * feature_sds
+  }
+
+  smooth_df <- feature_coefs^2 / (feature_coefs^2 + epsilon^2)
+  penalty_a * log(n) * sum(feature_cost * smooth_df)
 }
 
 #' Frequentist SIC score for GLMs and Gaussian models
 #'
-#' This criterion matches the hard-thresholded version of the smooth SIC
-#' objective used by \code{sic_optimize.loop}. Fixed columns, such as an
+#' This criterion uses the final fitted coefficients to compute the smooth
+#' degrees of freedom from the SIC approximation. Fixed columns, such as an
 #' intercept, are passed in \code{x} but are not included in \code{complex}, so
 #' they are not charged a feature-selection penalty here.
 #'
@@ -56,7 +78,8 @@ sic.feature.penalty <- function(complex, n, penalty_a = 1) {
 #' @param x The matrix containing the precalculated features.
 #' @param model The model to estimate as a logical vector.
 #' @param complex A list of complexity measures for the selected non-fixed features.
-#' @param mlpost_params A list containing \code{family} and optional \code{penalty_a}.
+#' @param mlpost_params A list containing \code{family}, optional
+#'   \code{penalty_a}, and optional final SIC smoothing parameter \code{epsT}.
 #'
 #' @return A list with \code{crit = -0.5 * SIC} and fitted coefficients.
 #'
@@ -96,7 +119,11 @@ sic.loglik <- function(y, x, model, complex, mlpost_params = list(family = "gaus
   } else {
     fit_loss <- mod$deviance
   }
-  sic <- fit_loss + sic.feature.penalty(complex, n, penalty_a)
+  epsT <- mlpost_params$epsT
+  if (is.null(epsT)) {
+    epsT <- 1e-5
+  }
+  sic <- fit_loss + sic.feature.penalty(complex, n, penalty_a, coefs = mod$coefficients, x = X_model, epsilon = epsT)
   return(list(crit = -0.5 * sic, coefs = mod$coefficients))
 }
 

@@ -195,12 +195,14 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
       oc = complex$oc[active_features],
       depth = complex$depth[active_features]
   )
+  mlpost_exact <- params$mlpost
+  mlpost_exact$epsT <- epsT
   if (!is.null(loglik.pi)) {
-      exact_res <- loglik.pi(y, X_active, rep(TRUE, sum(binary_model)), complex_active, params$mlpost)
+      exact_res <- loglik.pi(y, X_active, rep(TRUE, sum(binary_model)), complex_active, mlpost_exact)
       best.crit <- exact_res$crit
       coefs_active <- exact_res$coefs
   } else {
-      exact_res <- sic.loglik(y, X_active, rep(TRUE, sum(binary_model)), complex_active, params$mlpost)
+      exact_res <- sic.loglik(y, X_active, rep(TRUE, sum(binary_model)), complex_active, mlpost_exact)
       best.crit <- exact_res$crit
       coefs_active <- exact_res$coefs
   }

@@ -24,7 +24,7 @@ df.test = exoplanet[-train.indx, ]
 to3 <- function(x) x^3
 transforms <- c("sigmoid","sin_deg","exp_dbl","p0","troot","to3")
 
-
+summary(df.train)
 ####################################################
 #
 # single thread analysis (default values, Section 3.1)
@@ -36,8 +36,10 @@ set.seed(123)
 
 result.default <- ffms(formula = semimajoraxis ~ 1 + . , data = df.train, method = "ffms_base", transforms = transforms)
 
+summary(result.default)
 
-
+result_true <- ffms(formula = semimajoraxis ~ 1 + troot((hoststar_mass*(period*period))) , data = df.train, method = "ffms_base", transforms = transforms)
+summary(result_true)
 ####################################################
 #
 # single thread analysis (more iterations, Section 3.2)
@@ -49,7 +51,7 @@ set.seed(123)
 
 result.P50 <- ffms(data = df.train, method = "ffms_base", transforms = transforms,
                      P = 50, N = 1000, N.final = 5000)
-
+summary(result.P50)
  
 ####################################################
 #
@@ -63,6 +65,14 @@ result_parallel <- ffms(data = df.train, method = "ffms.parallel", transforms = 
                           runs = 64, cores = 8, P = 25)
 
 summary(result_parallel)
+
+#changing penalty a to be stronger
+set.seed(123)
+
+result_parallela2 <- ffms(data = df.train, method = "ffms.parallel", transforms = transforms,
+                        runs = 64, cores = 8, P = 25, penalty_a = 2)
+
+summary(result_parallela2)
 ####################################################
 #
 # Inspection of Results (Section 3.4)
