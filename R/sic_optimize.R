@@ -55,6 +55,11 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
   }
 
   family_str <- params$mlpost$family
+  if (identical(family_str, "custom") && is.null(params$mlpost$score_family)) {
+      family_str <- "gaussian"
+  } else if (identical(family_str, "custom")) {
+      family_str <- params$mlpost$score_family
+  }
   if (is.null(family_str)) family_str <- "gaussian"
   
   family_use <- switch(family_str,
@@ -82,7 +87,7 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
       lambda[j] <- 0
     } else {
       oc_j <- complex$oc[j - fixed_cols]
-      if (is.null(oc_j) || is.na(oc_j)) oc_j <- 1
+      if (is.null(oc_j) || is.na(oc_j)) oc_j <- 0
       #oc_j <- max(1, oc_j)
       oc_j <- 1 + oc_j
       # BIC-consistent penalty: each complexity unit costs log(n).
@@ -172,7 +177,7 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
       }
   }
   
-  sic.probs.full <- beta_unscaled^2 / (beta_unscaled^2 + epsT^2)
+  sic.probs.full <- beta_cur^2 / (beta_cur^2 + epsT^2)
   if (fixed_cols > 0) {
       sic.probs.full[1:fixed_cols] <- 1.0
   }
@@ -195,12 +200,9 @@ sic_optimize.loop <- function(data.t, complex, loglik.pi, model.cur, N.this, pro
       best.crit <- exact_res$crit
       coefs_active <- exact_res$coefs
   } else {
-      fit <- glm.fit(X_active, y, family = family_use)
-      k <- ncol(X_active)
-      r_use <- if (!is.null(params$mlpost$r)) params$mlpost$r else 1 / nobs
-      oc_sum <- sum(complex_active$oc)
-      best.crit <- -(fit$aic + (log(nobs) - 2) * k - 2 * log(r_use) * oc_sum) / 2
-      coefs_active <- fit$coefficients
+      exact_res <- sic.loglik(y, X_active, rep(TRUE, sum(binary_model)), complex_active, params$mlpost)
+      best.crit <- exact_res$crit
+      coefs_active <- exact_res$coefs
   }
   
   mock_model <- list(

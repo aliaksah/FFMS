@@ -13,7 +13,7 @@
 
 
 library(mvtnorm)
-library(FFMS)
+
 
 n <- 100  # sample size
 p <- 20   # number of covariates

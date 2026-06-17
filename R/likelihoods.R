@@ -38,6 +38,68 @@ logistic.loglik <- function (y, x, model, complex, mlpost_params = list(r = exp(
   return(list(crit = ret, coefs = mod$coefficients))
 }
 
+sic.feature.penalty <- function(complex, n, penalty_a = 1) {
+  if (is.null(complex$oc) || length(complex$oc) == 0) {
+    return(0)
+  }
+  penalty_a * log(n) * sum(1 + complex$oc)
+}
+
+#' Frequentist SIC score for GLMs and Gaussian models
+#'
+#' This criterion matches the hard-thresholded version of the smooth SIC
+#' objective used by \code{sic_optimize.loop}. Fixed columns, such as an
+#' intercept, are passed in \code{x} but are not included in \code{complex}, so
+#' they are not charged a feature-selection penalty here.
+#'
+#' @param y A vector containing the dependent variable.
+#' @param x The matrix containing the precalculated features.
+#' @param model The model to estimate as a logical vector.
+#' @param complex A list of complexity measures for the selected non-fixed features.
+#' @param mlpost_params A list containing \code{family} and optional \code{penalty_a}.
+#'
+#' @return A list with \code{crit = -0.5 * SIC} and fitted coefficients.
+#'
+#' @export sic.loglik
+sic.loglik <- function(y, x, model, complex, mlpost_params = list(family = "gaussian", penalty_a = 1)) {
+  if (sum(model) == 0) {
+    return(list(crit = -Inf, coefs = numeric()))
+  }
+  if (length(mlpost_params) == 0) {
+    mlpost_params <- list()
+  }
+  family_str <- mlpost_params$family
+  if (is.null(family_str)) {
+    family_str <- "gaussian"
+  }
+  penalty_a <- mlpost_params$penalty_a
+  if (is.null(penalty_a)) {
+    penalty_a <- 1
+  }
+
+  X_model <- as.matrix(x[, model, drop = FALSE])
+  n <- length(y)
+  family_use <- switch(family_str,
+                       binomial = stats::binomial(),
+                       poisson = stats::poisson(),
+                       gamma = stats::Gamma(),
+                       Gamma = stats::Gamma(),
+                       stats::gaussian())
+
+  suppressWarnings({mod <- fastglm::fastglm(X_model, y, family = family_use)})
+  if (length(mod) == 0 || is.nan(mod$deviance)) {
+    return(list(crit = -.Machine$double.xmax, coefs = rep(0, sum(model))))
+  }
+
+  if (family_str == "gaussian") {
+    fit_loss <- mod$aic - 2 * mod$rank
+  } else {
+    fit_loss <- mod$deviance
+  }
+  sic <- fit_loss + sic.feature.penalty(complex, n, penalty_a)
+  return(list(crit = -0.5 * sic, coefs = mod$coefficients))
+}
+
 
 #' @importFrom stats Gamma poisson
 #' @keywords internal

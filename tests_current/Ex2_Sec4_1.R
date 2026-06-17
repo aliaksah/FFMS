@@ -12,7 +12,6 @@
 #devtools::install_github("jonlachmann/FBMS@v1_arxiv", force=T, build_vignettes=F)
 
 library(mvtnorm)
-library(FFMS)
 
 
 
@@ -57,14 +56,13 @@ transforms <- c("sigmoid","sin_deg","exp_dbl","p0","troot","to3")
 
 set.seed(1)
 result <- ffms(data = df, method = "ffms_base", transforms = transforms, pop.max = 80)
+
 summary(result)
 
-
-   
 set.seed(2)
-result2 <- ffms(data = df, method = "ffms_base", transforms = transforms, 
+result2 <- ffms(data = df, method = "ffms_base", transforms = transforms,  pop.max = 80,
                             N = 1000, P = 40)
-summary(result2, tol = 0.1)
+summary(result2)
 
 
 

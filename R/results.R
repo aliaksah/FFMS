@@ -3,6 +3,17 @@
 # Created by: jonlachmann
 # Created on: 2021-05-06
 
+feature.probs <- function(result, pop = NULL) {
+  probs <- if (!is.null(result$marg.probs)) result$marg.probs else result$sic.probs
+  if (is.null(probs)) {
+    return(NULL)
+  }
+  if (is.null(pop)) {
+    return(probs)
+  }
+  probs[[pop]]
+}
+
 #' Merge a List of Multiple Results from Many Runs
 #'
 #' This function will weight the features based on the best marginal posterior in that population
@@ -90,7 +101,7 @@ merge_results <- function (results, populations = NULL, complex.measure = NULL, 
     results[[i]]$model.probs <- list()
     for (pop in pops.use[[i]]) {
       features <- append(features, results[[i]]$populations[[pop]])
-      renorms <- append(renorms, pop.weights[weight_idx] * results[[i]]$marg.probs[[pop]])
+      renorms <- append(renorms, pop.weights[weight_idx] * feature.probs(results[[i]], pop))
       results[[i]]$pop.weights[pop] <- pop.weights[weight_idx]
       weight_idx <- weight_idx + 1
       
@@ -320,14 +331,14 @@ get.mpm.model <- function(result, y, x, labels = F, family = "gaussian", loglik.
     features <- result$chains[[1]]$populations
   } else if (is(result, "ffms_base")) {
     best_pop <- which.max(unlist(result$best.margs))
-    marg.probs <- result$marg.probs[[best_pop]]
+    marg.probs <- feature.probs(result, best_pop)
     features <- result$populations[[best_pop]]
   } else if (is(result, "ffms_merged")) {
     marg.probs <- result$marg.probs
     features <- result$features
   }else
   {
-    marg.probs <- result$marg.probs
+    marg.probs <- feature.probs(result)
     features <- result$populations
   }
   features <- features[marg.probs > 0.5]
@@ -618,7 +629,7 @@ plot.ffms_base <- function (x, count = "all", pop = "best", tol = 0.0000001, dat
     marg.probs <- x$marg.probs
   } else {
     pops <- x$populations[[pop]]
-    marg.probs <- x$marg.probs[[pop]]
+    marg.probs <- feature.probs(x, pop)
   }
   plot.fms_base(list(populations = pops, marg.probs = marg.probs), count)
   set.transforms(transforms.bak)
@@ -673,7 +684,7 @@ plot.fms_base <- function (x, count = "all", ...) {
   } # If this is a result that is not merged, it is another way
   else {
     feats.strings <- sapply(x$populations, print)
-    marg.probs <- x$marg.probs
+    marg.probs <- feature.probs(x)
   }
   
   marg.prob.plot(feats.strings, marg.probs, count)

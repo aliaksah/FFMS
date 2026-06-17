@@ -12,7 +12,6 @@
 #
 #######################################################
 
-library(FFMS)
 library(fastglm)
 
 n = 2000
@@ -146,7 +145,7 @@ set.seed(5002)
 result_parallel <- ffms(formula = Y2~1+.,data = df.training, probs = probs, params = params, 
                    method = "ffms.parallel", transforms = transforms, N = 500, P=25,
                    family = "custom", loglik.pi = estimate.logic.bic, pop.max = 50,
-                   extra_params = list(p = p), runs = 2, cores = 2)
+                   extra_params = list(p = p), runs = 4, cores = 2)
 summary(result_parallel)
 mpm <- get.mpm.model(result_parallel, y = df.training$Y2, x = df.training[,-1],
                      family = "custom", loglik.pi = estimate.logic.bic,
@@ -176,3 +175,4 @@ plot(pred_parallel$aggr$mean, df.test$Y2)
 points(pred_parallel$aggr$mean,df.test$Mean,col = 2)
 points(pred_par_best,df.test$Mean,col = 3)
 points(pred_par_mpm,df.test$Mean,col = 4)
+

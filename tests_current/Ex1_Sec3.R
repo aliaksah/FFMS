@@ -13,7 +13,6 @@
 #library(devtools)
 #devtools::install_github("jonlachmann/FBMS@v1_arxiv", force=T, build_vignettes=F)
 
-library(FFMS)
 
 data(exoplanet)
 
@@ -61,9 +60,9 @@ result.P50 <- ffms(data = df.train, method = "ffms_base", transforms = transform
 set.seed(123)
 
 result_parallel <- ffms(data = df.train, method = "ffms.parallel", transforms = transforms,
-                          runs = 4, cores = 4, P = 25)
+                          runs = 64, cores = 8, P = 25)
 
-
+summary(result_parallel)
 ####################################################
 #
 # Inspection of Results (Section 3.4)
@@ -204,5 +203,3 @@ diagn_plot(result_parallel, ylim = c(600,1500),FUN = max)
 dev.off()
 
 diagn_plot(result_parallel, ylim = c(600,1500),FUN = max)
-
-

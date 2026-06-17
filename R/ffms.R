@@ -94,17 +94,14 @@ ffms <- function (
     model_prior = list(r = 1 / dim(data)[1])
   if (family != "custom") {
     mlpost_params <- model_prior
-    loglik.pi <- select.mlpost.fun(beta_prior$type, family)
-    if (family == "gaussian") {
-      mlpost_params$beta_prior <- gen.mlpost.params.lm(beta_prior$type, beta_prior, ncol(data) - 1, nrow(data))
-    } else {
-      mlpost_params$beta_prior <- gen.mlpost.params.glm(beta_prior$type, beta_prior, ncol(data) - 1, nrow(data))
-      mlpost_params$beta_prior$type <- beta_prior$type
-      mlpost_params$family <- family
-    }
+    loglik.pi <- sic.loglik
+    mlpost_params$family <- family
+    mlpost_params$penalty_a <- penalty_a
   } else {
     loglik.pi <- loglik.pi
     mlpost_params <- c(model_prior, beta_prior, extra_params)
+    mlpost_params$family <- "custom"
+    mlpost_params$penalty_a <- penalty_a
   }
 
   if (!is.null(formula)) {
